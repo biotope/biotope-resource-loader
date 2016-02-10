@@ -11,11 +11,11 @@ $(document).on('ready', function() {
 
 	if ($conditionalComponents.length) {
 		$(window).on('resourcesReady', function() {
-      //initiazlie components
-      $('[data-init]').each(function() {
-        var init = eval($(this).attr('data-init'));
-        init();
-      });
+			//initiazlie components
+			$('[data-init]').each(function() {
+				var init = eval($(this).attr('data-init'));
+				init();
+			});
 		});
 
 		loadComponentResources();
