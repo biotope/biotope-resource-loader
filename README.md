@@ -14,7 +14,8 @@ $(document).on('ready', function() {
 	});
 	
 	var loader = resourceLoader({
-		base: 'optional/base/path'
+		base: 'optional_base_path',
+		resources: optionalArrayOfResources
 	});	
 });
 ```
