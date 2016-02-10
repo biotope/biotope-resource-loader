@@ -1,5 +1,5 @@
 /**
- * VI Resource Loader v0.0.1
+ * VI Resource Loader v0.0.2
  * For documentation see:
  * https://github.com/virtualidentityag/conditional-resource-loader
  */
@@ -78,7 +78,7 @@ function resourceLoader(options) {
 				counter++;
 				checkIfComplete();
 			}).fail(function () {
-				console.warn('Error while loading: ' + scriptUrl);
+				console.warn('Error while loading: ' + url);
 				counter++;
 				checkIfComplete();
 			});
