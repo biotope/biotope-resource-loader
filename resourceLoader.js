@@ -63,7 +63,7 @@ function resourceLoader(options) {
 
 		//load scripts
 		if (scripts.length === 0) {
-			$(window).trigger('resourcesReady')
+			$(window).trigger('resourcesReady');
 			return;
 		}
 
@@ -86,7 +86,7 @@ function resourceLoader(options) {
 
 		function checkIfComplete() {
 			if (counter === scripts.length) {
-				$(window).trigger('resourcesReady')
+				$(window).trigger('resourcesReady');
 			}
 		}
 	};
@@ -95,9 +95,14 @@ function resourceLoader(options) {
 	loader.add = function (conditionsArray) {
 		this.conditionsAllArray = this.conditionsAllArray.concat(conditionsArray);
 	};
+
 	loader.exec = function () {
-		getResources();
-		loadResources();
+		if (this.conditionsAllArray.length > 0) {
+			getResources();
+			loadResources();
+		} else {
+			$(window).trigger('resourcesReady');
+		}
 	};
 
 	return loader;
