@@ -1,5 +1,5 @@
 /**
- * VI Resource Loader v0.0.2
+ * VI Resource Loader v0.0.3
  * For documentation see:
  * https://github.com/virtualidentityag/conditional-resource-loader
  */
@@ -7,7 +7,9 @@
 function resourceLoader(options) {
 	'use strict';
 
-	var loader = { conditionsAllArray: [] };
+	var loader = {
+		conditionsAllArray: []
+	};
 	var styles = [];
 	var scripts = [];
 
@@ -91,19 +93,20 @@ function resourceLoader(options) {
 		}
 	};
 
-	//public methods of conditionalloader
-	loader.add = function (conditionsArray) {
-		this.conditionsAllArray = this.conditionsAllArray.concat(conditionsArray);
-	};
+	if (options.resources) {
+		loader.conditionsAllArray = loader.conditionsAllArray.concat(options.resources);
+	} else {
+		$('[data-resources]').each(function() {
+			var obj = {};
+			obj.resources = eval($(this).attr('data-resources'));
+			loader.conditionsAllArray.push(obj);
+		});
+	}
 
-	loader.exec = function () {
-		if (this.conditionsAllArray.length > 0) {
-			getResources();
-			loadResources();
-		} else {
-			$(window).trigger('resourcesReady');
-		}
-	};
-
-	return loader;
+	if (loader.conditionsAllArray.length > 0) {
+		getResources();
+		loadResources();
+	} else {
+		$(window).trigger('resourcesReady');
+	}
 }
