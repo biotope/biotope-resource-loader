@@ -1,6 +1,6 @@
 # conditional-resource-loader
 
-The resourceLoader function returns a loader object with two public methods (add() and exec()) which can be used to load css and js resources. 
+The resourceLoader loads styles and scripts for components via ajax or link tag injection. Resources that should be loaded can either be provided via "resources" option during initialization of loader or when not, they will be fetched from data-resources attribute in DOM by loader itself.
 
 **Usage**
 ```javascript
