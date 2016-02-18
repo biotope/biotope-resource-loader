@@ -25,12 +25,14 @@ function resourceLoader(options) {
 				if (test) {
 					$.each(resource.paths, function() {
 						var path = this;
+						var pathIsRelative = path.indexOf('http://') === -1 &&
+							path.indexOf('https://') === -1;
 
 						//resolve relative paths
-						if (path.indexOf('http') === -1) {
+						if (pathIsRelative) {
 							if (resource.base) {
 								path = resource.base + path;
-							} else {
+							} else if (options && options.base) {
 								path = options.base + path;
 							}
 						}
@@ -50,50 +52,68 @@ function resourceLoader(options) {
 	};
 
 	var loadResources = function () {
-		var counter = 0;
+		var jsCounter = 0;
+		var cssCounter = 0;
+		var links = [];
+		var checkIfComplete = function() {
+			if (jsCounter === scripts.length && cssCounter === styles.length) {
+				$(window).trigger('resourcesReady');
+			}
+		};
 
-		//load styles
-		if (styles.length > 0) {
-			$.each(styles, function () {
-				$('<link/>', {
-					rel: 'stylesheet',
-					type: 'text/css',
-					href: this
-				}).appendTo('head');
-			});
-		}
-
-		//load scripts
-		if (scripts.length === 0) {
+		if (scripts.length === 0 && styles.length === 0) {
 			$(window).trigger('resourcesReady');
 			return;
 		}
 
-		$.each(scripts, function () {
-			var url = this;
+		//load styles
+		if (styles.length > 0) {
+			$.each(styles, function () {
+				var url = this;
 
-			$.ajax({
-				url: url,
-				dataType: 'script',
-				cache: true
-			}).done(function() {
-				counter++;
-				checkIfComplete();
-			}).fail(function () {
-				console.warn('Error while loading: ' + url);
-				counter++;
-				checkIfComplete();
+				var $link = $('<link/>', {
+					rel: 'stylesheet',
+					type: 'text/css',
+					href: url
+				}).on('load', function() {
+					console.log(url + ' loaded');
+					cssCounter++;
+					checkIfComplete();
+				}).on('error', function() {
+					console.warn('Error while loading: ' + url);
+					cssCounter++;
+					checkIfComplete();
+				});
+
+				links.push($link);
 			});
-		});
 
-		function checkIfComplete() {
-			if (counter === scripts.length) {
-				$(window).trigger('resourcesReady');
-			}
+			$('head').append(links);
+		}
+
+		//load scripts
+		if (scripts.length > 0) {
+			$.each(scripts, function () {
+				var url = this;
+
+				$.ajax({
+					url: url,
+					dataType: 'script',
+					cache: true
+				}).done(function() {
+					console.log(url + ' loaded');
+					jsCounter++;
+					checkIfComplete();
+				}).fail(function () {
+					console.warn('Error while loading: ' + url);
+					jsCounter++;
+					checkIfComplete();
+				});
+			});
 		}
 	};
 
-	if (options.resources) {
+	if (options && options.resources) {
 		loader.conditionsAllArray = loader.conditionsAllArray.concat(options.resources);
 	} else {
 		$('[data-resources]').each(function() {

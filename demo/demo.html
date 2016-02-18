@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Demo for conditional loader</title>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="../resourceLoader.js"></script>
+		<script>
+			$(document).ready(function(){
+				console.log('domReady fired!');
+
+				$(window).on('resourcesReady', function() {
+					console.log('ressourcesReady fired!');
+
+					//initiazlie components with data-init attribute
+					 $('*[data-init]').each(function() {
+						 var init = eval($(this).attr('data-init'));
+						 init();
+					 });
+				});
+
+				resourceLoader();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="demo" data-init="(function() {$('.demo').plugin1();})" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin1.js', 'css/demo1.css', 'css/demo2.css']}]">
+			This component's resources (css and js) are loaded via conditional loader!
+		</div>
+	</body>
+</html>
