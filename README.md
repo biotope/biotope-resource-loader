@@ -12,26 +12,26 @@ $(document).on('ready', function() {
 			init();
 		});
 	});
-	
-	var loader = resourceLoader({
+
+	resourceLoader({
 		base: 'optional_base_path',
 		resources: optionalArrayOfResources
-	});	
+	});
 });
 ```
 
 **Syntax for data-resources attribute:**
 ```javascript
 [
-  { 
+  {
       paths: ['js/jquery.component.js']
   },
   {
-      paths: ['js/jquery.component.js', 'css/component.css'], 
+      paths: ['js/jquery.component.js', 'css/component.css'],
       base: 'resources-content'          
   },
   {
-      paths: ['js/jquery.component.js', 'css/component.css'], 
+      paths: ['js/jquery.component.js', 'css/component.css'],
       base: 'resources-content',   
       test: (function() { return true; })
   }
