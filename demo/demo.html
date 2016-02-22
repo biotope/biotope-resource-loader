@@ -24,7 +24,11 @@
 		</script>
 	</head>
 	<body>
-		<div class="demo" data-init="(function() {$('.demo').plugin1();})" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin1.js', 'css/demo1.css', 'css/demo2.css']}]">
+		<div class="demo1" data-init="(function() {$('.demo1').plugin();})" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo1.css']}]">
+			This component's resources (css and js) are loaded via conditional loader! See logs in console...
+		</div>
+
+		<div class="demo2" data-init="(function() {$('.demo2').plugin();})" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo2.css']}]">
 			This component's resources (css and js) are loaded via conditional loader! See logs in console...
 		</div>
 	</body>

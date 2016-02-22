@@ -12,7 +12,7 @@
 ;(function ($, window, document, undefined) {
     'use strict';
 
-    var pluginName = 'plugin1',
+    var pluginName = 'plugin',
         defaults = {
             foo: 'bar'
         };
@@ -32,7 +32,7 @@
         },
 
         myFunction: function(){
-            console.log('boilerplate - myFunction was executed');
+            console.log('initializing ', this.$element.attr('class'));
         }
     };
 

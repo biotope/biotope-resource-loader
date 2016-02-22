@@ -1,5 +1,5 @@
 /**
- * VI Resource Loader v0.0.4
+ * VI Resource Loader v0.0.5
  * For documentation see:
  * https://github.com/virtualidentityag/conditional-resource-loader
  */
@@ -12,14 +12,10 @@ function resourceLoader(options) {
 	};
 	var styles = [];
 	var scripts = [];
-
 	var getResources = function() {
 		$.each(loader.conditionsAllArray, function () {
 			$.each(this.resources, function() {
 				var resource = this;
-				var js = [];
-				var css = [];
-
 				var test = this.test ? this.test() : true;
 
 				if (test) {
@@ -38,19 +34,19 @@ function resourceLoader(options) {
 						}
 
 						if (path.indexOf('.css') > -1) {
-							css.push(path);
+							if ($.inArray(path, styles) === -1) {
+								styles.push(path);
+							}
 						} else {
-							js.push(path);
+							if ($.inArray(path, scripts) === -1) {
+								scripts.push(path);
+							}
 						}
 					});
-
-					$.merge(scripts, js);
-					$.merge(styles, css);
 				}
 			});
 		});
 	};
-
 	var loadResources = function () {
 		var jsCounter = 0;
 		var cssCounter = 0;
