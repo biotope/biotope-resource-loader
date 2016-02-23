@@ -15,7 +15,7 @@
 					//initiazlie components with data-init attribute
 					 $('*[data-init]').each(function() {
 						 var init = eval($(this).attr('data-init'));
-						 init();
+						 init($(this));
 					 });
 				});
 
@@ -24,11 +24,11 @@
 		</script>
 	</head>
 	<body>
-		<div class="demo1" data-init="(function() {$('.demo1').plugin();})" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo1.css']}]">
+		<div class="demo1" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo1.css']}]">
 			This component's resources (css and js) are loaded via conditional loader! See logs in console...
 		</div>
 
-		<div class="demo2" data-init="(function() {$('.demo2').plugin();})" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo2.css']}]">
+		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo2.css']}]">
 			This component's resources (css and js) are loaded via conditional loader! See logs in console...
 		</div>
 	</body>
