@@ -9,7 +9,7 @@ $(document).on('ready', function() {
 		//initiazlie components
 		$('[data-init]').each(function() {
 			var init = eval($(this).attr('data-init'));
-			init();
+			init($(this));
 		});
 	});
 
@@ -40,5 +40,5 @@ $(document).on('ready', function() {
 
 **Syntax for data-init attribute:**
 ```javascript
-data-init="(function() { $('.component').component(); })"
+data-init="(function($elm) { $elm.component(); })"
 ```    
