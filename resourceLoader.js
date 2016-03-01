@@ -75,7 +75,6 @@ function resourceLoader(options) {
 					type: 'text/css',
 					href: url
 				}).on('load', function() {
-					console.log(url + ' loaded');
 					cssCounter++;
 					checkIfComplete();
 				}).on('error', function() {
@@ -100,7 +99,6 @@ function resourceLoader(options) {
 					dataType: 'script',
 					cache: true
 				}).done(function() {
-					console.log(url + ' loaded');
 					jsCounter++;
 					checkIfComplete();
 				}).fail(function () {
