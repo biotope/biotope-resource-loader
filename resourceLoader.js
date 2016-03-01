@@ -1,5 +1,5 @@
 /**
- * VI Resource Loader v0.0.6
+ * VI Resource Loader v0.0.8
  * For documentation see:
  * https://github.com/virtualidentityag/conditional-resource-loader
  */
@@ -27,6 +27,9 @@ function resourceLoader(options) {
 						//resolve relative paths
 						if (pathIsRelative) {
 							if (resource.base) {
+								if (resource.base.substring(0, 2) === '##') {
+									resource.base = options.baseMap[resource.base];
+								}
 								path = resource.base + path;
 							} else if (options && options.base) {
 								path = options.base + path;

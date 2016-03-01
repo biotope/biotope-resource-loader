@@ -19,7 +19,12 @@
 					 });
 				});
 
-				resourceLoader();
+				resourceLoader({
+					base: 'resources/',
+					baseMap: {
+						'##content': 'resources-content/'
+					}
+				});
 			});
 		</script>
 	</head>
@@ -28,7 +33,7 @@
 			This component's resources (css and js) are loaded via conditional loader! See logs in console...
 		</div>
 
-		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo2.css']}]">
+		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{paths: ['js/jquery.plugin.js', 'css/demo.css']}, {paths: ['css/demo2.css'], base: '##content'}]">
 			This component's resources (css and js) are loaded via conditional loader! See logs in console...
 		</div>
 	</body>
