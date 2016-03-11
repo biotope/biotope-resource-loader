@@ -19,7 +19,7 @@ $(document).on('ready', function() {
 	});
 });
 ```
-
+---
 **Syntax for data-resources attribute:**
 ```javascript
 [
@@ -37,12 +37,12 @@ $(document).on('ready', function() {
   }
 ]
 ```
-
+---
 **Syntax for data-init attribute:**
 ```javascript
 data-init="(function($elm) { $elm.component(); })"
 ```    
-
+---
 **baseMap**
 
 The baseMap option is useful in cases when base path for a resource in data attribute can not point directly to a path due to CMS constraints. In such cases we set the base path to a key (a key must always start with ##) and define the value of that key via baseMap option when initilizing resourceLoader. For example if we can't set 'base' to 'resources-content' directly, we can instead do this:
