@@ -37,7 +37,7 @@ $(document).on('ready', function() {
   }
 ]
 ```
----
+
 **Syntax for data-init attribute:**
 ```javascript
 data-init="(function($elm) { $elm.component(); })"
