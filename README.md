@@ -42,3 +42,14 @@ $(document).on('ready', function() {
 ```javascript
 data-init="(function($elm) { $elm.component(); })"
 ```    
+
+**baseMap**
+The baseMap option is useful in cases when base path for a resource in data attribute can not point directly to a path due to CMS constraints. In such cases we set the base path to a key (a key must always start with ##) and define the value of that key via baseMap option when initilizing resourceLoader. For example if we can't set 'base' to 'resources-content' directly, we can instead set it to '##myAlternativeBase' and then define that key during initilization like this:
+```
+resourceLoader({
+	base: 'resources',
+	baseMap: {
+		'##content': 'resources-content/'
+	}
+});
+```
