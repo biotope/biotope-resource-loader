@@ -14,7 +14,7 @@ $(document).on('ready', function() {
 	});
 
 	resourceLoader({
-		base: 'optional_base_path',
+		base: 'optional_base_path/',
 		resources: optionalArrayOfResources
 	});
 });
@@ -28,11 +28,11 @@ $(document).on('ready', function() {
   },
   {
       paths: ['js/jquery.component.js', 'css/component.css'],
-      base: 'resources-content'          
+      base: 'resources-content/'          
   },
   {
       paths: ['js/jquery.component.js', 'css/component.css'],
-      base: 'resources-content',   
+      base: 'resources-content/',   
       test: (function() { return true; })
   }
 ]
