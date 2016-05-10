@@ -7,6 +7,7 @@
 function resourceLoader(options) {
 	'use strict';
 
+	var $ = jQuery;
 	var loader = {
 		conditionsAllArray: []
 	};
