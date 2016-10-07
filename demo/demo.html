@@ -33,8 +33,8 @@
 			This component's resources (css and js) are loaded via conditional loader!
 		</div>
 
-		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{paths: ['js/jquery.plugin.js', 'css/demo.css']}, {paths: ['css/demo2.css'], base: '##content'}]">
-			This component's resources (css and js) are loaded via conditional loader!
+		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css']}, {paths: ['css/demo2.css'], base: '##content'}]">
+			This component's resources are loaded via conditional loader, using relative and absolute paths.
 		</div>
 	</body>
 </html>
