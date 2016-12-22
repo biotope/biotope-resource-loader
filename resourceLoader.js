@@ -1,5 +1,5 @@
 /**
- * VI Resource Loader v0.0.8
+ * VI Resource Loader v0.0.9
  * For documentation see:
  * https://github.com/virtualidentityag/conditional-resource-loader
  */
@@ -23,7 +23,8 @@ function resourceLoader(options) {
 					$.each(resource.paths, function() {
 						var path = this;
 						var pathIsRelative = path.indexOf('http://') === -1 &&
-							path.indexOf('https://') === -1;
+							path.indexOf('https://') === -1 &&
+							path.charAt(0) !== '/';
 
 						//resolve relative paths
 						if (pathIsRelative) {
