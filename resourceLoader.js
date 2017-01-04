@@ -18,7 +18,7 @@ function resourceLoader(options) {
 
 	var _cache = {};
 
-	var _debug = false || options.debug;
+	var _debug = options.debug;
 
 	/**
 	 * normalizes the incoming path (relative or absolute) to an absolute url
