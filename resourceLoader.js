@@ -1,5 +1,5 @@
 /**
- * VI Resource Loader v0.1.0
+ * VI Resource Loader v1.2.0
  * For documentation see:
  * https://github.com/virtualidentityag/conditional-resource-loader
  */
