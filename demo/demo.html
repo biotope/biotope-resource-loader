@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Demo for conditional loader</title>
-		<!--<script src="http://code.jquery.com/jquery-3.1.1.js"></script>-->
-		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+		<!--<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>-->
 		<script src="../resourceLoader.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -30,7 +30,6 @@
 		</script>
 	</head>
 	<body>
-
 		<div class="demo1"
 			 data-init="(function($elm) { $elm.plugin(); })"
 			 data-resources="[
@@ -63,16 +62,12 @@
 			 		paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo3.css']
 			 	},
 			 	{
-			 		paths: ['js/jquery.plugin.js'],
-			 		dependsOn: ['js/jquery.component.js']
-			 	},
-			 	{
-			 		paths: ['http://localhost/demo/resources/js/jquery.component.js', 'http://localhost/demo/resources/css/demo3.css']
+			 		paths: ['js/jquery.component.js'],
+			 		dependsOn: ['js/jquery.plugin.js']
 			 	}
 			 ]">
-			This component's resources are loaded via conditional loader, using relative, absolute paths and a fixed url.
+			This component's resources are loaded via conditional loader. One resource depends on another. plugin.js -> component.js
 		</div>
-
 
 		<div class="demo4"
 			 data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })"
@@ -85,12 +80,28 @@
 			 		paths: ['js/jquery.component2.js', 'css/demo.css'],
 			 		dependsOn: ['js/jquery.component.js']
 			 	}, {
-			 		paths: ['js/jquery.component.js', 'js/jquery.component3.js', 'css/demo.css'],
-			 		dependsOn: ['js/jquery.component2.js', 'js/jquery.plugin.js']
+			 		paths: ['js/jquery.component.js', 'js/jquery.component3.js', '/demo/resources-content/css/demo4.css'],
+			 		dependsOn: ['js/jquery.component2.js', '/demo/resources/js/jquery.plugin.js']
 			 	}
 			 ]">
-			Resources are loaded in order of dependencies.
+			Resources are loaded in order of dependencies. plugin.js is loaded on other demos or skipped. component.js -> component2.js -> component3.js, demo4.css
 		</div>
 
+<!--
+        <div class="demo5"
+             data-init="(function($elm) { $elm.component();})"
+             data-resources="
+                     [
+                        {
+                            paths: ['js/jquery.component5.js'],
+                            dependsOn: ['js/jquery.component6.js']
+                        }, {
+                            paths: ['js/jquery.component6.js'],
+                            dependsOn: ['js/jquery.component5.js']
+                        }
+                     ]">
+            Circle dependencies not resolvable. resourcesReady is never triggered.
+        </div>
+-->
 	</body>
 </html>

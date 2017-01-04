@@ -1,5 +1,12 @@
 .demo1,
 .demo2,
-.demo3 {
+.demo3,
+.demo4 {
     font-weight: bold;
+}
+
+.demo4 {
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: greenyellow;
 }
