@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Demo for conditional loader</title>
-		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<!--<script src="http://code.jquery.com/jquery-3.1.1.js"></script>-->
+		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
 		<script src="../resourceLoader.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -29,12 +30,87 @@
 		</script>
 	</head>
 	<body>
-		<div class="demo1" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{test: (function() {return true;}), paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo1.css']}]">
+<!--
+		<div class="demo1"
+			 data-init="(function($elm) { $elm.plugin(); })"
+			 data-resources="[
+			 	{
+			 		test: (function() {return true;}),
+			 		paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo1.css']
+			 	}
+			 ]">
 			This component's resources (css and js) are loaded via conditional loader!
 		</div>
 
-		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[{paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css']}, {paths: ['css/demo2.css'], base: '##content'}]">
+		<div class="demo2"
+			 data-init="(function($elm) { $elm.plugin(); })"
+			 data-resources="[
+			 	{
+			 		paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css']
+			 	},
+			 	{
+			 		paths: ['css/demo2.css'],
+			 		base: '##content'
+			 	}
+			 ]">
 			This component's resources are loaded via conditional loader, using relative and absolute paths.
 		</div>
+
+		<div class="demo3"
+			 data-init="(function($elm) { $elm.plugin(); $elm.component(); })"
+			 data-resources="[
+			 	{
+			 		paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo3.css']
+			 	},
+			 	{
+			 		paths: ['js/jquery.plugin.js'],
+			 		dependsOn: ['js/jquery.component.js']
+			 	},
+			 	{
+			 		paths: ['http://localhost/demo/resources/js/jquery.component.js', 'http://localhost/demo/resources/css/demo3.css']
+			 	}
+			 ]">
+			This component's resources are loaded via conditional loader, using relative, absolute paths and a fixed url.
+		</div>
+-->
+
+<!--
+		<div class="demo4"
+			 data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })"
+			 data-resources="
+			 [
+			 	{
+			 		paths: ['/demo/resources/js/jquery.component.js']
+			 	},
+			 	{
+			 		paths: ['js/jquery.component2.js', 'css/demo.css'],
+			 		dependsOn: ['js/jquery.component.js']
+			 	}, {
+			 		paths: ['js/jquery.component.js', 'js/jquery.component3.js', 'css/demo.css'],
+			 		dependsOn: ['js/jquery.component2.js', 'js/jquery.plugin.js']
+			 	}
+			 ]">
+			Resources are loaded in order of dependencies.
+		</div>
+-->
+
+		<div class="demo5"
+			 data-init="(function($elm) { $elm.component(); })"
+			 data-resources="
+					 [
+					 	{
+							paths: ['js/jquery.component3.js']
+						},
+						{
+							paths: ['js/jquery.component2.js'],
+							dependsOn: ['js/jquery.component.js']
+						}, {
+							paths: ['js/jquery.component.js'],
+							dependsOn: ['js/jquery.component2.js']
+						}
+					 ]">
+			Resources are loaded in order of dependencies. Timeout for open promises.
+		</div>
+
 	</body>
 </html>
