@@ -30,7 +30,7 @@
 		</script>
 	</head>
 	<body>
-<!--
+
 		<div class="demo1"
 			 data-init="(function($elm) { $elm.plugin(); })"
 			 data-resources="[
@@ -72,9 +72,8 @@
 			 ]">
 			This component's resources are loaded via conditional loader, using relative, absolute paths and a fixed url.
 		</div>
--->
 
-<!--
+
 		<div class="demo4"
 			 data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })"
 			 data-resources="
@@ -91,25 +90,6 @@
 			 	}
 			 ]">
 			Resources are loaded in order of dependencies.
-		</div>
--->
-
-		<div class="demo5"
-			 data-init="(function($elm) { $elm.component(); })"
-			 data-resources="
-					 [
-					 	{
-							paths: ['js/jquery.component3.js']
-						},
-						{
-							paths: ['js/jquery.component2.js'],
-							dependsOn: ['js/jquery.component.js']
-						}, {
-							paths: ['js/jquery.component.js'],
-							dependsOn: ['js/jquery.component2.js']
-						}
-					 ]">
-			Resources are loaded in order of dependencies. Timeout for open promises.
 		</div>
 
 	</body>
