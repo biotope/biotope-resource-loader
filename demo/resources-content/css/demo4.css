@@ -2,11 +2,11 @@
 .demo2,
 .demo3,
 .demo4 {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .demo4 {
-    padding: 20px;
-    margin-bottom: 20px;
-    background-color: greenyellow;
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: greenyellow;
 }
