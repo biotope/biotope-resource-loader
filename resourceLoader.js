@@ -227,7 +227,7 @@ function resourceLoader(options) {
 							(_debug) ? console.log('Promise for ' + queueObject['uniquePath'] + ' resolved.') : '';
 							checkIfComplete();
 						}).on('error', function () {
-							console.warn('Error while loading: ' + url);
+							console.warn('Error while loading: ' + queueObject['uniquePath']);
 							queueObject['promise'].resolve();
 							_queue = _queue.filter(function (item) {
 								return item['uniquePath'] !== queueObject['uniquePath'];
@@ -275,11 +275,11 @@ function absolutePath(urlString) {
 		normalizedUrl = urlString;
 	} else {
 		if (urlString.indexOf('/') === 0 && urlString.indexOf('//') !== 0) {
-			normalizedUrl = window.location.protocol + '//' + window.location.hostname + urlString;
+			normalizedUrl = window.location.origin + urlString;
 		} else {
 			var paths = window.location.pathname.split('/');
 			paths.pop();
-			normalizedUrl = window.location.protocol + '//' + window.location.hostname + paths.join('/') + '/' + urlString;
+			normalizedUrl = window.location.origin + paths.join('/') + '/' + urlString;
 		}
 	}
 
