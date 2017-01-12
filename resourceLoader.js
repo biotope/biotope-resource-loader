@@ -11,9 +11,8 @@ function resourceLoader(options) {
 	var _loader = {
 		conditionsAllArray: []
 	};
-	var _queue = [];
 
-	var _filteredQueue = [];
+	var _queue = [];
 	var _loadedQueue = [];
 
 	var _cache = {};
@@ -138,13 +137,6 @@ function resourceLoader(options) {
 	 * load all the resources in queue
 	 */
 	var loadResources = function () {
-		// filter queue to get each unique path
-		_filteredQueue = _queue.filter(function (item, pos) {
-			return _queue.indexOf(item) == pos;
-		});
-
-		validateQueue();
-
 		// if queue is empty, trigger ready
 		var checkIfComplete = function () {
 			(_debug) ? console.log('Remaining queue: ', _queue) : '';
@@ -159,12 +151,14 @@ function resourceLoader(options) {
 		}
 
 		// create promise for each unique queue object (path as unique id)
-		_filteredQueue.forEach(function (filteredQueueObject, index) {
-			filteredQueueObject['promise'] = $.Deferred();
+		_queue.forEach(function (outerQueueObject, index) {
+			outerQueueObject['promise'] = $.Deferred();
+			(_debug) ? outerQueueObject['promiseName'] = 'promise' + index : '';
 
-			_queue.forEach(function (queueObject) {
-				if (queueObject['uniquePath'] === filteredQueueObject['uniquePath']) {
-					queueObject['promise'] = filteredQueueObject['promise'];
+			_queue.forEach(function (innerQueueObject) {
+				if (innerQueueObject['uniquePath'] === outerQueueObject['uniquePath']) {
+					innerQueueObject['promise'] = outerQueueObject['promise'];
+					(_debug) ? innerQueueObject['promiseName'] = outerQueueObject['promiseName'] : '';
 				}
 			})
 		});
@@ -259,6 +253,7 @@ function resourceLoader(options) {
 
 	if (_loader.conditionsAllArray.length > 0) {
 		getResources();
+		validateQueue();
 		loadResources();
 	} else {
 		$(window).trigger('resourcesReady');
@@ -285,4 +280,3 @@ function absolutePath(urlString) {
 
 	return normalizedUrl;
 }
-
