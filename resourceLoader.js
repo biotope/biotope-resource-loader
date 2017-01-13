@@ -81,37 +81,42 @@ function resourceLoader(options) {
 		$.each(_loader.conditionsAllArray, function () {
 			$.each(this.resources, function () {
 				var resource = this;
-				var test = this.test ? this.test() : true;
+				var test = resource.test ? resource.test() : true;
 
 				if (test) {
 					$.each(resource.paths, function () {
-						var path = normalizePath(this, resource);
-						var queueObject = {};
-
-						// determine file type
-						if (path.indexOf('.css') > -1) {
-							queueObject['type'] = 'css';
-						} else {
-							queueObject['type'] = 'js';
-						}
-						queueObject['uniquePath'] = path;
-
-						// check depending on files
-						if (resource.dependsOn) {
-							queueObject['dependingOnFiles'] = [];
-
-							$.each(resource.dependsOn, function () {
-								var dependsOnPath = normalizePath(this, resource);
-								queueObject['dependingOnFiles'].push(dependsOnPath);
-							});
-						}
-
-						// add object to queue
-						_queue.push(queueObject);
+						addPathToQueue(this, resource);
 					});
 				}
 			});
 		});
+	};
+
+	var addPathToQueue = function(path, resource) {
+		var queueObject = {};
+
+		path = normalizePath(path, resource);
+
+		// determine file type
+		if (path.indexOf('.css') > -1) {
+			queueObject['type'] = 'css';
+		} else {
+			queueObject['type'] = 'js';
+		}
+		queueObject['uniquePath'] = path;
+
+		// check depending on files
+		if (resource.dependsOn) {
+			queueObject['dependingOnFiles'] = [];
+
+			$.each(resource.dependsOn, function () {
+				var dependsOnPath = normalizePath(this, resource);
+				queueObject['dependingOnFiles'].push(dependsOnPath);
+			});
+		}
+
+		// add object to queue
+		_queue.push(queueObject);
 	};
 
 	/**
