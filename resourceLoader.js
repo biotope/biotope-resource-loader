@@ -11,12 +11,8 @@ function resourceLoader(options) {
 	var _loader = {
 		conditionsAllArray: []
 	};
-
 	var _queue = [];
-	var _loadedQueue = [];
-
 	var _cache = {};
-
 	var _debug = options.debug;
 
 	// creates absolute path from any given string
@@ -120,6 +116,7 @@ function resourceLoader(options) {
 	var validateQueue = function () {
 		var _tempQueue = $.extend(true, [], _queue);
 		var tempLength = _tempQueue.length;
+		var _loadedQueue = [];
 
 		for (var iterator = 0; iterator < tempLength; iterator++) {
 			_tempQueue.forEach(function (qO, index) {
