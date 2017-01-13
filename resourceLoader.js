@@ -19,6 +19,27 @@ function resourceLoader(options) {
 
 	var _debug = options.debug;
 
+	// creates absolute path from any given string
+	var absolutePath = function(urlString) {
+		var normalizedUrl;
+		var absoluteReg = new RegExp('^(?:[a-z]+:)?//', 'i');
+
+		if (absoluteReg.test(urlString)) {
+			// is absolute
+			normalizedUrl = urlString;
+		} else {
+			if (urlString.indexOf('/') === 0 && urlString.indexOf('//') !== 0) {
+				normalizedUrl = window.location.origin + urlString;
+			} else {
+				var paths = window.location.pathname.split('/');
+				paths.pop();
+				normalizedUrl = window.location.origin + paths.join('/') + '/' + urlString;
+			}
+		}
+
+		return normalizedUrl;
+	};
+
 	/**
 	 * normalizes the incoming path (relative or absolute) to an absolute url
 
@@ -258,25 +279,4 @@ function resourceLoader(options) {
 	} else {
 		$(window).trigger('resourcesReady');
 	}
-}
-
-// creates absolute path from any given string
-function absolutePath(urlString) {
-	var normalizedUrl;
-	var absoluteReg = new RegExp('^(?:[a-z]+:)?//', 'i');
-
-	if (absoluteReg.test(urlString)) {
-		// is absolute
-		normalizedUrl = urlString;
-	} else {
-		if (urlString.indexOf('/') === 0 && urlString.indexOf('//') !== 0) {
-			normalizedUrl = window.location.origin + urlString;
-		} else {
-			var paths = window.location.pathname.split('/');
-			paths.pop();
-			normalizedUrl = window.location.origin + paths.join('/') + '/' + urlString;
-		}
-	}
-
-	return normalizedUrl;
 }
