@@ -41,13 +41,17 @@ $(document).on('ready', function() {
 ```
 
 __paths__:  array with the files to load, absolute and relative paths can be used, all files are only loaded once
+
 __dependsOn__: array with dependencies for the paths array. Note: dependencies are not loaded automatically
+
 __base__: specify a different base path for relative filenames
+
 __test__: configure a test that must return true in order to load the files
 
 In this demo the load order is: jquery.component.js -> resources-content/js/jquery.component2.js, resources-content/css/component2.css -> resources-content/js/jquery.component3.js, resources-content/css/component3.css
 
 
+---
 **Syntax for data-init attribute:**
 ```javascript
 data-init="(function($elm) { $elm.component(); })"
