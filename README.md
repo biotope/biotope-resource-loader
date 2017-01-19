@@ -27,18 +27,26 @@ $(document).on('ready', function() {
       paths: ['js/jquery.component.js']
   },
   {
-      paths: ['js/jquery.component2.js', 'css/component.css'],
+      paths: ['js/jquery.component2.js', 'css/component2.css'],
       dependsOn: [js/jquery.component.js]
       base: 'resources-content/'          
   },
   {
-      paths: ['js/jquery.component.js', 'js/jquery.component3.js', 'css/component.css'],
+      paths: ['js/jquery.component3.js', 'css/component3.css'],
       dependsOn: [js/jquery.component2.js]
       base: 'resources-content/',
       test: (function() { return true; })
   }
 ]
 ```
+
+__paths__:  array with the files to load, absolute and relative paths can be used, all files are only loaded once
+__dependsOn__: array with dependencies for the paths array. Note: dependencies are not loaded automatically
+__base__: specify a different base path for relative filenames
+__test__: configure a test that must return true in order to load the files
+
+In this demo the load order is: jquery.component.js -> resources-content/js/jquery.component2.js, resources-content/css/component2.css -> resources-content/js/jquery.component3.js, resources-content/css/component3.css
+
 
 **Syntax for data-init attribute:**
 ```javascript

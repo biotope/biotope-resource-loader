@@ -5,7 +5,7 @@
 		<title>Demo for conditional loader</title>
 		<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 		<!--<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>-->
-		<script src="../resourceLoader.js"></script>
+		<script src="../src/resourceLoader.js"></script>
 		<script>
 			$(document).ready(function(){
 				console.log('domReady fired!');
@@ -30,6 +30,7 @@
 		</script>
 	</head>
 	<body>
+
 		<div class="demo1"
 			 data-init="(function($elm) { $elm.plugin(); })"
 			 data-resources="[
@@ -73,18 +74,23 @@
 			 data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })"
 			 data-resources="
 			 [
+				{
+					paths: ['js/jquery.component.js', 'css/demo.css']
+				},
+				{
+					paths: ['css/demo4.css'],
+					base: '##content'
+				},
 			 	{
-			 		paths: ['/demo/resources/js/jquery.component.js']
-			 	},
-			 	{
-			 		paths: ['js/jquery.component2.js', 'css/demo.css'],
+			 		paths: ['js/jquery.component2.js'],
 			 		dependsOn: ['js/jquery.component.js']
 			 	}, {
-			 		paths: ['js/jquery.component.js', 'js/jquery.component3.js', '/demo/resources-content/css/demo4.css'],
+			 		paths: ['js/jquery.component3.js'],
 			 		dependsOn: ['js/jquery.component2.js', '/demo/resources/js/jquery.plugin.js']
 			 	}
 			 ]">
-			Resources are loaded in order of dependencies. plugin.js is loaded on other demos or skipped. component.js -> component2.js -> component3.js, demo4.css
+			Resources are loaded in order of dependencies: component.js -> component2.js -> component3.js<br/>
+			plugin.js is loaded on other demos or skipped. if skipped an error will be thrown, but component3.js will still be loaded
 		</div>
 
 <!--
@@ -100,7 +106,7 @@
                             dependsOn: ['js/jquery.component5.js']
                         }
                      ]">
-            Circle dependencies not resolvable. resourcesReady is never triggered.
+            Circle dependencies are not resolvable. resourcesReady is never triggered.
         </div>
 -->
 	</body>

@@ -5,7 +5,7 @@
 		<title>Demo for conditional loader</title>
 		<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 		<!--<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>-->
-		<script src="../resourceLoader.js"></script>
+		<script src="../src/resourceLoader.js"></script>
 		<script>
 			$(document).ready(function(){
 				console.log('domReady fired!');
@@ -24,7 +24,8 @@
 					base: 'resources/',
 					baseMap: {
 						'##content': 'resources-content/'
-					}
+					},
+					debug: true
 				});
 			});
 		</script>
@@ -35,11 +36,14 @@
 			 data-resources="
 			 [
 			 	{
+			 		paths: ['js/jquery.component1.js']
+			 	},
+			 	{
 			 		paths: ['js/jquery.component2.js', '/demo/resources-content/css/demo4.css'],
 			 		dependsOn: ['js/jquery.component1.js']
 			 	}
 			 ]">
-			Resources are loaded in order of dependencies: component1.js -> component2.js -> demo4.css
+			Resources are loaded in order of dependencies: component1.js -> component2.js, demo4.css
 		</div>
 	</body>
 </html>
