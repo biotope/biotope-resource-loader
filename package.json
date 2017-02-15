@@ -1,15 +1,9 @@
 {
   "name": "conditional-resource-loader",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "a minimal conditional loader to load resources (js and css) with dependencies",
   "main": "src/resourceLoader.js",
   "repository": "git@github.com:virtualidentityag/conditional-resource-loader.git",
   "author": "VI",
-  "license": "MIT",
-  "scripts": {
-    "install": "node node_modules/uglify-js/bin/uglifyjs -o dist/resourceLoader.min.js src/resourceLoader.js"
-  },
-  "dependencies": {
-    "uglify-js": "2.7.5"
-  }
+  "license": "MIT"
 }
