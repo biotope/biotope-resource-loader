@@ -278,6 +278,10 @@ function resourceLoader(options) {
 		});
 	};
 
+	if (!window.location.origin) {
+		window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+	}
+
 	if (options && options.resources) {
 		_loader.conditionsAllArray = _loader.conditionsAllArray.concat(options.resources);
 	} else {
