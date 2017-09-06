@@ -28,12 +28,12 @@ $(document).on('ready', function() {
   },
   {
       paths: ['js/jquery.component2.js', 'css/component2.css'],
-      dependsOn: [js/jquery.component.js]
+      dependsOn: ['js/jquery.component.js']
       base: 'resources-content/'          
   },
   {
       paths: ['js/jquery.component3.js', 'css/component3.css'],
-      dependsOn: [js/jquery.component2.js]
+      dependsOn: ['js/jquery.component2.js']
       base: 'resources-content/',
       test: (function() { return true; })
   }
