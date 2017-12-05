@@ -209,13 +209,8 @@ function resourceLoader(options) {
 			$.when.apply($, queueObject.dependencies).done(function () {
 				var cachePromise;
 
-				if (_cache[queueObject.uniquePath]) {
-					queueObject.promise.resolve();
-
-					if (_debug) {
-						console.log('Promise for ' + queueObject.uniquePath + ' resolved from cache.');
-					}
-				} else {
+				// not already loading
+				if (typeof _cache[queueObject.uniquePath] === 'undefined') {
 					// load js file
 					if (queueObject.type === 'js') {
 						cachePromise = $.ajax({

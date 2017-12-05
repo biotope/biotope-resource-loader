@@ -39,11 +39,17 @@
 			 		paths: ['js/jquery.component1.js']
 			 	},
 			 	{
-			 		paths: ['js/jquery.component2.js', '/demo/resources-content/css/demo4.css'],
+			 		paths: ['js/jquery.component2.js'],
 			 		dependsOn: ['js/jquery.component1.js']
+			 	},
+			 	{
+			 		paths: ['css/demo4.css'],
+			 		base: '##content'
 			 	}
 			 ]">
-			Resources are loaded in order of dependencies: component1.js -> component2.js, demo4.css
+			Resources are loaded in order of dependencies: <br/>
+			component1.js -> component2.js <br/>
+			demo4.css from different base_folder
 		</div>
 	</body>
 </html>
