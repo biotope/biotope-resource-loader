@@ -14,6 +14,13 @@ function resourceLoader(options) {
 	var _queue = [];
 	var _cache = {};
 	var _debug = options.debug;
+	var _defaults = {
+		container: '', // css selector or jQuery element
+		readyEvent: 'resourcesReady'
+	};
+	// options
+	_loader.options = $.extend({}, _defaults, options);
+
 
 	// creates absolute path from any given string
 	var absolutePath = function(urlString) {
@@ -162,12 +169,12 @@ function resourceLoader(options) {
 			}
 
 			if (_queue.length === 0) {
-				$(window).trigger('resourcesReady');
+				$(window).trigger(_loader.options.readyEvent);
 			}
 		};
 
 		if (_queue.length === 0) {
-			$(window).trigger('resourcesReady');
+			$(window).trigger(_loader.options.readyEvent);
 			return;
 		}
 
@@ -279,8 +286,10 @@ function resourceLoader(options) {
 
 	if (options && options.resources) {
 		_loader.conditionsAllArray = _loader.conditionsAllArray.concat(options.resources);
-	} else {
-		$('[data-resources]').each(function () {
+	}  else {
+		var $resources = (_loader.options.container != '') ? $(_loader.options.container).find('[data-resources]').addBack('[data-resources]') : $('[data-resources]');
+
+		$resources.each(function () {
 			var obj = {};
 			obj.resources = eval($(this).attr('data-resources'));
 			_loader.conditionsAllArray.push(obj);
@@ -292,6 +301,6 @@ function resourceLoader(options) {
 		validateQueue();
 		loadResources();
 	} else {
-		$(window).trigger('resourcesReady');
+		$(window).trigger(_loader.options.readyEvent);
 	}
 }
