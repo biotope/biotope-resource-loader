@@ -1,6 +1,0 @@
-{
-  "name": "resourceLoader",
-  "homepage": "https://github.com/virtualidentityag/conditional-resource-loader",
-  "version": "1.2.0",
-  "main": "resourceLoader.js"
-}
