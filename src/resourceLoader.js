@@ -1,7 +1,7 @@
 /**
- * VI Resource Loader v1.2.0
+ * VI Resource Loader v1.3.0
  * For documentation see:
- * https://github.com/virtualidentityag/conditional-resource-loader
+ * https://github.com/biotope/biotope-resource-loader
  */
 
 function resourceLoader(options) {
