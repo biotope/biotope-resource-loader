@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>hi 👋</h1>
+  <button>get script</button>
+  <script>
+    fetch('main.js?speed=20', { 'content-type': 'application/javascript' }).then(() => { console.log('ready') });
+    const button = document.querySelector('button');
+    const addScript = () => {
+      e = document.createElement('script');
+      e.src = 'main.js?speed=20';
+      e.async = true;
+      console.log(e);
+      document.body.appendChild(e);
+    }
+    button.addEventListener("click", () => {
+      addScript();
+    });
+  </script>
+</body>
+
+</html>

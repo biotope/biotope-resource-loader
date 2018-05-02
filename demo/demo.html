@@ -1,81 +1,53 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Demo for conditional loader</title>
-		<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
-		<!--<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>-->
-		<script src="../src/resourceLoader.js"></script>
-		<script>
-			$(document).ready(function(){
-				console.log('domReady fired!');
 
-				$(window).on('resourcesReady', function() {
-					console.log('ressourcesReady fired!');
+<head>
+	<meta charset="utf-8" />
+	<title>Demo for conditional loader</title>
+</head>
 
-					//initiazlie components with data-init attribute
-					 $('*[data-init]').each(function() {
-						 var init = eval($(this).attr('data-init'));
-						 init($(this));
-					 });
-				});
+<body>
 
-				resourceLoader({
-					base: 'resources/',
-					baseMap: {
-						'##content': 'resources-content/'
-					}
-				});
-			});
-		</script>
-	</head>
-	<body>
-
-		<div class="demo1"
-			 data-init="(function($elm) { $elm.plugin(); })"
-			 data-resources="[
+	<div class="demo1" data-init="(function($elm) { $elm.plugin(); })" data-resources="[
 			 	{
 			 		test: (function() {return true;}),
-			 		paths: ['js/jquery.plugin.js', 'css/demo.css', 'css/demo1.css']
+					 paths: ['css/demo.css', 'css/demo1.css', 'https://code.jquery.com/jquery-3.3.1.min.js']
 			 	}
 			 ]">
-			This component's resources (css and js) are loaded via conditional loader!
-		</div>
+		This component's resources (css and js) are loaded via conditional loader!
+	</div>
 
-		<div class="demo2"
-			 data-init="(function($elm) { $elm.plugin(); })"
-			 data-resources="[
+	<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[
 			 	{
-			 		paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css']
+					 paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css?speed=20'],
+					 dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 			 	},
 			 	{
 			 		paths: ['css/demo2.css'],
 			 		base: '##content'
 			 	}
 			 ]">
-			This component's resources are loaded via conditional loader, using relative and absolute paths.
-		</div>
+		This component's resources are loaded via conditional loader, using relative and absolute paths.
+	</div>
 
-		<div class="demo3"
-			 data-init="(function($elm) { $elm.plugin(); $elm.component(); })"
-			 data-resources="[
+	<div class="demo3" data-init="(function($elm) { $elm.plugin(); $elm.component(); })" data-resources="[
 			 	{
-			 		paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo3.css']
+					 paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo3.css'],
+					 dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 			 	},
 			 	{
 			 		paths: ['js/jquery.component.js'],
-			 		dependsOn: ['js/jquery.plugin.js']
+			 		dependsOn: ['js/jquery.plugin.js', 'https://code.jquery.com/jquery-3.3.1.min.js']
 			 	}
 			 ]">
-			This component's resources are loaded via conditional loader. One resource depends on another. plugin.js -> component.js
-		</div>
+		This component's resources are loaded via conditional loader. One resource depends on another. plugin.js -> component.js
+	</div>
 
-		<div class="demo4"
-			 data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })"
-			 data-resources="
+	<div class="demo4" data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })" data-resources="
 			 [
 				{
-					paths: ['js/jquery.component.js', 'css/demo.css']
+					paths: ['js/jquery.component.js', 'css/demo.css'],
+					dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 				},
 				{
 					paths: ['css/demo4.css'],
@@ -83,31 +55,45 @@
 				},
 			 	{
 			 		paths: ['js/jquery.component2.js'],
-			 		dependsOn: ['js/jquery.component.js']
+			 		dependsOn: ['js/jquery.component.js', 'https://code.jquery.com/jquery-3.3.1.min.js']
 			 	}, {
-			 		paths: ['js/jquery.component3.js'],
-			 		dependsOn: ['js/jquery.component2.js', '/demo/resources/js/jquery.plugin.js']
+			 		paths: ['js/jquery.component3.js', 'js/jquery.plugin.js'],
+			 		dependsOn: ['js/jquery.component2.js', '/demo/resources/js/jquery.plugin.js', 'https://code.jquery.com/jquery-3.3.1.min.js']
 			 	}
 			 ]">
-			Resources are loaded in order of dependencies: component.js -> component2.js -> component3.js<br/>
-			plugin.js is loaded on other demos or skipped. if skipped an error will be thrown, but component3.js will still be loaded
-		</div>
+		Resources are loaded in order of dependencies: component.js -> component2.js -> component3.js
+		<br/> plugin.js is loaded on other demos or skipped. if skipped an error will be thrown, but component3.js will still be loaded
+	</div>
+	<div class="demo5" data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })" data-resources="
+			 [
+				{
+					paths: ['js/jquery.component.js', 'css/demo.css'],
+					dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
+				},
+				{
+					paths: ['css/demo4.css'],
+					base: '##content'
+				},
+			 	{
+			 		paths: ['js/jquery.component2.js'],
+			 		dependsOn: ['js/jquery.component.js', 'https://code.jquery.com/jquery-3.3.1.min.js']
+			 	}, {
+			 		paths: ['js/jquery.component3.js', 'js/jquery.plugin.js'],
+			 		dependsOn: ['js/jquery.component2.js', '/demo/resources/js/jquery.plugin.js', 'https://code.jquery.com/jquery-3.3.1.min.js']
+			 	}
+			 ]">
+		Resources are loaded in order of dependencies: component.js -> component2.js -> component3.js
+		<br/> plugin.js is loaded on other demos or skipped. if skipped an error will be thrown, but component3.js will still be loaded
+	</div>
+	<script src="../dist/resourceLoader.min.js"></script>
+	<script>
+		resourceLoader({
+			base: 'resources/',
+			baseMap: {
+				'##content': 'resources-content/'
+			}
+		});
+	</script>
+</body>
 
-<!--
-        <div class="demo5"
-             data-init="(function($elm) { $elm.component();})"
-             data-resources="
-                     [
-                        {
-                            paths: ['js/jquery.component5.js'],
-                            dependsOn: ['js/jquery.component6.js']
-                        }, {
-                            paths: ['js/jquery.component6.js'],
-                            dependsOn: ['js/jquery.component5.js']
-                        }
-                     ]">
-            Circle dependencies are not resolvable. resourcesReady is never triggered.
-        </div>
--->
-	</body>
 </html>

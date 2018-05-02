@@ -7,12 +7,26 @@
   "author": "Biotope",
   "license": "MIT",
   "scripts": {
-    "build": "node node_modules/uglify-js/bin/uglifyjs -o dist/resourceLoader.min.js src/resourceLoader.js"
+    "build": "rollup -c",
+    "demo": "python -m SimpleHTTPServer 8000",
+    "dev": "rollup -c -w",
+    "speed": "./speed"
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
+    "jquery": "^3.3.1",
     "uglify-js": "2.7.5"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "chokidar": "^2.0.3",
+    "eslint": "^4.19.1",
+    "prettier": "^1.12.1",
+    "rollup": "^0.58.2",
+    "rollup-plugin-commonjs": "^9.1.2",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-watch": "^4.3.1"
   }
 }
