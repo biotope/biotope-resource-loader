@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Demo for conditional loader</title>
+</head>
+
+<body>
+
+
+  <div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[
+			 	{
+					 paths: ['/demo/resources/js/jquery.smoke.js'],
+					 dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
+         },
+         {
+          paths: ['https://code.jquery.com/jquery-3.3.1.min.js'],
+        },
+			 	{
+			 		paths: ['css/demo2.css'],
+			 		base: '##content'
+			 	}
+			 ]">
+    This component's resources are loaded via conditional loader, using relative and absolute paths.
+  </div>
+
+
+  <script src="../dist/resourceLoader.min.js"></script>
+  <script>
+    resourceLoader({
+      base: 'resources/',
+      baseMap: {
+        '##content': 'resources-content/'
+      }
+    });
+  </script>
+</body>
+
+</html>

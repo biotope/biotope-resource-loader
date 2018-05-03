@@ -4,11 +4,11 @@
  * https://github.com/biotope/biotope-resource-loader
  */
 
-import deepEqual from 'deep-equal';
+import produce from 'immer';
 import './polyfill';
 
-import random from './randomId';
-import getPath from './getPath';
+import getPackages from './getPackages';
+import getResourcesFromDOM from './getResourcesFromDom';
 
 const checkDependencies = resources => {
   const allPaths = [];
@@ -50,37 +50,50 @@ const checkDependency = (dependents, requests) => {
 };
 
 const uniquePath = (requests, path, hasDependencies, sourceId, id) => {
-  const r = requests;
-  const result = requests.findIndex(r => r.path === path);
+  let req = requests;
+  const result = req.findIndex(req => req.path === path);
   if (result === -1) {
-    r.push({ path, hasDependencies, sourceIds: [sourceId], packageIds: [id] });
+    req = produce(req, draftState => {
+      draftState.push({
+        path,
+        hasDependencies,
+        sourceIds: [sourceId],
+        packageIds: [id]
+      });
+    });
   } else {
-    r[result].sourceIds.push(sourceId);
-    r[result].packageIds.push(id);
+    req = produce(req, draftState => {
+      draftState[result].sourceIds.push(sourceId);
+      draftState[result].packageIds.push(id);
+    });
   }
-  return r;
+  return req;
 };
 
-const recurse = (arr, requests, counter = 0) => {
+const addToQueue = (componentResources, requests = [], counter = 0) => {
   // recursive function to get load order
   let req = requests;
-  const el = arr[0];
-  const arra = arr;
+  const el = componentResources[0];
+  let arr = componentResources;
   let i = counter; // counter counts up every unsuccessful reordering and resets itself on success.
   // if first element has depndecies and dependencies are not in load order yet and the total length of the array is greater/equal to 2 + counter
   if (
     el.dependsOn &&
 		checkDependency(el.dependsOn, req) === false &&
-		arra.length >= 2 + counter
+		arr.length >= 2 + counter
   ) {
     i = i + 1; // counter get up
     const current = arr[0];
     const next = arr[i];
-    arra[0] = next;
-    arra[i] = current;
+    arr = produce(arr, draftState => {
+      draftState[0] = next;
+      draftState[i] = current;
+    });
   } else {
     // first item get's removed
-    arra.splice(0, 1);
+    arr = produce(arr, draftState => {
+      draftState.splice(0, 1);
+    });
     // reset counter
     i = 0;
     let hasDependencies = false;
@@ -93,144 +106,41 @@ const recurse = (arr, requests, counter = 0) => {
     }
   }
   // if array not empty go for it again 🏃‍
-  if (arra.length !== 0) {
-    return recurse(arr, req, i);
+  if (arr.length !== 0) {
+    return addToQueue(arr, req, i);
   } else {
     // return ordered requests.
     return req;
   }
 };
 
-const addToQueue = arr => {
-  const requests = [];
-  return recurse(arr, requests);
-};
-
-function flattenQueue(resources) {
-  const flatten = [];
-  for (const resourceTree of resources) {
-    for (const ast of resourceTree.resources) {
-      ast.sourceId = resourceTree.id;
-      flatten.push(ast);
+function getComponentResources(resources) {
+  let flatten = [];
+  for (const resource of resources) {
+    for (const componentResource of resource.resources) {
+      const componentResourceClone = Object.assign({}, componentResource);
+      componentResourceClone.sourceId = resource.id;
+      flatten = produce(flatten, draftState => {
+        draftState.push(componentResourceClone);
+      });
     }
   }
   return flatten;
 }
 
-const getResourcesFromDOM = (selector, options) => {
-  // thats an array of all resources found in the dom
-  const resources = [];
-  // Array of HTML elements with a dataset "resources"
-  let domResources = null;
-  // if no selector is specified the scope is the whole document
-  if (selector !== '') {
-    const container = document.querySelector(selector);
-    domResources = [].slice.call(
-        container.querySelectorAll('[data-resources]')
-    );
-  } else {
-    domResources = [].slice.call(document.querySelectorAll('[data-resources]'));
-  }
-  for (const newResource of domResources) {
-    const obj = {};
-    // evaluating data attribute string
-    obj.resources = eval(newResource.dataset.resources);
-    // normalize path
-    for (const key in obj.resources) {
-      const resourceObj = obj.resources[key];
-      resourceObj.id = random();
-      for (const pathKey in resourceObj.paths) {
-        const path = resourceObj.paths[pathKey];
-        obj.resources[key].paths[pathKey];
-        obj.resources[key].paths[pathKey] = getPath(path, resourceObj, options);
-      }
-      if (resourceObj.dependsOn) {
-        for (const dependsOnKey in resourceObj.dependsOn) {
-          const path = resourceObj.dependsOn[dependsOnKey];
-          obj.resources[key].dependsOn[dependsOnKey] = getPath(
-              path,
-              resourceObj,
-              options
-          );
-        }
-      }
-    }
-    // resource or combination is new
-    let isNew = true;
-    // find duplicates 👭
-    if (resources.length > 0) {
-      for (const resource of resources) {
-        // TODO ⚠️ Thats a bug right here because of unique ids
-        if (deepEqual(resource.resources, obj.resources)) {
-          // if not new set to false, add class and break
-          newResource.classList.add(`resourceLoader-${resource.id}`);
-          isNew = false;
-          break;
-        }
-      }
-    }
-    if (isNew) {
-      obj.id = random();
-      newResource.classList.add(`resourceLoader-${obj.id}`);
-      resources.push(obj);
-    }
-  }
-  return resources;
-};
-
-const prewarmCache = path => {
-  fetch(path);
-};
-
-const attachToDom = dependency => {
-  const type = dependency.path.indexOf('.css') > -1 ? 'css' : 'js';
-  if (type === 'css') {
-    fetch(dependency.path).then(() => {
-      const style = document.createElement('link');
-      style.rel = 'stylesheet';
-      style.async = true;
-      style.href = dependency.path;
-      document.body.append(style);
-      style.addEventListener('load', () => {
-        // console.log('💅 style ready', style);
-        const e = new CustomEvent('resourceLoaded', { detail: dependency });
-        document.dispatchEvent(e);
-      });
-    });
-  } else {
-    const script = document.createElement('script');
-    script.src = dependency.path;
-    script.async = true;
-    document.body.append(script);
-    script.addEventListener('load', () => {
-      // console.log('📖 script ready', script);
-      const e = new CustomEvent('resourceLoaded', { detail: dependency });
-      document.dispatchEvent(e);
-    });
-  }
-};
-
-const makeRequests = (urls, byPassCache = false) => {
-  for (const url of urls) {
-    if (url.hasDependencies && !byPassCache) {
-      prewarmCache(url.path);
-    } else {
-      attachToDom(url);
-    }
-  }
-};
-
-const markAsDone = (readyResources, pkg) => {
-  const ready = readyResources;
-  const counter = 0;
-  for (const readySource of ready) {
-    const { id, resources } = readySource;
+const updateComponentResources = (readyResources, pkg) => {
+  let ready = produce(readyResources, draftState => draftState);
+  for (const readyComponentPkg in ready) {
+    const { id, resources } = ready[readyComponentPkg];
     if (id === pkg.sourceId) {
-      for (const sourcePkgKey in resources) {
-        if (pkg.id === resources[sourcePkgKey].id) {
-          resources.splice(sourcePkgKey, 1);
-          if (resources.length === 0) {
-            const e = new CustomEvent('resourceReady', { detail: id });
+      for (const pkgKey in resources) {
+        if (pkg.id === resources[pkgKey].id) {
+          ready = produce(ready, draftState => {
+            draftState[readyComponentPkg].resources.splice(pkgKey, 1);
+          });
+          const updatedResources = ready[readyComponentPkg].resources;
+          if (updatedResources.length === 0) {
+            const e = new CustomEvent('componentReady', { detail: id });
             document.dispatchEvent(e);
           }
         }
@@ -257,50 +167,70 @@ const resourceLoader = customOptions => {
   debug = options.debug ? options.debug : true;
 
   resources = getResourcesFromDOM(options.container, options);
-  // 👷‍ add resources from options to queue
+  // 👷‍ add resources from options
+  // ⚠️ that could be buggy, or at least it will not fire any events atm
   if (options.resources) {
     resources.unshift({ resources: options.resources });
   }
-  // collect data structures
+
   checkDependencies(resources);
-  const whatever = flattenQueue(resources);
-  const requests = addToQueue(whatever);
-  makeRequests(requests);
-  const packages = flattenQueue(resources);
-  let readyResources = resources.slice(0);
-  document.addEventListener('resourceLoaded', e => {
-    for (const pkgKey in packages) {
-      const pkg = packages[pkgKey];
+
+  const componentResources = getComponentResources(resources);
+  const requests = addToQueue(componentResources);
+  getPackages(requests);
+  console.log(requests);
+  // clone objects
+  let readyResources = produce(resources, draftState => draftState);
+  let readyComponentResources = produce(
+      componentResources,
+      draftState => draftState
+  );
+  document.addEventListener('packageLoaded', e => {
+    // loop through packages of components
+    for (const pkgKey in readyComponentResources) {
+      const pkg = readyComponentResources[pkgKey];
       if (pkg.dependsOn && pkg.dependsOn.length > 0) {
         const index = pkg.dependsOn.indexOf(e.detail.path);
         if (index > -1) {
-          pkg.dependsOn.splice(index, 1);
-          if (pkg.dependsOn.length === 0) {
-            makeRequests(addToQueue([pkg]), true);
+          readyComponentResources = produce(
+              readyComponentResources,
+              draftState => {
+                draftState[pkgKey].dependsOn.splice(index, 1);
+              }
+          );
+          const updatedPkg = readyComponentResources[pkgKey];
+          if (updatedPkg.dependsOn.length === 0) {
+            getPackages(addToQueue([updatedPkg]), true);
           }
         }
       } else {
         const index = pkg.paths.indexOf(e.detail.path);
         if (index > -1) {
-          pkg.paths.splice(index, 1);
-          if (pkg.paths.length === 0) {
-            readyResources = markAsDone(readyResources, pkg);
+          readyComponentResources = produce(
+              readyComponentResources,
+              draftState => {
+                draftState[pkgKey].paths.splice(index, 1);
+              }
+          );
+          const updatedPkg = readyComponentResources[pkgKey];
+          if (updatedPkg.paths.length === 0) {
+            readyResources = updateComponentResources(readyResources, pkg);
           }
         }
       }
     }
   });
   let counter = 0;
-  document.addEventListener('resourceReady', e => {
+  document.addEventListener('componentReady', e => {
+    console.log(`component with id: ${e.detail} ready`);
     counter = counter + 1;
     if (counter === readyResources.length) {
-      console.log('all done', options.readyEvent);
       const ev = new CustomEvent('resourcesReady');
       document.dispatchEvent(ev);
     }
   });
   document.addEventListener('resourcesReady', e => {
-    console.log('all ok');
+    console.log('all resources loaded');
   });
 };
 
