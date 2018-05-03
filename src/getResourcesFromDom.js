@@ -1,16 +1,19 @@
-import deepEqual from 'deep-equal';
+import deepEqual from './deepEqual';
 import produce from 'immer';
 import random from './randomId';
 import getPath from './getPath';
 
-const getResourcesFromDOM = (selector, options) => {
-  // thats an array of all resources found in the dom
-  let resources = [];
+const getResourcesFromDOM = (selector, options, resources = []) => {
   // Array of HTML elements with a dataset "resources"
   let domResources = null;
   // if no selector is specified the scope is the whole document
   if (selector !== '') {
-    const container = document.querySelector(selector);
+    let container = null;
+    if (typeof selector !== 'object') {
+      container = document.querySelector(selector);
+    } else {
+      container = selector;
+    }
     domResources = [].slice.call(
         container.querySelectorAll('[data-resources]')
     );

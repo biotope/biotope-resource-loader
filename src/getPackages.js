@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 const prewarmCache = path => {
   fetch(path);
 };
@@ -32,10 +34,12 @@ const attachToDom = dependency => {
 
 const getPackages = (urls, byPassCache = false) => {
   for (const url of urls) {
-    if (url.hasDependencies && !byPassCache) {
-      prewarmCache(url.path);
-    } else {
-      attachToDom(url);
+    if (url.fetch === 'pending') {
+      if (url.hasDependencies && !byPassCache) {
+        prewarmCache(url.path);
+      } else {
+        attachToDom(url);
+      }
     }
   }
 };
