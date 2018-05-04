@@ -1,5 +1,3 @@
-import produce from 'immer';
-
 const prewarmCache = path => {
   fetch(path);
 };

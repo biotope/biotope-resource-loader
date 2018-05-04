@@ -1,5 +1,6 @@
 import produce from 'immer';
 
+// flattens the datastructure to packages, add resource id to resolve back
 function getComponentResources(resources) {
   let flatten = [];
   for (const resource of resources) {
@@ -14,6 +15,7 @@ function getComponentResources(resources) {
   return flatten;
 }
 
+// if a package is ready the component is updated, if all packages are loaded a component ready event gets fired.
 const updateComponentResources = (readyResources, pkg) => {
   let ready = produce(readyResources, draftState => draftState);
   for (const readyComponentPkg in ready) {

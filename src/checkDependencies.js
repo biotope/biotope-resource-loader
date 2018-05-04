@@ -1,3 +1,4 @@
+// checks if all packages are resolveable if not it will show an error.
 const checkDependencies = resources => {
   const allPaths = [];
   const dependencies = [];
@@ -20,11 +21,15 @@ const checkDependencies = resources => {
   // check if dependencies are resolvable
   for (const dependency of dependencies) {
     if (allPaths.indexOf(dependency) === -1) {
-      console.error(`⚠️ ERROR ${dependency} not resolvable.`);
+      console.error(
+          `⚠️ ERROR ${dependency} not resolvable. Not all events will be fired!`
+      );
     }
   }
 };
 
+// not really necessary but important for perf?
+// returns true if all dependencies of a path are already lined up
 const checkDependency = (dependents, requests) => {
   for (const d of dependents) {
     const result = requests.find(r => r.path === d);
