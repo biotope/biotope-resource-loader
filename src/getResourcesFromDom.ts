@@ -1,6 +1,7 @@
 import produce from 'immer';
 import random from './randomId';
 import { toAbsolutePath } from './toAbsolutePath';
+import resolveBaseWith from './resolveBaseWith';
 
 function getPath(path, resource, options) {
   const pathIsRelative =
@@ -11,18 +12,14 @@ function getPath(path, resource, options) {
   // resolve relative paths
   if (pathIsRelative) {
     if (resource.base) {
-      if (resource.base.substring(0, 2) === '##')
-        resource.base = options.baseMap[resource.base];
+      const resolveBase = resolveBaseWith(options.baseMap);
 
-      path = resource.base + path;
+      return toAbsolutePath(resolveBase(resource.base) + path);
     } else if (options && options.base) {
-      path = options.base + path;
+      return toAbsolutePath(options.base + path);
     }
   }
-  // create unique absolute path
-  const normalizedPath = toAbsolutePath(path);
-
-  return normalizedPath;
+  return toAbsolutePath(path);
 }
 
 // not really deep equal, more tailored to the needs of resourceLoader

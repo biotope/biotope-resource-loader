@@ -1,3 +1,5 @@
+type BaseMap = { [id: string]: string };
+
 interface Dependency {
     path: string;
     fetch: string;
@@ -7,7 +9,8 @@ interface Dependency {
 interface ResourceLoaderOptions {
     container: string;
     readyEvent: string;
-    reseources
+    resources: string[];
+    baseMap: BaseMap;
 }
 
 interface ResourceDefinition {
