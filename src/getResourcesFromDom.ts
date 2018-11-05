@@ -1,41 +1,12 @@
 import produce from 'immer';
 import random from './randomId';
-
-function getOrigin() {
-  if (!window.location.origin) {
-    return (window.location.origin =
-			window.location.protocol +
-			'//' +
-			window.location.hostname +
-			(window.location.port ? ':' + window.location.port : ''));
-  }
-  return window.location.origin;
-}
-
-function absolutePath(urlString) {
-  let normalizedUrl;
-  const absoluteReg = new RegExp('^(?:[a-z]+:)?//', 'i');
-
-  if (absoluteReg.test(urlString)) {
-    // is absolute
-    normalizedUrl = urlString;
-  } else {
-    if (urlString.indexOf('/') === 0 && urlString.indexOf('//') !== 0) {
-      normalizedUrl = getOrigin() + urlString;
-    } else {
-      const paths = window.location.pathname.split('/');
-      paths.pop();
-      normalizedUrl = getOrigin() + paths.join('/') + '/' + urlString;
-    }
-  }
-  return normalizedUrl;
-}
+import { toAbsolutePath } from './toAbsolutePath';
 
 function getPath(path, resource, options) {
   const pathIsRelative =
-		path.indexOf('http://') === -1 &&
-		path.indexOf('https://') === -1 &&
-		path.charAt(0) !== '/';
+    path.indexOf('http://') === -1 &&
+    path.indexOf('https://') === -1 &&
+    path.charAt(0) !== '/';
 
   // resolve relative paths
   if (pathIsRelative) {
@@ -49,7 +20,7 @@ function getPath(path, resource, options) {
     }
   }
   // create unique absolute path
-  const normalizedPath = absolutePath(path);
+  const normalizedPath = toAbsolutePath(path);
 
   return normalizedPath;
 }
@@ -63,7 +34,7 @@ const deepEqual = (a, b) => {
 
     if (
       aa.paths.length !== bb.paths.length &&
-			aa.dependsOn.length !== bb.dependsOn.length
+      aa.dependsOn.length !== bb.dependsOn.length
     )
       return false;
     for (const dependsKey in aa.dependsOn) {
@@ -76,28 +47,45 @@ const deepEqual = (a, b) => {
   return true;
 };
 
-const getResourcesFromDOM = (selector, options, resources = []) => {
+const normalizeDefinition = (definition: ResourceDefinition, options) => {
+  const paths = definition.paths.map((path) => getPath(path, definition, options))
+}
+
+const getResourcesFromDOM = (selector: string, options: ResourceLoaderOptions, resources = []) => {
   // Array of HTML elements with a dataset "resources"
-  let domResources = null;
+  let domResources: HTMLElement[] = null;
   // if no selector is specified the scope is the whole document
   if (selector !== '') {
-    let container = null;
+    let container: HTMLElement = null;
     if (typeof selector !== 'object') {
       container = document.querySelector(selector);
     } else {
       container = selector;
     }
     domResources = [].slice.call(
-        container.querySelectorAll('[data-resources]')
+      container.querySelectorAll('[data-resources]')
     );
   } else {
     domResources = [].slice.call(document.querySelectorAll('[data-resources]'));
   }
   for (const newResource of domResources) {
-    const obj = {};
+    const obj: any = {};
     // evaluating data attribute string
-    obj.resources = eval(newResource.dataset.resources);
+    const definitions: ResourceDefinition[] = eval(newResource.dataset.resources);
+    obj.resources = definitions;
     // normalize path
+
+    definitions
+      .map((definition: ResourceDefinition) => ({ ...definition, id: random }))
+      .map((definition: ResourceDefinition) => ({
+        ...definition,
+        paths: definition.paths.map((path) => getPath(path, definition, options))
+      }))
+      .map((definition: ResourceDefinition) => ({
+        ...definition,
+        dependsOn: 
+       }))
+
     for (const key in obj.resources) {
       const resourceObj = obj.resources[key];
       resourceObj.id = random();
@@ -110,9 +98,9 @@ const getResourcesFromDOM = (selector, options, resources = []) => {
         for (const dependsOnKey in resourceObj.dependsOn) {
           const path = resourceObj.dependsOn[dependsOnKey];
           obj.resources[key].dependsOn[dependsOnKey] = getPath(
-              path,
-              resourceObj,
-              options
+            path,
+            resourceObj,
+            options
           );
         }
       }

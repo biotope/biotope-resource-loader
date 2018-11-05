@@ -1,5 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import typescript from 'rollup-plugin-typescript';
 
 export default [
   // browser-friendly UMD build
@@ -10,7 +11,7 @@ export default [
       file: 'dist/resourceLoader.min.js',
       format: 'umd'
     },
-    plugins: [resolve(), commonjs()],
+    plugins: [resolve(), commonjs(), typescript()],
     watch: {
       chokidar: {
         // if the chokidar option is given, rollup-watch will
