@@ -1,9 +1,9 @@
-import { isAbsolute } from "./helper/isAbsolute";
-import { isRootPath } from "./helper/isRootPath";
+import isAbsolute from "./helper/isAbsolute";
+import isRootPath from "./helper/isRootPath";
 
 const ensureTrailingSlash = (path: string) => path.replace(/\/?$/, '/');
 
-export const toAbsolutePath = (path: string = '') => {
+const toAbsolutePath = (path: string = '') => {
     if (isAbsolute(path)) {
         return path;
     }
@@ -12,3 +12,5 @@ export const toAbsolutePath = (path: string = '') => {
     }
     return ensureTrailingSlash(window.location.href) + path;
 };
+
+export default toAbsolutePath;

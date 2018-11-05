@@ -15,6 +15,7 @@ interface ResourceLoaderOptions {
 
 interface ResourceDefinition {
     id: string;
+    sourceId: string;
     paths: string[];
     dependsOn: string[];
     base: string;

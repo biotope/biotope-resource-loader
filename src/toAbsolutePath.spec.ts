@@ -1,4 +1,4 @@
-import { toAbsolutePath } from './toAbsolutePath';
+import toAbsolutePath from './toAbsolutePath';
 import { expect } from 'chai';
 
 describe('#toAbsolutePath', () => {
