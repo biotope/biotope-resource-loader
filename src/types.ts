@@ -1,19 +1,19 @@
-type BaseMap = { [id: string]: string };
+export type BaseMap = { [id: string]: string };
 
-interface Dependency {
+export interface Dependency {
     path: string;
     fetch: string;
     hasDependencies: boolean;
 }
 
-interface ResourceLoaderOptions {
+export interface ResourceLoaderOptions {
     container: string;
     readyEvent: string;
     resources: string[];
     baseMap: BaseMap;
 }
 
-interface ResourceDefinition {
+export interface ResourceDefinition {
     id: string;
     sourceId: string;
     paths: string[];
@@ -22,10 +22,10 @@ interface ResourceDefinition {
     test: () => boolean;
 }
 
-interface ComponentResource {
+export interface ComponentResource {
     sourceId: string;
 }
 
-interface ResourceQueue {
+export interface ResourceQueue {
     resources: ResourceDefinition[];
 }

@@ -1,6 +1,6 @@
 import produce from 'immer';
 import random from './randomId';
-import { toAbsolutePath } from './toAbsolutePath';
+import toAbsolutePath from './toAbsolutePath';
 import resolveBaseWith from './resolveBaseWith';
 
 function getPath(path, resource, options) {
@@ -80,8 +80,8 @@ const getResourcesFromDOM = (selector: string, options: ResourceLoaderOptions, r
       }))
       .map((definition: ResourceDefinition) => ({
         ...definition,
-        dependsOn: 
-       }))
+        dependsOn: []
+      }))
 
     for (const key in obj.resources) {
       const resourceObj = obj.resources[key];
