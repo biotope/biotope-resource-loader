@@ -17,9 +17,9 @@ export interface ResourceDefinition {
     id: string;
     sourceId: string;
     paths: string[];
-    dependsOn: string[];
-    base: string;
-    test: () => boolean;
+    dependsOn?: string[];
+    base?: string;
+    test?: () => boolean;
 }
 
 export interface ComponentResource {
@@ -27,5 +27,5 @@ export interface ComponentResource {
 }
 
 export interface ResourceQueue {
-    resources: ResourceDefinition[];
+    definitions: ResourceDefinition[];
 }

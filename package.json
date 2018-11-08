@@ -10,7 +10,8 @@
     "build": "rollup -c",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
-    "test": "mocha --opts test/mocha.opts"
+    "test": "mocha --opts test/mocha.opts",
+    "test:watch": "mocha --opts test/mocha.opts --watch --watch-extensions ts"
   },
   "dependencies": {
     "deep-equal": "^1.0.1",

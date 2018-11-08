@@ -8,7 +8,7 @@ const checkDependencies = (resources: ResourceQueue[]) => {
   // loop over resources object
   for (const resourceQueue of resources) {
     // take every resource object and loop over it's path's
-    for (const definition of resourceQueue.resources) {
+    for (const definition of resourceQueue.definitions) {
       // add path to allPaths
       for (const path of definition.paths) {
         allPaths.push(path);

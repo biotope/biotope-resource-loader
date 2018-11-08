@@ -1,6 +1,7 @@
 import produce from 'immer';
 import alreadyRegistered from './alreadyRegistered';
 import hasDependencies from './helper/hasDependencies';
+import { ResourceDefinition } from './types';
 
 const uniquePath = (requests, path: string, hasDependencies: boolean, sourceId, id) => {
   let req = requests;
@@ -34,7 +35,7 @@ const addToQueue = (componentResources: ResourceDefinition[], requests = [], cou
   // if first element has depndecies and dependencies are not in load order yet and the total length of the array is greater/equal to 2 + counter
   if (
     hasDependencies(definition) &&
-    alreadyRegistered(definition.dependsOn, req) === false &&
+    !alreadyRegistered(definition.dependsOn, req) &&
     arr.length >= 2 + counter
   ) {
     i++; // counter get up
