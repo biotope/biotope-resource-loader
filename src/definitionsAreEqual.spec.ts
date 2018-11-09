@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import createDefinition from './ResourceDefinitionBuilder';
+import createDefinition from './builders/ResourceDefinitionBuilder';
 import definitionsAreEqual from './definitionsAreEqual';
 
 describe('#definitionsAreEqual', () => {

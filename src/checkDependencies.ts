@@ -2,11 +2,11 @@ import hasDependencies from "./helper/hasDependencies";
 import { ResourceQueue } from "./types";
 
 // checks if all packages are resolveable if not it will show an error.
-const checkDependencies = (resources: ResourceQueue[]) => {
+const checkDependencies = (queues: ResourceQueue[]) => {
   const allPaths = [];
   const dependencies = [];
   // loop over resources object
-  for (const resourceQueue of resources) {
+  for (const resourceQueue of queues) {
     // take every resource object and loop over it's path's
     for (const definition of resourceQueue.definitions) {
       // add path to allPaths

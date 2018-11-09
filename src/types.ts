@@ -9,8 +9,8 @@ export interface Dependency {
 export interface ResourceLoaderOptions {
     container: string;
     readyEvent: string;
-    resources: string[];
-    baseMap: BaseMap;
+    resources?: string[];
+    baseMap?: BaseMap;
 }
 
 export interface ResourceDefinition {
@@ -27,5 +27,6 @@ export interface ComponentResource {
 }
 
 export interface ResourceQueue {
+    id: string;
     definitions: ResourceDefinition[];
 }

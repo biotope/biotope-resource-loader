@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import queuesAreEqual from './queuesAreEqual';
-import createQueue from './ResourceQueueBuilder';
-import createDefinition from './ResourceDefinitionBuilder';
+import createQueue from './builders/ResourceQueueBuilder';
+import createDefinition from './builders/ResourceDefinitionBuilder';
 
 describe('#areEqual', () => {
 

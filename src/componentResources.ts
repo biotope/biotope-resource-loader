@@ -1,14 +1,15 @@
 import produce from 'immer';
+import { ComponentResource, ResourceQueue, ResourceDefinition } from './types';
 
 // flattens the datastructure to packages, add resource id to resolve back
-function getComponentResources(resources) {
-  let flatten = [];
-  for (const resource of resources) {
-    for (const componentResource of resource.resources) {
-      const componentResourceClone = Object.assign({}, componentResource);
-      componentResourceClone.sourceId = resource.id;
+function getDefinitionsFromQueues(queues: ResourceQueue[]) {
+  let flatten: ResourceDefinition[] = [];
+  for (const queue of queues) {
+    for (const definition of queue.definitions) {
+      const definitionClone: ResourceDefinition = { ...definition };
+      definitionClone.sourceId = queue.id;
       flatten = produce(flatten, draftState => {
-        draftState.push(componentResourceClone);
+        draftState.push(definition);
       });
     }
   }
@@ -38,4 +39,4 @@ const updateComponentResources = (readyResources, pkg) => {
   return ready;
 };
 
-export { getComponentResources, updateComponentResources };
+export { getDefinitionsFromQueues, updateComponentResources };

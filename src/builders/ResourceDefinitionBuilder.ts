@@ -1,4 +1,4 @@
-import { ResourceDefinition } from './types';
+import { ResourceDefinition } from '../types';
 
 class ResourceDefinitionBuilder {
     ID: string = '';

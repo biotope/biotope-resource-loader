@@ -1,4 +1,4 @@
-import { ResourceQueue, ResourceDefinition } from './types';
+import { ResourceQueue, ResourceDefinition } from '../types';
 
 class ResourceQueueBuilder {
     DEFINITIONS: ResourceDefinition[] = [];

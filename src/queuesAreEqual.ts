@@ -1,5 +1,5 @@
 import { ResourceQueue, ResourceDefinition } from './types';
-import { getDefaultQueue } from './ResourceQueueBuilder';
+import { getDefaultQueue } from './builders/ResourceQueueBuilder';
 import definitionsAreEqual from './definitionsAreEqual';
 
 const queuesAreEqual = (queue1: ResourceQueue = getDefaultQueue(), queue2: ResourceQueue = getDefaultQueue()) => {
