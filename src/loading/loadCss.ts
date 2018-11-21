@@ -1,3 +1,5 @@
+import { Dependency } from "../types";
+
 const isCss = (dependency: Dependency): boolean => dependency.path.indexOf('.css') > -1;
 
 const loadCss = (dependency: Dependency): void => {

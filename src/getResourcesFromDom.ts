@@ -14,7 +14,7 @@ const getQueuesFromDOM = (container: ParentNode = document, options: ResourceLoa
     const definitions: ResourceDefinition[] = eval(newResource.dataset.resources);
     const queue: ResourceQueue = {
       id: makeRandomId(),
-      definitions: definitions.map(prepareDefinition);
+      definitions: definitions.map(prepareDefinition)
     };
 
     let isNew = true;

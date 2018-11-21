@@ -1,3 +1,4 @@
+import { FETCH_STATUS } from './constants';
 import { expect } from 'chai';
 import alreadyRegistered from './alreadyRegistered';
 
@@ -14,10 +15,14 @@ describe('#alreadyRegistered', () => {
             'my/path/resource.css',
             'my/path/resource.js'
         ], [{
-            path: 'my/path/resource.css'
+            path: 'my/path/resource.css',
+            fetch: '',
+            hasDependencies: false
         },
         {
-            path: 'my/path/resource.js'
+            path: 'my/path/resource.js',
+            fetch: '',
+            hasDependencies: false
         }]);
 
         expect(isRegistered).to.be.true;
@@ -28,7 +33,9 @@ describe('#alreadyRegistered', () => {
             'my/path/resource.css',
             'my/path/resource.js'
         ], [{
-            path: 'my/path/resource.css'
+            path: 'my/path/resource.css',
+            fetch: '',
+            hasDependencies: false
         }]);
 
         expect(isRegistered).to.be.false;
