@@ -17,6 +17,12 @@ describe('#toAbsolutePath', () => {
         expect(absolute).to.eq('http://www.origin.com/sub/path/');
     });
 
+    it('returns current href for empty string', () => {
+        const absolute = toAbsolutePath('');
+
+        expect(absolute).to.eq('http://www.origin.com/sub/path/');
+    });
+
     it('returns absolute url for absolute input', () => {
         const path = 'http://some.url/hello-world';
         const absolute = toAbsolutePath(path);

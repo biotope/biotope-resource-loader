@@ -1,3 +1,4 @@
+import { ResourceDefinition } from './types';
 /**
  * VI Resource Loader v1.3.0
  * For documentation see:
@@ -8,11 +9,11 @@ import produce from 'immer';
 import './polyfill';
 
 import getPackages from './getPackages';
-import getResourcesFromDOM from './getResourcesFromDom';
+import getQueuesFromDOM from './getResourcesFromDom';
 import checkDependencies from './checkDependencies';
 import addToQueue from './addToQueue';
 import {
-  getComponentResources,
+  getDefinitionsFromQueues,
   updateComponentResources
 } from './componentResources';
 import { ResourceLoaderOptions, ResourceQueue } from './types';
@@ -25,7 +26,13 @@ const defaults: ResourceLoaderOptions = {
 // global options
 let options: ResourceLoaderOptions = null;
 
-const queue: any = {};
+const queue: {
+  definitions: ResourceQueue[],
+  componentResources: ResourceDefinition[]
+} = {
+  definitions: [],
+  componentResources: []
+};
 
 
 const init = (customOptions: ResourceLoaderOptions) => {
@@ -35,7 +42,7 @@ const init = (customOptions: ResourceLoaderOptions) => {
   };
   // debug = options.debug ? options.debug : true;
 
-  queue.definitions = getResourcesFromDOM(document.querySelector(options.container), options);
+  queue.definitions = getQueuesFromDOM(document.querySelector(options.container), options);
   // 👷‍ add resources from options
   // ⚠️ that could be buggy, or at least it will not fire any events atm
   if (options.resources) {
@@ -44,7 +51,7 @@ const init = (customOptions: ResourceLoaderOptions) => {
 
   checkDependencies(queue.definitions);
 
-  queue.componentResources = getComponentResources(queue.definitions);
+  queue.componentResources = getDefinitionsFromQueues(queue.definitions);
   queue.requests = addToQueue(queue.componentResources);
   getPackages(queue.requests);
   // clone objects
@@ -117,11 +124,11 @@ const getStatus = () => queue;
 
 const update = container => {
   // ☕ Merging all
-  queue.definitions = getResourcesFromDOM(container, options, queue);
+  queue.definitions = getQueuesFromDOM(container, options, queue);
   // 🤞 check again
   checkDependencies(queue.definitions);
   // update component resources
-  queue.componentResources = getComponentResources(queue.definitions);
+  queue.componentResources = getDefinitionsFromQueues(queue.definitions);
   console.log(queue.requests);
   queue.requests = addToQueue(queue.componentResources, queue.requests);
   console.log(queue.requests);

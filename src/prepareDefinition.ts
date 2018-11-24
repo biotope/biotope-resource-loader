@@ -1,25 +1,12 @@
 import { ResourceDefinition } from './types';
-const prepareDefinition = (definition: ResourceDefinition): any => {
+import makeRandomId from './makeRandomId';
+import normalizePath from './normalizePath';
 
-}
+const prepareDefinition = (definition: ResourceDefinition): ResourceDefinition => ({
+    ...definition,
+    id: makeRandomId(),
+    paths: definition.paths.map(path => normalizePath(path, definition, options)),
+    dependsOn: definition.dependsOn.map(path => normalizePath(path, definition, options))
+});
 
 export default prepareDefinition;
-
-
-// for (const definition of queue.definitions) {
-//     definition.id = makeRandomId();
-//     for (const pathIndex in definition.paths) {
-//         const path = definition.paths[pathIndex];
-//         definition.paths[pathIndex] = normalizePath(path, definition, options);
-//     }
-//     if (definition.dependsOn) {
-//         for (const dependsOnKey in definition.dependsOn) {
-//             const path = definition.dependsOn[dependsOnKey];
-//             definition.dependsOn[dependsOnKey] = normalizePath(
-//                 path,
-//                 definition,
-//                 options
-//             );
-//         }
-//     }
-// }

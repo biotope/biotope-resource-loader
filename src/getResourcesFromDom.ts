@@ -21,12 +21,12 @@ const getQueuesFromDOM = (container: ParentNode = document, options: ResourceLoa
     // find duplicates 👭
     for (const resourceQueue of existentQueues) {
       if (queuesAreEqual(resourceQueue, queue)) {
-        // if not new set to false, add class and break => return undefined
         newResource.classList.add(`resourceLoader-${resourceQueue.id}`);
         isNew = false;
         break;
       }
     }
+
     if (isNew) {
       newResource.classList.add(`resourceLoader-${queue.id}`);
       existentQueues = produce(existentQueues, draftState => {

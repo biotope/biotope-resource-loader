@@ -1,4 +1,3 @@
-import { FETCH_STATUS } from './constants';
 import { expect } from 'chai';
 import alreadyRegistered from './alreadyRegistered';
 
