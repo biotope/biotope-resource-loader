@@ -1,4 +1,4 @@
-import { Dependency } from "./types";
+import { Dependency } from "./types/internal";
 
 // not really necessary but important for perf?
 // returns true if all dependencies of a path are already lined up

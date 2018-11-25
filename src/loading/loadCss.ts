@@ -1,4 +1,5 @@
-import { Dependency } from "../types";
+import { Dependency } from "../types/internal";
+import EVENTS from '../constants/Events';
 
 const isCss = (dependency: Dependency): boolean => dependency.path.indexOf('.css') > -1;
 
@@ -10,7 +11,7 @@ const loadCss = (dependency: Dependency): void => {
         document.body.append(style);
         style.addEventListener('load', () => {
             // console.log('💅 style ready', style);
-            const e = new CustomEvent('packageLoaded', { detail: dependency });
+            const e: CustomEvent<Dependency> = new CustomEvent(EVENTS.RESOURCE_LOADED, { detail: dependency });
             document.dispatchEvent(e);
         });
     });

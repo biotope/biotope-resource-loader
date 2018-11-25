@@ -1,6 +1,7 @@
-import { ResourceQueue, ResourceDefinition } from '../types';
+import { IdentifiableComponentQueue } from '../types/internal';
+import { ResourceDefinition } from '../types/external';
 
-class ResourceQueueBuilder {
+class IdentifiableComponentQueueBuilder {
     DEFINITIONS: ResourceDefinition[] = [];
     ID: string = '';
 
@@ -9,7 +10,7 @@ class ResourceQueueBuilder {
         return this;
     }
 
-    build = (): ResourceQueue => {
+    build = (): IdentifiableComponentQueue => {
         return {
             id: this.ID,
             definitions: this.DEFINITIONS
@@ -18,8 +19,8 @@ class ResourceQueueBuilder {
 }
 
 
-const createQueue = () => new ResourceQueueBuilder();
+const createIdentitfiableComponentQueue = () => new IdentifiableComponentQueueBuilder();
 
-export const getDefaultQueue = createQueue().build;
+export const getDefaultQueue = createIdentitfiableComponentQueue().build;
 
-export default createQueue;
+export default createIdentitfiableComponentQueue;

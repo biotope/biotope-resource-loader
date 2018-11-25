@@ -1,4 +1,4 @@
-import { ResourceDefinition } from "./types";
+import { ResourceDefinition } from "./types/external";
 import simpleArraysAreEqual from "./helper/simpleArraysAreEqual";
 
 const definitionsAreEqual = (definition1: ResourceDefinition, definition2: ResourceDefinition): boolean => {

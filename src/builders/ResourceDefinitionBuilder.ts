@@ -1,6 +1,6 @@
-import { ResourceDefinition } from '../types';
+import { IdentifiableResourceDefinition } from '../types/internal';
 
-class ResourceDefinitionBuilder {
+class IdentifiableResourceDefinitionBuilder {
     ID: string = '';
     PATHS: string[] = [];
     SOURCE_ID: string = '';
@@ -31,7 +31,7 @@ class ResourceDefinitionBuilder {
         return this;
     }
 
-    build = (): ResourceDefinition => {
+    build = (): IdentifiableResourceDefinition => {
         return {
             base: this.BASE,
             id: this.ID,
@@ -44,8 +44,8 @@ class ResourceDefinitionBuilder {
 }
 
 
-const createDefinition = () => new ResourceDefinitionBuilder();
+const createIdentifiableResourceDefinition = () => new IdentifiableResourceDefinitionBuilder();
 
-export const getDefaultDefinition = createDefinition().build;
+export const getDefaultDefinition = createIdentifiableResourceDefinition().build;
 
-export default createDefinition;
+export default createIdentifiableResourceDefinition;

@@ -1,5 +1,5 @@
-import { FETCH_STATUS } from './constants';
-import { Dependency } from './types';
+import { FETCH_STATUS } from './constants/FetchStatus';
+import { Dependency } from './types/external';
 import loadJs from './loading/loadJs';
 import loadCss, { isCss } from './loading/loadCss';
 

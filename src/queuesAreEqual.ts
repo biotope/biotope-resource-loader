@@ -1,8 +1,9 @@
-import { ResourceQueue, ResourceDefinition } from './types';
+import { IdentifiableComponentQueue } from './types/internal';
+import { ResourceDefinition } from './types/external';
 import { getDefaultQueue } from './builders/ResourceQueueBuilder';
 import definitionsAreEqual from './definitionsAreEqual';
 
-const queuesAreEqual = (queue1: ResourceQueue = getDefaultQueue(), queue2: ResourceQueue = getDefaultQueue()) => {
+const queuesAreEqual = (queue1: IdentifiableComponentQueue = getDefaultQueue(), queue2: IdentifiableComponentQueue = getDefaultQueue()) => {
     const definitions1 = queue1.definitions;
     const definitions2 = queue2.definitions;
     return definitions1.length == definitions2.length

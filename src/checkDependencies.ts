@@ -1,23 +1,17 @@
 import hasDependencies from "./helper/hasDependencies";
-import { ResourceQueue } from "./types";
+import { IdentifiableComponentQueue } from './types/internal';
 
 // checks if all packages are resolveable if not it will show an error.
-const checkDependencies = (queues: ResourceQueue[]) => {
-  const allPaths = [];
-  const dependencies = [];
-  // loop over resources object
-  for (const resourceQueue of queues) {
-    // take every resource object and loop over it's path's
-    for (const definition of resourceQueue.definitions) {
-      // add path to allPaths
-      for (const path of definition.paths) {
-        allPaths.push(path);
-      }
+const checkDependencies = (identitfiableResourceQueues: IdentifiableComponentQueue[]) => {
+  const allPaths: string[] = [];
+  const dependencies: string[] = [];
+
+  for (const identitfiableResourceQueue of identitfiableResourceQueues) {
+    for (const resourceDefinition of identitfiableResourceQueue.definitions) {
+      allPaths.concat(resourceDefinition.paths);
       // if has a dependency add it
-      if (hasDependencies(definition)) {
-        for (const dependency of definition.dependsOn) {
-          dependencies.push(dependency);
-        }
+      if (hasDependencies(resourceDefinition)) {
+        dependencies.concat(resourceDefinition.dependsOn);
       }
     }
   }

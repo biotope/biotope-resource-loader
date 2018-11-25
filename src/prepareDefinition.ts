@@ -1,12 +1,14 @@
-import { ResourceDefinition } from './types';
+import { ResourceDefinition } from './types/external';
 import makeRandomId from './makeRandomId';
-import normalizePath from './normalizePath';
+import normalizePath from './pathManagement/normalizePath';
+import { IdentifiableResourceDefinition } from './types/internal';
 
-const prepareDefinition = (definition: ResourceDefinition): ResourceDefinition => ({
+const prepareDefinition = (definition: ResourceDefinition): IdentifiableResourceDefinition => ({
     ...definition,
     id: makeRandomId(),
     paths: definition.paths.map(path => normalizePath(path, definition, options)),
-    dependsOn: definition.dependsOn.map(path => normalizePath(path, definition, options))
+    dependsOn: definition.dependsOn.map(path => normalizePath(path, definition, options)),
+    sourceId: ''
 });
 
 export default prepareDefinition;

@@ -5,7 +5,7 @@ import typescript from 'rollup-plugin-typescript2';
 export default [
   // browser-friendly UMD build
   {
-    input: 'src/resourceLoader.ts',
+    input: 'src/index.ts',
     output: {
       name: 'resourceLoader',
       file: 'dist/resourceLoader.min.js',

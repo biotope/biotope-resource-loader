@@ -1,8 +1,8 @@
-import isAbsolute from "./helper/isAbsolute";
-import isRootPath from "./helper/isRootPath";
+import isAbsolute from "./isAbsolute";
+import isRootPath from "./isRootPath";
 import { defaultTo, cond, concat, identity, T, pipe } from 'ramda';
-import ensureTrailingSlash from './helper/ensureTrailingSlash';
-import ensureNoLeadingSlash from './helper/ensureNoLeadingSlash';
+import ensureTrailingSlash from './ensureTrailingSlash';
+import ensureNoLeadingSlash from './ensureNoLeadingSlash';
 
 interface ReducedLocation {
     href: string;

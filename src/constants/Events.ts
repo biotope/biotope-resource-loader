@@ -1,0 +1,6 @@
+const EVENTS = {
+    RESOURCE_LOADED: 'RESOURCE_LOADED',
+    COMPONENT_READY: 'COMPONENT_READY'
+}
+
+export default EVENTS;

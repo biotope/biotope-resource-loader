@@ -1,6 +1,6 @@
-import { BaseMap } from './types';
+import { BaseMap } from '../types/external';
 import normalizePath from './normalizePath';
-import createDefinition from './builders/ResourceDefinitionBuilder';
+import createIdentifiableResourceDefinition from '../builders/ResourceDefinitionBuilder';
 
 describe('#normalizePath', () => {
 
@@ -25,7 +25,7 @@ describe('#normalizePath', () => {
         it('returns same path for relative path with empty baseMap', () => {
             const relativePath = 'hello/world.js';
             const baseMap: BaseMap = {};
-            const resourceDefinition = createDefinition().withBase('##content').build();
+            const resourceDefinition = createIdentifiableResourceDefinition().withBase('##content').build();
             const normalized = normalizePath(relativePath, resourceDefinition, {
                 container: '',
                 readyEvent: '',
@@ -39,7 +39,7 @@ describe('#normalizePath', () => {
             const baseMap: BaseMap = {
                 '##content': 'http://content/url'
             };
-            const resourceDefinition = createDefinition().withBase('##content').build();
+            const resourceDefinition = createIdentifiableResourceDefinition().withBase('##content').build();
             const normalized = normalizePath(relativePath, resourceDefinition, {
                 container: '',
                 readyEvent: '',

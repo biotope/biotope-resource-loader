@@ -14,12 +14,12 @@ describe('#alreadyRegistered', () => {
             'my/path/resource.js'
         ], [{
             path: 'my/path/resource.css',
-            fetch: '',
+            fetchStatus: '',
             hasDependencies: false
         },
         {
             path: 'my/path/resource.js',
-            fetch: '',
+            fetchStatus: '',
             hasDependencies: false
         }]);
 
@@ -32,7 +32,7 @@ describe('#alreadyRegistered', () => {
             'my/path/resource.js'
         ], [{
             path: 'my/path/resource.css',
-            fetch: '',
+            fetchStatus: '',
             hasDependencies: false
         }]);
 
