@@ -1,6 +1,6 @@
 import { ResourceDefinition, ResourceLoaderOptions } from './types';
 import resolveBaseWith from './resolveBaseWith';
-import toAbsolutePath from './toAbsolutePath';
+import createEnsureAbsolutePath from './toAbsolutePath';
 import { isRelative } from './helper/isRelative';
 import ensureTrailingSlash from './helper/ensureTrailingSlash';
 
@@ -8,7 +8,8 @@ const normalizePath = (path: string = '', resource: ResourceDefinition, options:
     if (resource && options && isRelative(path)) {
         if (resource.base) {
             const resolveBase = resolveBaseWith(options.baseMap);
-            return toAbsolutePath(ensureTrailingSlash(resolveBase(resource.base)) + path);
+            const ensureAbsolutePath = createEnsureAbsolutePath(window.location)
+            return ensureAbsolutePath(ensureTrailingSlash(resolveBase(resource.base)) + path);
         }
     }
     return path;

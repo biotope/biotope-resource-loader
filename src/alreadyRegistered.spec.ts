@@ -1,15 +1,14 @@
-import { expect } from 'chai';
 import alreadyRegistered from './alreadyRegistered';
 
 describe('#alreadyRegistered', () => {
 
-    it('returns true for undefined parameters', () => {
+    test('returns true for undefined parameters', () => {
         const isRegistered = alreadyRegistered(undefined, undefined);
 
-        expect(isRegistered).to.be.true;
+        expect(isRegistered).toBe(true);
     });
 
-    it('returns true if all dependencies are already registered', () => {
+    test('returns true if all dependencies are already registered', () => {
         const isRegistered = alreadyRegistered([
             'my/path/resource.css',
             'my/path/resource.js'
@@ -24,10 +23,10 @@ describe('#alreadyRegistered', () => {
             hasDependencies: false
         }]);
 
-        expect(isRegistered).to.be.true;
+        expect(isRegistered).toBe(true);
     });
 
-    it('returns false if only one dependencies is not registered', () => {
+    test('returns false if only one dependencies is not registered', () => {
         const isRegistered = alreadyRegistered([
             'my/path/resource.css',
             'my/path/resource.js'
@@ -37,15 +36,15 @@ describe('#alreadyRegistered', () => {
             hasDependencies: false
         }]);
 
-        expect(isRegistered).to.be.false;
+        expect(isRegistered).toBe(false);
     });
 
-    it('returns false if only no dependency is registered', () => {
+    test('returns false if only no dependency is registered', () => {
         const isRegistered = alreadyRegistered([
             'my/path/resource.css',
             'my/path/resource.js'
         ], []);
 
-        expect(isRegistered).to.be.false;
+        expect(isRegistered).toBe(false);
     });
 })

@@ -1,5 +1,4 @@
 import { BaseMap } from './types';
-import { expect } from 'chai';
 import normalizePath from './normalizePath';
 import createDefinition from './builders/ResourceDefinitionBuilder';
 
@@ -7,19 +6,19 @@ describe('#normalizePath', () => {
 
     it('returns empty string for undefined', () => {
         const normalized = normalizePath(undefined, undefined, undefined);
-        expect(normalized).to.be.empty;
+        expect(normalized).toBe('');
     });
 
     it('returns same path for absolute path', () => {
         const absolutePath = '/hello/world.js'
         const normalized = normalizePath(absolutePath, undefined, undefined);
-        expect(normalized).to.eq('/hello/world.js');
+        expect(normalized).toBe('/hello/world.js');
     });
 
     it('returns same path for relative path without resource base set', () => {
         const relativePath = 'hello/world.js';
         const normalized = normalizePath(relativePath, undefined, undefined);
-        expect(normalized).to.eq('hello/world.js');
+        expect(normalized).toBe('hello/world.js');
     });
 
     describe('with resource base', () => {
@@ -32,7 +31,7 @@ describe('#normalizePath', () => {
                 readyEvent: '',
                 baseMap
             });
-            expect(normalized).to.eq('hello/world.js');
+            expect(normalized).toBe('http://localhost/hello/world.js');
         });
 
         it('returns resolved url with absolute url from baseMap', () => {
@@ -46,7 +45,7 @@ describe('#normalizePath', () => {
                 readyEvent: '',
                 baseMap
             });
-            expect(normalized).to.eq('http://content/url/hello/world.js');
+            expect(normalized).toBe('http://content/url/hello/world.js');
         });
     })
 })

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import prepareDefinition from './prepareDefinition';
 import createDefinition from './builders/ResourceDefinitionBuilder';
 

@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
-    "test": "mocha --opts test/mocha.opts",
+    "test": "jest",
     "test:watch": "mocha --opts test/mocha.opts --watch --watch-extensions ts"
   },
   "dependencies": {
@@ -24,25 +24,19 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.5",
+    "@types/jest": "^23.3.9",
     "@types/ramda": "^0.25.41",
-    "@types/sinon-chai": "^3.2.0",
-    "chai": "^4.2.0",
     "chokidar": "^2.0.3",
     "eslint": "^4.19.1",
     "jest": "^23.6.0",
     "jsdom": "^13.0.0",
-    "mocha": "^5.2.0",
     "prettier": "^1.12.1",
     "rollup": "^0.58.2",
     "rollup-plugin-commonjs": "^9.1.2",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-typescript2": "^0.17.2",
     "rollup-watch": "^4.3.1",
-    "sinon": "^7.1.1",
-    "sinon-chai": "^3.2.0",
-    "ts-node": "^7.0.1",
+    "ts-jest": "^23.10.5",
     "tslib": "^1.9.3",
     "typescript": "^3.1.3"
   }

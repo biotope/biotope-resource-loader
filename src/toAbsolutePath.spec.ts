@@ -1,61 +1,66 @@
-import toAbsolutePath from './toAbsolutePath';
-import { expect } from 'chai';
+import createEnsureAbsolutePath from './toAbsolutePath';
 
 describe('#toAbsolutePath', () => {
+    let ensureAbsolutePath;
     beforeEach(() => {
-        global['window'] = {
-            location: {
-                origin: 'http://www.origin.com',
-                href: 'http://www.origin.com/sub/path/'
-            }
-        };
+        ensureAbsolutePath = createEnsureAbsolutePath({
+            href: 'http://www.origin.com/sub/path/',
+            origin: 'http://www.origin.com/'
+        });
     })
 
-    it('returns current href for undefined', () => {
-        const absolute = toAbsolutePath(undefined);
+    test('returns current href for undefined', () => {
+        const absolute = ensureAbsolutePath(undefined);
 
-        expect(absolute).to.eq('http://www.origin.com/sub/path/');
+        expect(absolute).toBe('http://www.origin.com/sub/path/');
     });
 
-    it('returns current href for empty string', () => {
-        const absolute = toAbsolutePath('');
+    test('returns current href for empty string', () => {
+        const absolute = ensureAbsolutePath('');
 
-        expect(absolute).to.eq('http://www.origin.com/sub/path/');
+        expect(absolute).toBe('http://www.origin.com/sub/path/');
     });
 
-    it('returns absolute url for absolute input', () => {
+    test('returns absolute url for absolute input', () => {
         const path = 'http://some.url/hello-world';
-        const absolute = toAbsolutePath(path);
+        const absolute = ensureAbsolutePath(path);
 
-        expect(absolute).to.eq('http://some.url/hello-world');
+        expect(absolute).toBe('http://some.url/hello-world');
     });
 
-    it('adds origin to relative url starting at root', () => {
-        const path = '/someurl/hello-world';
-        const absolute = toAbsolutePath(path);
+    test('adds origin to absolute url without http://', () => {
+        const path = '/someurl/hello-world.js';
+        const absolute = ensureAbsolutePath(path);
 
-        expect(absolute).to.eq('http://www.origin.com/someurl/hello-world');
+        expect(absolute).toBe('http://www.origin.com/someurl/hello-world.js');
     });
 
-    it('adds origin to relative url starting at root', () => {
-        const path = '/someurl/hello-world';
-        const absolute = toAbsolutePath(path);
-
-        expect(absolute).to.eq('http://www.origin.com/someurl/hello-world');
-    });
-
-    it('adds href ending with / to relative url', () => {
+    test('adds href ending with / to relative url', () => {
         const path = 'someurl/hello-world.js';
-        const absolute = toAbsolutePath(path);
+        const absolute = ensureAbsolutePath(path);
 
-        expect(absolute).to.eq('http://www.origin.com/sub/path/someurl/hello-world.js');
+        expect(absolute).toBe('http://www.origin.com/sub/path/someurl/hello-world.js');
     });
 
-    it('adds / if missing in href to relative url', () => {
-        global['window'].location.href = 'http://www.origin.com/sub/path';
+    test('adds / if missing in href to relative url', () => {
+        ensureAbsolutePath = createEnsureAbsolutePath({
+            href: 'http://www.origin.com/sub/path',
+            origin: ''
+        });
         const path = 'someurl/hello-world.js';
-        const absolute = toAbsolutePath(path);
+        const absolute = ensureAbsolutePath(path);
 
-        expect(absolute).to.eq('http://www.origin.com/sub/path/someurl/hello-world.js');
+        expect(absolute).toBe('http://www.origin.com/sub/path/someurl/hello-world.js');
+    });
+
+    test('adds / if missing in origin to root url', () => {
+        ensureAbsolutePath = createEnsureAbsolutePath({
+            href: '',
+            origin: 'http://www.origin.com'
+        });
+        const path = '/someurl/hello-world.js';
+        const absolute = ensureAbsolutePath(path);
+
+        expect(absolute).toBe('http://www.origin.com/someurl/hello-world.js');
     });
 })

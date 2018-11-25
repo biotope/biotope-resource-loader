@@ -1,3 +1,6 @@
-const ensureTrailingSlash = (text: string = '') => text.slice(-1) === '/' ? text : `${text}/`;
+import { replace } from 'ramda';
+import { getTrailingSlashesRegex } from '../Regex';
+
+const ensureTrailingSlash = replace(getTrailingSlashesRegex(), '/');
 
 export default ensureTrailingSlash;
