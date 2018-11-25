@@ -1,6 +1,6 @@
 import { BaseMap } from '../types/external';
 import normalizePath from './normalizePath';
-import createIdentifiableResourceDefinition from '../builders/ResourceDefinitionBuilder';
+import createIdentifiableResourceDefinition from '../builders/IdentifiableResourceDefinitionBuilder';
 
 describe('#normalizePath', () => {
 

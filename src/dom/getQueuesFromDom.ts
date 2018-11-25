@@ -9,7 +9,7 @@ const getQueuesFromDOM = (container: ParentNode = document): IdentifiableCompone
 
   return domResources.map((dr) => ({
     id: makeRandomId(),
-    definitions: getComponentQueueFromElement(dr).map(prepareDefinition)
+    definitions: getComponentQueueFromElement(dr)
   }));
 };
 

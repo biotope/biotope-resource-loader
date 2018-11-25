@@ -1,6 +1,6 @@
 import { IdentifiableComponentQueue } from './types/internal';
 import { ResourceDefinition } from './types/external';
-import { getDefaultQueue } from './builders/ResourceQueueBuilder';
+import { getDefaultQueue } from './builders/IdentifiableComponentQueueBuilder';
 import definitionsAreEqual from './definitionsAreEqual';
 
 const queuesAreEqual = (queue1: IdentifiableComponentQueue = getDefaultQueue(), queue2: IdentifiableComponentQueue = getDefaultQueue()) => {

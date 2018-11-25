@@ -7,8 +7,10 @@ export interface IdentifiableComponentQueue {
     definitions: ComponentQueue;
 }
 
-export interface Dependency {
+export interface Resource {
     path: string;
+    sourceIds: string[];
+    componentIds: string[];
     fetchStatus: string;
     hasDependencies: boolean;
 }

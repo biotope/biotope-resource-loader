@@ -1,11 +1,11 @@
+import { IdentifiableResourceDefinition } from '../types/internal';
 import { IdentifiableComponentQueue } from '../types/internal';
-import { ResourceDefinition } from '../types/external';
 
 class IdentifiableComponentQueueBuilder {
-    DEFINITIONS: ResourceDefinition[] = [];
+    DEFINITIONS: IdentifiableResourceDefinition[] = [];
     ID: string = '';
 
-    addDefinition = (definition: ResourceDefinition) => {
+    addDefinition = (definition: IdentifiableResourceDefinition) => {
         this.DEFINITIONS.push(definition);
         return this;
     }

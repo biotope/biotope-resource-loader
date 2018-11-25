@@ -1,6 +1,6 @@
 import queuesAreEqual from './queuesAreEqual';
-import createIdentitfiableComponentQueue from './builders/ResourceQueueBuilder';
-import createIdentifiableResourceDefinition from './builders/ResourceDefinitionBuilder';
+import createIdentitfiableComponentQueue from './builders/IdentifiableComponentQueueBuilder';
+import createIdentifiableResourceDefinition from './builders/IdentifiableResourceDefinitionBuilder';
 
 describe('#areEqual', () => {
 

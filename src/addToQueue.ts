@@ -1,69 +1,78 @@
+import { FETCH_STATUS } from './constants/FetchStatus';
 import produce from 'immer';
 import alreadyRegistered from './alreadyRegistered';
 import hasDependencies from './helper/hasDependencies';
-import { IdentifiableResourceDefinition } from './types/internal';
+import { IdentifiableResourceDefinition, Resource } from './types/internal';
+import { tail } from 'ramda';
 
-const uniquePath = (requests, path: string, hasDependencies: boolean, sourceId, id) => {
-  let req = requests;
-  const result = req.findIndex(req => req.path === path);
-  if (result === -1) {
-    req = produce(req, draftState => {
-      draftState.push({
-        path,
-        hasDependencies,
-        sourceIds: [sourceId],
-        packageIds: [id],
-        fetch: 'pending'
+const ensureUniquePaths = (resources: Resource[], definition: IdentifiableResourceDefinition): Resource[] => {
+  let currentQueue = [...resources];
+  for (const path of definition.paths) {
+    const index = currentQueue.findIndex(req => req.path === path);
+    if (index === -1) {
+      currentQueue = [
+        ...currentQueue,
+        {
+          path,
+          hasDependencies: hasDependencies(definition),
+          sourceIds: [definition.sourceId],
+          componentIds: [definition.id],
+          fetchStatus: FETCH_STATUS.PENDING
+        }
+      ];
+    } else {
+      currentQueue = produce(currentQueue, draftState => {
+        draftState[index].sourceIds.push(definition.sourceId);
+        draftState[index].componentIds.push(definition.id);
       });
-    });
-  } else {
-    req = produce(req, draftState => {
-      draftState[result].sourceIds.push(sourceId);
-      draftState[result].packageIds.push(id);
-    });
-  }
-  return req;
-};
-
-const addToQueue = (componentResources: IdentifiableResourceDefinition[], requests = [], counter = 0) => {
-  // recursive function to get load order
-  let req = requests;
-  const definition: IdentifiableResourceDefinition = componentResources[0];
-  let arr = componentResources;
-  // counter counts up every unsuccessful reordering and resets itself on success. Therefor not resolvable packages get loaded last
-  let i = counter;
-  // if first element has depndecies and dependencies are not in load order yet and the total length of the array is greater/equal to 2 + counter
-  if (
-    hasDependencies(definition) &&
-    !alreadyRegistered(definition.dependsOn, req) &&
-    arr.length >= 2 + counter
-  ) {
-    i++; // counter get up
-    const current = arr[0];
-    const next = arr[i];
-    arr = produce(arr, draftState => {
-      draftState[0] = next;
-      draftState[i] = current;
-    });
-  } else {
-    // first item get's removed
-    arr = produce(arr, draftState => {
-      draftState.splice(0, 1);
-    });
-    // reset counter
-    i = 0;
-
-    // push all paths
-    for (const p of definition.paths) {
-      req = uniquePath(req, p, hasDependencies(definition), definition.sourceId, definition.id);
     }
   }
+
+  return currentQueue;
+};
+
+const swap = (arr: any[], i, j) => {
+  const temp = [...arr];
+  temp[i] = arr[j];
+  temp[j] = arr[i];
+
+  return temp;
+}
+
+const addToQueue = (resourceDefinitions: IdentifiableResourceDefinition[] = [], queuedResources: Resource[] = [], counter: number = 0): Resource[] => {
+
+  if (!resourceDefinitions.length) {
+    return queuedResources;
+  }
+
+  let currentQueue = queuedResources;
+  const currentDefinition: IdentifiableResourceDefinition = resourceDefinitions[0];
+  let tempResourceDefinitions;
+  let i = counter;
+
+  if (
+    hasDependencies(currentDefinition) &&
+    !alreadyRegistered(currentDefinition.dependsOn, queuedResources) &&
+    resourceDefinitions.length >= 2 + counter
+  ) {
+    i++; // counter get up
+    // ⚠️ TODO: This creates unnessecary loops!!!!!!
+    tempResourceDefinitions = swap(resourceDefinitions, 0, i);
+  } else {
+    tempResourceDefinitions = tail(resourceDefinitions);
+    i = 0;
+
+    currentQueue = ensureUniquePaths(currentQueue, currentDefinition);
+  }
+
+
+
   // if array not empty go for it again 🏃‍
-  if (arr.length !== 0) {
-    return addToQueue(arr, req, i);
+  if (tempResourceDefinitions.length !== 0) {
+    return addToQueue(tempResourceDefinitions, currentQueue, i);
   } else {
     // return ordered requests.
-    return req;
+    return currentQueue;
   }
 };
 

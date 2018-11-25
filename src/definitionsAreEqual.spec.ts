@@ -1,4 +1,4 @@
-import createIdentifiableResourceDefinition from './builders/ResourceDefinitionBuilder';
+import createIdentifiableResourceDefinition from './builders/IdentifiableResourceDefinitionBuilder';
 import definitionsAreEqual from './definitionsAreEqual';
 
 describe('#definitionsAreEqual', () => {

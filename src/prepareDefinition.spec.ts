@@ -1,5 +1,5 @@
 import prepareDefinition from './prepareDefinition';
-import createIdentifiableResourceDefinition from './builders/ResourceDefinitionBuilder';
+import createIdentifiableResourceDefinition from './builders/IdentifiableResourceDefinitionBuilder';
 
 describe.skip('#prepareDefinition', () => {
 

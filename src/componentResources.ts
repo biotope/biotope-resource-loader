@@ -35,7 +35,7 @@ const updateComponentResources = (readyResources: IdentifiableComponentQueue[], 
         if (resolvedDefinition.id === definitions[pkgKey].id) {
           // remove the definition from this queue
           ready = produce(ready, draftState => {
-            draftState[readyComponentPkg].definitions.splice(pkgKey, 1);
+            draftState[readyComponentPkg].definitions.splice(parseInt(pkgKey, 10), 1);
           });
 
           // fire ready event if all the definitions have been resolved
