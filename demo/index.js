@@ -33,12 +33,7 @@ const resourceLoader = new ResourceLoader({
     container: '.wrapper',
     baseMap: {
         '##content': '/demo/resources-content/'
-    },
-    handler: [
-        cssHandler,
-        jsHandler,
-        htmlHandler
-    ]
+    }
 });
 
 

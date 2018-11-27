@@ -13,8 +13,8 @@ export interface ComponentDefinition {
 }
 
 export interface ResourceLoaderOptions {
-    container: string;
-    readyEvent: string;
+    container?: string;
+    readyEvent?: string;
     base?: string;
     resources?: string[];
     baseMap?: BaseMap;

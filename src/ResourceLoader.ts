@@ -5,13 +5,14 @@ import { Resource } from './types';
 
 import EVENTS from './Events';
 
+import { isEmpty, remove, difference, cond } from 'ramda';
+
 import getResourcesFromContainer from './dom/getResourcesFromContainer';
 import loadResources from './loadResources';
-import { isEmpty, remove, difference, cond } from 'ramda';
 import checkIfResolvable from './resources/checkIfResolvable';
 import getReadyResources from './resources/getReadyResources';
-import onJsLoaded, { isJs } from './handlers/onJsLoaded';
-import onCssLoaded, { isCss } from './handlers/onCssLoaded';
+import cssHandler from './handlers/cssHandler';
+import jsHandler from './handlers/jsHandler';
 
 
 
@@ -20,9 +21,20 @@ class ResourceLoader {
     waitingResources: Resource[];
     pendingResources: Resource[] = [];
     loadedResources: Resource[] = [];
+    defaultOptions: ResourceLoaderOptions = {
+        container: 'body',
+        readyEvent: 'resourcesReady',
+        handler: [
+            cssHandler,
+            jsHandler
+        ]
+    }
 
-    constructor(options: ResourceLoaderOptions = { container: '', readyEvent: 'resourcesReady' }) {
-        this.options = options;
+    constructor(options: ResourceLoaderOptions) {
+        this.options = {
+            ...this.defaultOptions,
+            ...options
+        };
 
         this.init(this.options);
     }
@@ -31,7 +43,7 @@ class ResourceLoader {
         this.bindEvents();
 
         this.waitingResources = getResourcesFromContainer(options, document.querySelector(options.container));
-        this.logStatus();
+
         checkIfResolvable(this.waitingResources);
 
         this.pendingResources = getReadyResources(this.waitingResources, this.loadedResources);
@@ -39,15 +51,8 @@ class ResourceLoader {
 
         this.waitingResources = difference(this.waitingResources, this.pendingResources);
 
-        this.logStatus();
         loadResources(this.pendingResources);
 
-    }
-
-    private logStatus() {
-        console.log('Waiting ', [...this.waitingResources]);
-        console.log('Pending ', [...this.pendingResources]);
-        console.log('Loaded ', [...this.loadedResources]);
     }
 
     public getStatus() {
@@ -79,9 +84,6 @@ class ResourceLoader {
         ]
         this.waitingResources = difference(this.waitingResources, this.pendingResources);
 
-
-        this.logStatus();
-        console.log('Loading', readyForLoad);
         loadResources(readyForLoad);
 
         if (isEmpty(this.waitingResources) && isEmpty(this.pendingResources)) {

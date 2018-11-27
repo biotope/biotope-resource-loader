@@ -1,3 +1,4 @@
+import { Handler } from '../types';
 import { Resource } from "../types";
 
 const isJs = (resource: Resource): boolean => resource.path.indexOf('.js') > -1;
@@ -7,11 +8,11 @@ const onJsLoaded = (resource: Resource): void => {
     script.src = resource.path;
     script.async = true;
     document.body.append(script);
-    console.log('📖 script ready', script);
 }
 
-export {
-    isJs
+const jsHandler: Handler = {
+    match: isJs,
+    handle: onJsLoaded
 }
 
-export default onJsLoaded;
+export default jsHandler;
