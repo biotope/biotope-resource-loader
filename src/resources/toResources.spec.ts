@@ -1,6 +1,6 @@
 import toResources from './toResource';
-import createComponentDefinition from '../builders/ComponentDefinitionBuilder';
 import { ResourceLoaderOptions } from '../types';
+import createHtmlComponentDefinition from '../builders/HTMLComponentDefinitionBuilder';
 
 describe('#toResources', () => {
     const options: ResourceLoaderOptions = {
@@ -15,14 +15,14 @@ describe('#toResources', () => {
     });
 
     test('returns empty array for empty paths', () => {
-        const definition = createComponentDefinition().build();
+        const definition = createHtmlComponentDefinition().build();
         const resources = toResources(options, definition);
 
         expect(resources).toHaveLength(0);
     });
 
     test('returns resource for each path in the definition', () => {
-        const definition = createComponentDefinition()
+        const definition = createHtmlComponentDefinition()
             .addPath('path1')
             .addPath('path2')
             .addPath('path3')
@@ -33,7 +33,7 @@ describe('#toResources', () => {
     });
 
     test('sets the path of resource correctly', () => {
-        const definition = createComponentDefinition()
+        const definition = createHtmlComponentDefinition()
             .addPath('path1')
             .build();
         const resources = toResources(options, definition);
@@ -42,7 +42,7 @@ describe('#toResources', () => {
     });
 
     test('returns resource for each dependency', () => {
-        const definition = createComponentDefinition()
+        const definition = createHtmlComponentDefinition()
             .addDependency('path1')
             .addDependency('path2')
             .addDependency('path3')
@@ -53,7 +53,7 @@ describe('#toResources', () => {
     });
 
     test('sets path of dependency correctly', () => {
-        const definition = createComponentDefinition()
+        const definition = createHtmlComponentDefinition()
             .addDependency('path1')
             .build();
         const resources = toResources(options, definition);
@@ -62,13 +62,24 @@ describe('#toResources', () => {
     });
 
     test('sets dependency for path correctly', () => {
-        const definition = createComponentDefinition()
+        const definition = createHtmlComponentDefinition()
             .addPath('path1')
             .addDependency('dependency1')
             .build();
         const resources = toResources(options, definition);
 
         expect(resources[0].dependencyPaths).toContain('dependency1');
+    });
+
+    test('sets element for path correctly', () => {
+        const element = document.createElement('h1');
+        const definition = createHtmlComponentDefinition()
+            .addPath('path1')
+            .withElement(element)
+            .build();
+        const resources = toResources(options, definition);
+
+        expect(resources[0].elements).toContain(element);
     });
 });
 

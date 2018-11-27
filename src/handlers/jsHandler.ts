@@ -1,11 +1,11 @@
+import { HandleOptions } from './../types';
 import { Handler } from '../types';
-import { Resource } from "../types";
 
-const isJs = (resource: Resource): boolean => resource.path.indexOf('.js') > -1;
+const isJs = (options: HandleOptions): boolean => options.resource.path.indexOf('.js') > -1;
 
-const onJsLoaded = (resource: Resource): void => {
+const onJsLoaded = (options: HandleOptions): void => {
     const script: HTMLScriptElement = document.createElement('script');
-    script.src = resource.path;
+    script.src = options.resource.path;
     script.async = true;
     document.body.append(script);
 }

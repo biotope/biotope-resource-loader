@@ -1,8 +1,13 @@
 export type BaseMap = { [id: string]: string };
 
+export interface HandleOptions {
+    resource: Resource;
+    response: Response;
+}
+
 export interface Handler {
-    match: (resource: Resource) => boolean;
-    handle: (resource: Resource) => void;
+    match: (options: HandleOptions) => boolean;
+    handle: (options: HandleOptions) => void;
 }
 
 export interface ComponentDefinition {
@@ -10,6 +15,10 @@ export interface ComponentDefinition {
     dependsOn?: string[];
     base?: string;
     test?: () => boolean;
+}
+
+export interface HTMLComponentDefinition extends ComponentDefinition {
+    element: HTMLElement;
 }
 
 export interface ResourceLoaderOptions {
@@ -24,4 +33,5 @@ export interface ResourceLoaderOptions {
 export interface Resource {
     path: string;
     dependencyPaths: string[];
+    elements: HTMLElement[];
 }

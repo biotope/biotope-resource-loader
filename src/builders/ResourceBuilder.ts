@@ -1,8 +1,9 @@
 import { Resource } from '../types';
 
 class ResourceBuilder {
-    PATH: string = '';
-    DEPENDENCIES: string[] = [];
+    private PATH: string = '';
+    private DEPENDENCIES: string[] = [];
+    private ELEMENTS: HTMLElement[] = [];
 
     addDependency = (path: string) => {
         this.DEPENDENCIES.push(path);
@@ -14,10 +15,16 @@ class ResourceBuilder {
         return this;
     }
 
+    addElement = (element: HTMLElement) => {
+        this.ELEMENTS.push(element);
+        return this;
+    }
+
     build = (): Resource => {
         return {
             path: this.PATH,
-            dependencyPaths: this.DEPENDENCIES
+            dependencyPaths: this.DEPENDENCIES,
+            elements: this.ELEMENTS
         }
     }
 }

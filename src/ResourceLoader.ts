@@ -1,6 +1,6 @@
 import './polyfills/Object.assign';
 
-import { ResourceLoaderOptions, Handler } from './types';
+import { ResourceLoaderOptions, Handler, HandleOptions } from './types';
 import { Resource } from './types';
 
 import EVENTS from './Events';
@@ -71,9 +71,9 @@ class ResourceLoader {
     private onResourceLoaded(event: CustomEvent<{ resource: Resource, response: Response }>) {
         const resource = event.detail.resource;
 
-        const handler: ReadonlyArray<[(resource: Resource) => boolean, (resource: Resource) => void]> = this.options.handler.map((handler: Handler): [(resource: Resource) => boolean, (resource: Resource) => void] => [handler.match, handler.handle]);
+        const handler: ReadonlyArray<[(options: HandleOptions) => boolean, (options: HandleOptions) => void]> = this.options.handler.map((handler: Handler): [(options: HandleOptions) => boolean, (options: HandleOptions) => void] => [handler.match, handler.handle]);
 
-        cond(handler)(resource);
+        cond(handler)(event.detail);
 
         this.loadedResources.push(resource);
         const readyForLoad = getReadyResources(this.waitingResources, this.loadedResources);

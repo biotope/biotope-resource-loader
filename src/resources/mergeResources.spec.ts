@@ -43,4 +43,27 @@ describe('#mergeResources', () => {
         ]);
         expect(merged[0].dependencyPaths).toHaveLength(1);
     });
+
+    test('returns one resource with both elements', () => {
+        const element1 = document.createElement('h1');
+        const element2 = document.createElement('h2');
+        const merged = mergeResources([
+            createResource().withPath('path1').addElement(element1).build(),
+            createResource().withPath('path1').addElement(element2).build()
+        ]);
+        expect(merged[0].elements).toHaveLength(2);
+    });
+
+    test('returns two resources with one element if both are equal', () => {
+        const element1 = document.createElement('h1');
+
+        const merged = mergeResources([
+            createResource().withPath('path1').addElement(element1).build(),
+            createResource().withPath('path2').addElement(element1).build()
+        ]);
+
+        expect(merged).toHaveLength(2);
+        expect(merged[0].elements).toHaveLength(1);
+        expect(merged[1].elements).toHaveLength(1);
+    });
 });

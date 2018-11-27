@@ -1,3 +1,4 @@
+import { HTMLComponentDefinition } from './../types';
 import { ComponentDefinition } from '../types';
 import getComponentQueueFromElement from './getComponentQueueFromElement';
 
@@ -28,9 +29,18 @@ describe('#getComponentQueueFromElement', () => {
                 const container = document.createElement('div');
                 const paths = ['Hallo Welt'];
                 container.innerHTML = `<div data-resources='[{paths: ${JSON.stringify(paths)}}]'></div>`;
-                const componentDefinitions: ComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement);
+                const componentDefinitions: HTMLComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement);
 
                 expect(componentDefinitions[0].paths).toEqual(paths);
+            });
+
+            test('has element set correctly', () => {
+                const container = document.createElement('div');
+                const paths = ['Hallo Welt'];
+                container.innerHTML = `<div data-resources='[{paths: ${JSON.stringify(paths)}}]'></div>`;
+                const componentDefinitions: HTMLComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement);
+
+                expect(componentDefinitions[0].element).toEqual(container.children.item(0));
             });
         });
     });

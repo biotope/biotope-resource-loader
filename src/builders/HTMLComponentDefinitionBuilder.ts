@@ -1,10 +1,11 @@
-import { ComponentDefinition } from '../types';
+import { HTMLComponentDefinition } from '../types';
 
-class ComponentDefinitionBuilder {
+class HTMLComponentDefinitionBuilder {
     private PATHS: string[] = [];
     private BASE: string = '';
     private DEPENDS_ON: string[] = [];
     private TEST: () => boolean;
+    private ELEMENT: HTMLElement;
 
 
     addPath = (path: string) => {
@@ -23,19 +24,25 @@ class ComponentDefinitionBuilder {
         return this;
     }
 
-    build = (): ComponentDefinition => {
+    withElement = (element: HTMLElement) => {
+        this.ELEMENT = element;
+        return this;
+    }
+
+    build = (): HTMLComponentDefinition => {
         return {
             base: this.BASE,
             paths: this.PATHS,
             dependsOn: this.DEPENDS_ON,
-            test: this.TEST
+            test: this.TEST,
+            element: this.ELEMENT
         }
     }
 }
 
 
-const createComponentDefinition = () => new ComponentDefinitionBuilder();
+const createHtmlComponentDefinition = () => new HTMLComponentDefinitionBuilder();
 
-export const getDefaultComponentDefinition = createComponentDefinition().build;
+export const getDefaultHtmlComponentDefinition = createHtmlComponentDefinition().build;
 
-export default createComponentDefinition;
+export default createHtmlComponentDefinition;

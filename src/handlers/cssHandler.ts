@@ -1,12 +1,12 @@
+import { HandleOptions } from './../types';
 import { Handler } from '../types';
-import { Resource } from "../types";
 
-const isCss = (resource: Resource): boolean => resource.path.indexOf('.css') > -1;
+const isCss = (options: HandleOptions): boolean => options.resource.path.indexOf('.css') > -1;
 
-const onCssLoaded = (resource: Resource): void => {
+const onCssLoaded = (options: HandleOptions): void => {
     const style: HTMLLinkElement = document.createElement('link');
     style.rel = 'stylesheet';
-    style.href = resource.path;
+    style.href = options.resource.path;
     document.body.append(style);
 }
 

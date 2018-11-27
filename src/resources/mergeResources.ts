@@ -10,7 +10,8 @@ const mergeResources = (resources: Resource[] = []) => {
             ...aggregated,
             {
                 ...current,
-                dependencyPaths: uniq(unnest(resources.filter(r => r.path === current.path).map(r => r.dependencyPaths || [])))
+                dependencyPaths: uniq(unnest(resources.filter(r => r.path === current.path).map(r => r.dependencyPaths || []))),
+                elements: uniq(unnest(resources.filter(r => r.path === current.path).map(r => r.elements || [])))
             }
         ]
     }, []);
