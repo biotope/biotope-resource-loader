@@ -1,4 +1,4 @@
-import { ComponentQueue } from '../types/external';
+import { ComponentDefinition } from '../types';
 import getComponentQueueFromElement from './getComponentQueueFromElement';
 
 describe('#getComponentQueueFromElement', () => {
@@ -28,9 +28,9 @@ describe('#getComponentQueueFromElement', () => {
                 const container = document.createElement('div');
                 const paths = ['Hallo Welt'];
                 container.innerHTML = `<div data-resources='[{paths: ${JSON.stringify(paths)}}]'></div>`;
-                const componentQueues: ComponentQueue = getComponentQueueFromElement(container.children.item(0) as HTMLElement);
+                const componentDefinitions: ComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement);
 
-                expect(componentQueues[0].paths).toEqual(paths);
+                expect(componentDefinitions[0].paths).toEqual(paths);
             });
         });
     });

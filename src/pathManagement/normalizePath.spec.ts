@@ -1,6 +1,6 @@
-import { BaseMap } from '../types/external';
+import { BaseMap } from '../types';
 import normalizePath from './normalizePath';
-import createIdentifiableResourceDefinition from '../builders/IdentifiableResourceDefinitionBuilder';
+import createIdentifiableResourceDefinition from '../builders/ComponentDefinitionBuilder';
 
 describe('#normalizePath', () => {
 
@@ -47,5 +47,18 @@ describe('#normalizePath', () => {
             });
             expect(normalized).toBe('http://content/url/hello/world.js');
         });
-    })
+    });
+
+    describe('with base set in options', () => {
+        it('returns same path for root path', () => {
+            const rootPath = '/hello/world.js';
+            const resourceDefinition = createIdentifiableResourceDefinition().build();
+            const normalized = normalizePath(rootPath, resourceDefinition, {
+                container: '',
+                readyEvent: '',
+                base: '/resources/'
+            });
+            expect(normalized).toBe('http://localhost/hello/world.js');
+        });
+    });
 })

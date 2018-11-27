@@ -1,33 +1,13 @@
-import { FETCH_STATUS } from './constants/FetchStatus';
-import { Resource } from './types/internal';
-import loadJs from './loading/loadJs';
-import loadCss, { isCss } from './loading/loadCss';
-import { pipe, prop, equals, cond, T } from 'ramda';
+import { Resource } from './types';
+import EVENTS from './Events';
 
-const prewarmCache = (path: string) => {
-  fetch(path);
+const loadResource = (resource: Resource): Promise<any> => {
+  return fetch(resource.path).then(() => {
+    const e: CustomEvent<Resource> = new CustomEvent(EVENTS.RESOURCE_LOADED, { detail: resource });
+    document.dispatchEvent(e);
+  });
 };
 
-const attachToDom = cond([
-  [isCss, loadCss],
-  [T, loadJs]
-])
-
-const isPending = pipe<Resource, string, boolean>(
-  prop('fetchStatus'),
-  equals(FETCH_STATUS.PENDING)
-);
-
-const loadResources = (dependencies: Resource[], byPassCache: boolean = false): void => {
-  const pendingDependencies = dependencies.filter(isPending);
-
-  pendingDependencies.forEach((dependency: Resource) => {
-    if (dependency.hasDependencies && !byPassCache) {
-      prewarmCache(dependency.path);
-    } else {
-      attachToDom(dependency);
-    }
-  })
-};
+const loadResources = (resources: Resource[]): Promise<any>[] => resources.map(loadResource);
 
 export default loadResources;

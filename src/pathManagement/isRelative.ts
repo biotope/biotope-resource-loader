@@ -1,2 +1,4 @@
 import isAbsolute from './isAbsolute';
-export const isRelative = (path: string) => !isAbsolute(path);
+const isRelative = (path: string) => !isAbsolute(path);
+
+export default isRelative;

@@ -1,8 +1,8 @@
 import { pipe, defaultTo } from 'ramda';
-import { ComponentQueue } from '../types/internal';
 import getDataResourceFromElement from './getDataResourceFromElement';
+import { ComponentDefinition } from '../types';
 
-const getComponentQueueFromElement = pipe<HTMLElement, HTMLElement, string, ComponentQueue, ComponentQueue>(
+const getComponentQueueFromElement = pipe<HTMLElement, HTMLElement, string, ComponentDefinition[], ComponentDefinition[]>(
     defaultTo<HTMLElement>(document.createElement('div')),
     getDataResourceFromElement,
     eval,

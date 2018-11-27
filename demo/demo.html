@@ -12,7 +12,7 @@
 		<div class="demo1" data-init="(function($elm) { $elm.plugin(); })" data-resources="[
 			 	{
 			 		test: (function() {return true;}),
-					 paths: ['css/demo.css?speed=20', 'css/demo1.css', 'https://code.jquery.com/jquery-3.3.1.min.js']
+					 paths: ['css/demo.css?speed=3', 'css/demo1.css', 'https://code.jquery.com/jquery-3.3.1.min.js']
 			 	}
 			 ]">
 			This component's resources (css and js) are loaded via conditional loader!
@@ -20,7 +20,7 @@
 
 		<div class="demo2" data-init="(function($elm) { $elm.plugin(); })" data-resources="[
 			 	{
-					 paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css?speed=20'],
+					 paths: ['/demo/resources/js/jquery.plugin.js', '/demo/resources/css/demo.css?speed=3'],
 					 dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 			 	},
 			 	{
@@ -47,7 +47,7 @@
 		<div class="demo4" data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })" data-resources="
 			 [
 				{
-					paths: ['js/jquery.component.js', 'css/demo.css?speed=20'],
+					paths: ['js/jquery.component.js', 'css/demo.css?speed=3'],
 					dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 				},
 			 	{
@@ -64,7 +64,7 @@
 		<div class="demo4" data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })" data-resources="
 			 [
 				{
-					paths: ['js/jquery.component.js', 'css/demo.css?speed=20'],
+					paths: ['js/jquery.component.js', 'css/demo.css?speed=3'],
 					dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 				},
 			 	{
@@ -100,22 +100,15 @@
 		Resources are loaded in order of dependencies: component.js -> component2.js -> component3.js
 		<br/> plugin.js is loaded on other demos or skipped. if skipped an error will be thrown, but component3.js will still be loaded
 	</div>
-	<button>Load new again 👏</button>
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 	<script src="../dist/resourceLoader.min.js"></script>
 	<script>
-		resourceLoader.init({
-			base: 'resources/',
+		const resourceLoader = new ResourceLoader({
+			base: '/demo/resources/',
 			container: '.wrapper',
 			baseMap: {
-				'##content': 'resources-content/'
+				'##content': '/demo/resources-content/'
 			}
 		});
-		const button = document.querySelector('button')
-		button.addEventListener('click', () => {
-			const container = document.querySelector('body');
-			resourceLoader.update(container);
-		})
 	</script>
 </body>
 

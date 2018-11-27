@@ -10,8 +10,7 @@
     "build": "rollup -c",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
-    "test": "jest",
-    "test:watch": "mocha --opts test/mocha.opts --watch --watch-extensions ts"
+    "test": "jest"
   },
   "dependencies": {
     "deep-equal": "^1.0.1",
