@@ -12,8 +12,11 @@
 		<div class="demo1" data-init="(function($elm) { $elm.plugin(); })" data-resources="[
 			 	{
 			 		test: (function() {return true;}),
-					 paths: ['css/demo.css?speed=3', 'css/demo1.css', 'https://code.jquery.com/jquery-3.3.1.min.js']
-			 	}
+					paths: ['css/demo.css?speed=3', 'css/demo1.css', 'https://code.jquery.com/jquery-3.3.1.min.js']
+				},
+				{
+					paths: ['/demo/component.html']
+				},
 			 ]">
 			This component's resources (css and js) are loaded via conditional loader!
 		</div>
@@ -81,7 +84,7 @@
 	</div>
 	<div class="demo5" data-init="(function($elm) { $elm.component2(); $elm.component(); $elm.component3(); })" data-resources="
 			 [
-				{
+			 	{
 					paths: ['js/jquery.component.js'],
 					dependsOn: ['https://code.jquery.com/jquery-3.3.1.min.js']
 				},
@@ -101,15 +104,7 @@
 		<br/> plugin.js is loaded on other demos or skipped. if skipped an error will be thrown, but component3.js will still be loaded
 	</div>
 	<script src="../dist/resourceLoader.min.js"></script>
-	<script>
-		const resourceLoader = new ResourceLoader({
-			base: '/demo/resources/',
-			container: '.wrapper',
-			baseMap: {
-				'##content': '/demo/resources-content/'
-			}
-		});
-	</script>
+	<script src="index.js"></script>
 </body>
 
 </html>

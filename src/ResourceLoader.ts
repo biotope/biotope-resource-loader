@@ -1,6 +1,6 @@
 import './polyfills/Object.assign';
 
-import { ResourceLoaderOptions } from './types';
+import { ResourceLoaderOptions, Handler } from './types';
 import { Resource } from './types';
 
 import EVENTS from './Events';
@@ -16,7 +16,6 @@ import onCssLoaded, { isCss } from './handlers/onCssLoaded';
 
 
 class ResourceLoader {
-    componentCounter: number = 0;
     options: ResourceLoaderOptions = null;
     waitingResources: Resource[];
     pendingResources: Resource[] = [];
@@ -51,18 +50,25 @@ class ResourceLoader {
         console.log('Loaded ', [...this.loadedResources]);
     }
 
+    public getStatus() {
+        return {
+            waiting: this.waitingResources,
+            pending: this.pendingResources,
+            loaded: this.loadedResources
+        }
+    }
+
     private bindEvents() {
         document.addEventListener(EVENTS.RESOURCE_LOADED, this.onResourceLoaded.bind(this));
         document.addEventListener(this.options.readyEvent, this.onReady.bind(this));
     }
 
-    private onResourceLoaded(event: CustomEvent<Resource>) {
-        const resource = event.detail;
+    private onResourceLoaded(event: CustomEvent<{ resource: Resource, response: Response }>) {
+        const resource = event.detail.resource;
 
-        cond([
-            [isJs, onJsLoaded],
-            [isCss, onCssLoaded]
-        ])(resource);
+        const handler: ReadonlyArray<[(resource: Resource) => boolean, (resource: Resource) => void]> = this.options.handler.map((handler: Handler): [(resource: Resource) => boolean, (resource: Resource) => void] => [handler.match, handler.handle]);
+
+        cond(handler)(resource);
 
         this.loadedResources.push(resource);
         const readyForLoad = getReadyResources(this.waitingResources, this.loadedResources);

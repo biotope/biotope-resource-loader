@@ -1,5 +1,10 @@
 export type BaseMap = { [id: string]: string };
 
+export interface Handler {
+    match: (resource: Resource) => boolean;
+    handle: (resource: Resource) => void;
+}
+
 export interface ComponentDefinition {
     paths: string[];
     dependsOn?: string[];
@@ -13,6 +18,7 @@ export interface ResourceLoaderOptions {
     base?: string;
     resources?: string[];
     baseMap?: BaseMap;
+    handler?: Handler[]
 }
 
 export interface Resource {
