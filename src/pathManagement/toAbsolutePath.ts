@@ -1,8 +1,13 @@
 import isAbsolute from "./isAbsolute";
 import isRootPath from "./isRootPath";
-import { defaultTo, cond, concat, identity, T, pipe } from 'ramda';
 import ensureTrailingSlash from './ensureTrailingSlash';
 import ensureNoLeadingSlash from './ensureNoLeadingSlash';
+import pipe from '../fp/pipe';
+import defaultTo from '../fp/defaultTo';
+import identity from '../fp/identity';
+import concat from '../fp/concat';
+import always from '../fp/always';
+import cond from '../fp/cond';
 
 interface ReducedLocation {
     href: string;
@@ -16,7 +21,7 @@ const ensureAbsolutePath = (location: ReducedLocation) => cond([
         ensureNoLeadingSlash,
         concat(ensureTrailingSlash(location.origin))
     )],
-    [T, pipe(
+    [always, pipe(
         ensureNoLeadingSlash,
         concat(ensureTrailingSlash(location.href))
     )]

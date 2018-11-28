@@ -5,14 +5,17 @@ import { Resource } from './types';
 
 import EVENTS from './Events';
 
-import { isEmpty, remove, difference, cond } from 'ramda';
-
 import getResourcesFromContainer from './dom/getResourcesFromContainer';
 import loadResources from './loadResources';
 import checkIfResolvable from './resources/checkIfResolvable';
 import getReadyResources from './resources/getReadyResources';
 import cssHandler from './handlers/cssHandler';
 import jsHandler from './handlers/jsHandler';
+
+import isEmpty from './fp/isEmpty';
+import difference from './fp/difference';
+import remove from './fp/remove';
+import cond from './fp/cond';
 
 
 

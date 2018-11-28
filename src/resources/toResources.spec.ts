@@ -4,8 +4,7 @@ import createHtmlComponentDefinition from '../builders/HTMLComponentDefinitionBu
 
 describe('#toResources', () => {
     const options: ResourceLoaderOptions = {
-        readyEvent: '',
-        container: ''
+        readyEvent: ''
     }
 
     test('returns empty array for undefined', () => {

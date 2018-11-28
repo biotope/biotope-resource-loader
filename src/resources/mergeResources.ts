@@ -1,5 +1,6 @@
 import { Resource } from '../types';
-import { unnest, uniq } from 'ramda';
+import unnest from '../fp/unnest';
+import unique from '../fp/unique';
 
 const mergeResources = (resources: Resource[] = []) => {
     return resources.reduce((aggregated: Resource[], current: Resource) => {
@@ -10,8 +11,8 @@ const mergeResources = (resources: Resource[] = []) => {
             ...aggregated,
             {
                 ...current,
-                dependencyPaths: uniq(unnest(resources.filter(r => r.path === current.path).map(r => r.dependencyPaths || []))),
-                elements: uniq(unnest(resources.filter(r => r.path === current.path).map(r => r.elements || [])))
+                dependencyPaths: unique(unnest(resources.filter(r => r.path === current.path).map(r => r.dependencyPaths || []))),
+                elements: unique(unnest(resources.filter(r => r.path === current.path).map(r => r.elements || [])))
             }
         ]
     }, []);

@@ -1,10 +1,12 @@
 import { ResourceLoaderOptions, HTMLComponentDefinition } from '../types';
 import { Resource } from '../types';
-import { curry } from 'ramda';
 import normalizePath from '../pathManagement/normalizePath';
-import { getDefaultHtmlComponentDefinition } from '../builders/HTMLComponentDefinitionBuilder';
+import curry from '../fp/curry';
 
-const toResources = (options: ResourceLoaderOptions, definition: HTMLComponentDefinition = getDefaultHtmlComponentDefinition()): Resource[] => {
+const toResources = (options: ResourceLoaderOptions, definition: HTMLComponentDefinition): Resource[] => {
+    if (!definition) {
+        return [];
+    }
     const pathResources: Resource[] = definition.paths.map((path: string): Resource => ({
         path: normalizePath(path, definition, options),
         dependencyPaths: (definition.dependsOn ? definition.dependsOn : []).map(p => normalizePath(p, definition, options)),

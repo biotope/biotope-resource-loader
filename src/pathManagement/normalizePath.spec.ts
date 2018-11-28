@@ -27,7 +27,6 @@ describe('#normalizePath', () => {
             const baseMap: BaseMap = {};
             const resourceDefinition = createIdentifiableResourceDefinition().withBase('##content').build();
             const normalized = normalizePath(relativePath, resourceDefinition, {
-                container: '',
                 readyEvent: '',
                 baseMap
             });
@@ -41,7 +40,6 @@ describe('#normalizePath', () => {
             };
             const resourceDefinition = createIdentifiableResourceDefinition().withBase('##content').build();
             const normalized = normalizePath(relativePath, resourceDefinition, {
-                container: '',
                 readyEvent: '',
                 baseMap
             });
@@ -54,7 +52,6 @@ describe('#normalizePath', () => {
             const rootPath = '/hello/world.js';
             const resourceDefinition = createIdentifiableResourceDefinition().build();
             const normalized = normalizePath(rootPath, resourceDefinition, {
-                container: '',
                 readyEvent: '',
                 base: '/resources/'
             });

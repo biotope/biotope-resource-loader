@@ -1,7 +1,10 @@
-import { pipe, defaultTo, prop } from 'ramda';
+import pipe from '../fp/pipe';
+import defaultTo from '../fp/defaultTo';
+import prop from '../fp/prop';
 
-const getDataResourceFromElement = pipe<HTMLElement, HTMLElement, DOMStringMap, string, string>(
-    defaultTo<HTMLElement>(document.createElement('div')),
+
+const getDataResourceFromElement = pipe(
+    defaultTo(document.createElement('div')),
     prop('dataset'),
     prop('resources'),
     defaultTo('')
