@@ -16,13 +16,12 @@ import jsHandler from './handlers/jsHandler';
 
 
 
-class ResourceLoader {
+export class ResourceLoader {
     options: ResourceLoaderOptions = null;
     waitingResources: Resource[];
     pendingResources: Resource[] = [];
     loadedResources: Resource[] = [];
     defaultOptions: ResourceLoaderOptions = {
-        container: 'body',
         readyEvent: 'resourcesReady',
         handler: [
             cssHandler,
@@ -30,23 +29,33 @@ class ResourceLoader {
         ]
     }
 
+    get defaultContainer(): HTMLElement {
+        return document.querySelector('body');
+    }
+
     constructor(options: ResourceLoaderOptions) {
         this.options = {
+            container: this.defaultContainer,
             ...this.defaultOptions,
             ...options
         };
+
+        this.bindEvents();
 
         this.init(this.options);
     }
 
     private init(options: ResourceLoaderOptions) {
-        this.bindEvents();
-
-        this.waitingResources = getResourcesFromContainer(options, document.querySelector(options.container));
+        this.waitingResources = [
+            ...getResourcesFromContainer(options, options.container)
+        ];
 
         checkIfResolvable(this.waitingResources);
 
-        this.pendingResources = getReadyResources(this.waitingResources, this.loadedResources);
+        this.pendingResources = [
+            ...this.pendingResources,
+            ...getReadyResources(this.waitingResources, this.loadedResources)
+        ];
 
 
         this.waitingResources = difference(this.waitingResources, this.pendingResources);
@@ -94,6 +103,13 @@ class ResourceLoader {
 
     private onReady() {
         console.log('all resources loaded');
+    }
+
+    public update(container: HTMLElement) {
+        this.init({
+            ...this.options,
+            container
+        });
     }
 }
 

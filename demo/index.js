@@ -26,15 +26,18 @@ const htmlHandler = {
         options.response.text().then((text) => {
             options.resource.elements.forEach(el => {
                 el.innerHTML = text;
+                new ResourceLoader({
+                    ...resourceLoaderOptions,
+                    container: el
+                });
             });
         });
     }
 }
 
-
-const resourceLoader = new ResourceLoader({
+const resourceLoaderOptions = {
     base: '/demo/resources/',
-    container: '.wrapper',
+    container: document.querySelector('.wrapper'),
     baseMap: {
         '##content': '/demo/resources-content/'
     },
@@ -43,7 +46,7 @@ const resourceLoader = new ResourceLoader({
         jsHandler,
         htmlHandler
     ]
-});
+};
 
 
-
+const mainResourceLoader = new ResourceLoader(resourceLoaderOptions);

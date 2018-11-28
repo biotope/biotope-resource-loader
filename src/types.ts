@@ -22,7 +22,7 @@ export interface HTMLComponentDefinition extends ComponentDefinition {
 }
 
 export interface ResourceLoaderOptions {
-    container?: string;
+    container?: HTMLElement;
     readyEvent?: string;
     base?: string;
     resources?: string[];
