@@ -9,14 +9,14 @@ if (typeof Object.assign !== 'function') {
         throw new TypeError('Cannot convert undefined or null to object');
       }
 
-      const to = Object(target);
+      var to = Object(target);
 
-      for (let index = 1; index < arguments.length; index++) {
-        const nextSource = arguments[index];
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
 
         if (nextSource !== null) {
           // Skip over if undefined or null
-          for (const nextKey in nextSource) {
+          for (var nextKey in nextSource) {
             // Avoid bugs when hasOwnProperty is shadowed
             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey))
               to[nextKey] = nextSource[nextKey];

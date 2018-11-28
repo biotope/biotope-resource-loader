@@ -1,5 +1,3 @@
-import './polyfills/Object.assign';
-
 import { ResourceLoaderOptions, Handler, HandleOptions } from './types';
 import { Resource } from './types';
 
@@ -116,5 +114,4 @@ export class ResourceLoader {
     }
 }
 
-window['ResourceLoader'] = ResourceLoader;
 export default ResourceLoader;

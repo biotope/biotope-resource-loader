@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
-import { uglify } from "rollup-plugin-uglify";
+import { terser } from "rollup-plugin-terser";
 import progress from 'rollup-plugin-progress';
 import visualizer from 'rollup-plugin-visualizer';
 
@@ -11,7 +11,36 @@ export default [
   {
     input: 'src/ResourceLoader.ts',
     output: {
-      name: 'resourceLoader',
+      name: 'index.cjs',
+      file: 'dist/index.cjs.js',
+      format: 'cjs'
+    },
+    plugins: [
+      progress(),
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: './tsconfig.module.json' }),
+      visualizer()
+    ]
+  },
+  {
+    input: 'src/ResourceLoader.ts',
+    output: {
+      name: 'index.esm',
+      file: 'dist/index.esm.js',
+      format: 'esm'
+    },
+    plugins: [
+      progress(),
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: './tsconfig.module.json' })
+    ]
+  },
+  {
+    input: 'src/legacy/index.ts',
+    output: {
+      name: 'legacy',
       file: 'dist/resourceLoader.min.js',
       format: 'umd'
     },
@@ -19,9 +48,8 @@ export default [
       progress(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: './tsconfig.build.json' }),
-      uglify(),
-      visualizer()
+      typescript({ tsconfig: './tsconfig.legacy.json' }),
+      terser()
     ],
     watch: {
       chokidar: {
@@ -34,5 +62,20 @@ export default [
       },
       exclude: ['node_modules/**']
     }
+  },
+  {
+    input: 'src/index.ts',
+    output: {
+      name: 'module',
+      file: 'dist/resourceLoader.module.min.js',
+      format: 'umd'
+    },
+    plugins: [
+      progress(),
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: './tsconfig.module.json' }),
+      terser()
+    ]
   }
 ];

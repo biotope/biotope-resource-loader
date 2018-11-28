@@ -1,15 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
-        "outDir": "lib",
         "module": "es6",
-        "sourceMap": false,
-        "declaration": false,
-        "declarationDir": "lib"
+        "sourceMap": true,
+        "declaration": false
     },
     "include": [
         "src/**/*.ts"
