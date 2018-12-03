@@ -2,7 +2,7 @@
   "name": "@biotope/resource-loader",
   "version": "1.3.0",
   "description": "A markup driven conditional loader to load resources with dependencies",
-  "main": "src/resourceLoader.js",
+  "main": "lib/index.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/biotope/biotope-resource-loader"
@@ -10,14 +10,21 @@
   "author": "Biotope",
   "license": "MIT",
   "scripts": {
+    "prepare": "npm run build",
     "build": "rollup -c",
+    "release": "np",
+    "start": "npm run dev && npm run serve",
+    "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
+    "clean": "node_modules/.bin/rimraf node_modules",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
     "test": "jest",
     "docz:dev": "docz dev",
     "docz:build": "docz build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "np": "^3.0.4"
+  },
   "publishConfig": {
     "access": "public"
   },

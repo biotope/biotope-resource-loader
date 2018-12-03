@@ -12,7 +12,7 @@ export default [
     input: 'src/ResourceLoader.ts',
     output: {
       name: 'index.cjs',
-      file: 'dist/index.cjs.js',
+      file: 'lib/index.cjs.js',
       format: 'cjs'
     },
     plugins: [
@@ -27,7 +27,7 @@ export default [
     input: 'src/ResourceLoader.ts',
     output: {
       name: 'index.esm',
-      file: 'dist/index.esm.js',
+      file: 'lib/index.esm.js',
       format: 'esm'
     },
     plugins: [
@@ -52,14 +52,7 @@ export default [
       terser()
     ],
     watch: {
-      chokidar: {
-        // if the chokidar option is given, rollup-watch will
-        // use it instead of fs.watch. You will need to install
-        // chokidar separately.
-        //
-        // this options object is passed to chokidar. if you
-        // don't have any options, just pass `chokidar: true`
-      },
+      chokidar: {},
       exclude: ['node_modules/**']
     }
   },

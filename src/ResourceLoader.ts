@@ -103,7 +103,7 @@ export class ResourceLoader {
     }
 
     private onReady() {
-        console.log('all resources loaded');
+
     }
 
     public update(container: HTMLElement) {
