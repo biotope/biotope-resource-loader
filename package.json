@@ -1,18 +1,51 @@
 {
   "name": "@biotope/resource-loader",
   "version": "1.3.0",
-  "description": "a markup driven conditional loader to load resources (js and css) with dependencies",
-  "main": "src/resourceLoader.js",
-  "repository": "git@github.com:biotope/biotope-resource-loader.git",
+  "description": "A markup driven conditional loader to load resources with dependencies",
+  "main": "lib/index.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/biotope/biotope-resource-loader"
+  },
   "author": "Biotope",
   "license": "MIT",
   "scripts": {
-    "build": "node node_modules/uglify-js/bin/uglifyjs -o dist/resourceLoader.min.js src/resourceLoader.js"
+    "prepare": "npm run build",
+    "build": "rollup -c",
+    "release": "np",
+    "start": "npm run dev && npm run serve",
+    "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
+    "clean": "node_modules/.bin/rimraf node_modules",
+    "serve": "./bin/speed",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "dependencies": {
-    "uglify-js": "2.7.5"
+    "np": "^3.0.4"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "chokidar": "^2.0.3",
+    "docz": "^0.12.13",
+    "eslint": "^4.19.1",
+    "jest": "^23.6.0",
+    "jsdom": "^13.0.0",
+    "prettier": "^1.12.1",
+    "rollup": "^0.66.0",
+    "rollup-plugin-commonjs": "^9.1.2",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-progress": "^0.4.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.17.2",
+    "rollup-plugin-visualizer": "^0.9.2",
+    "rollup-watch": "^4.3.1",
+    "ts-jest": "^23.10.5",
+    "tslib": "^1.9.3",
+    "typescript": "^3.1.3"
   }
 }
