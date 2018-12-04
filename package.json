@@ -12,7 +12,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "rollup -c",
-    "release": "np",
+    "release": "np --no-yarn",
     "start": "npm run dev && npm run serve",
     "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
     "clean": "node_modules/.bin/rimraf node_modules",
