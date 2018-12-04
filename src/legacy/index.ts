@@ -28,7 +28,7 @@ window['resourceLoader'] = function (options: ResourceLoaderOptions) {
         }
     }
 
-    new ResourceLoader(Object.assign({}, options, {
+    return new ResourceLoader(Object.assign({}, options, {
         handler: [
             cssHandler,
             jsHandler

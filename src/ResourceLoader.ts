@@ -47,9 +47,18 @@ export class ResourceLoader {
     }
 
     private init(options: ResourceLoaderOptions) {
+        this.prepareQueue(options);
+
+        loadResources(this.pendingResources);
+
+    }
+
+    private prepareQueue(options: ResourceLoaderOptions) {
         this.waitingResources = [
             ...getResourcesFromContainer(options, options.container)
         ];
+
+        this.waitingResources = this.cleanLoadedFromWaiting();
 
         checkIfResolvable(this.waitingResources);
 
@@ -60,9 +69,10 @@ export class ResourceLoader {
 
 
         this.waitingResources = difference(this.waitingResources, this.pendingResources);
+    }
 
-        loadResources(this.pendingResources);
-
+    private cleanLoadedFromWaiting() {
+        return this.waitingResources.filter((resource: Resource) => !this.loadedResources.some((loaded: Resource) => loaded.path === resource.path));
     }
 
     public getStatus() {
@@ -106,11 +116,8 @@ export class ResourceLoader {
 
     }
 
-    public update(container: HTMLElement) {
-        this.init({
-            ...this.options,
-            container
-        });
+    public update() {
+        this.init(this.options);
     }
 }
 

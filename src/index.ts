@@ -22,7 +22,7 @@ window['resourceLoader'] = (options: ResourceLoaderOptions) => {
         }
     }
 
-    new ResourceLoader({
+    return new ResourceLoader({
         ...options,
         handler: [
             cssHandler,
