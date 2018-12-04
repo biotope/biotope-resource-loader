@@ -6,7 +6,6 @@ import './CustomEvent';
 import { ResourceLoader } from './../ResourceLoader';
 import { ResourceLoaderOptions } from '../types';
 
-
 window['resourceLoader'] = function (options: ResourceLoaderOptions) {
     var cssHandler = {
         match: function (options) { return options.resource.path.indexOf('.css') > -1 },

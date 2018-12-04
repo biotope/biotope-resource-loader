@@ -7,7 +7,6 @@ class HTMLComponentDefinitionBuilder {
     private TEST: () => boolean;
     private ELEMENT: HTMLElement;
 
-
     addPath = (path: string) => {
         this.PATHS = this.PATHS || [];
         this.PATHS.push(path);
@@ -40,9 +39,7 @@ class HTMLComponentDefinitionBuilder {
     }
 }
 
-
 const createHtmlComponentDefinition = () => new HTMLComponentDefinitionBuilder();
 
 export const getDefaultHtmlComponentDefinition = createHtmlComponentDefinition().build;
-
 export default createHtmlComponentDefinition;
