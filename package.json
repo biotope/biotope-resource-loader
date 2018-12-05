@@ -20,7 +20,8 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "docz:build": "docz build",
+    "netlify": "yarn build && yarn docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
   },
   "dependencies": {
     "np": "^3.0.4"
