@@ -7,7 +7,6 @@ import './CustomEvent';
 import { ResourceLoader } from './../ResourceLoader';
 import { ResourceLoaderOptions } from '../types';
 
-
 window['resourceLoader'] = function (options: ResourceLoaderOptions) {
 
     const cssHandler: Handler = {

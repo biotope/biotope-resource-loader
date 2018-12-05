@@ -6,7 +6,6 @@ class ComponentDefinitionBuilder {
     private DEPENDS_ON: string[] = [];
     private TEST: () => boolean;
 
-
     addPath = (path: string) => {
         this.PATHS = this.PATHS || [];
         this.PATHS.push(path);
@@ -33,9 +32,7 @@ class ComponentDefinitionBuilder {
     }
 }
 
-
 const createComponentDefinition = () => new ComponentDefinitionBuilder();
 
 export const getDefaultComponentDefinition = createComponentDefinition().build;
-
 export default createComponentDefinition;

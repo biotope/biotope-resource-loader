@@ -11,7 +11,12 @@ To init a resource-loader just create a new instance of the resource loader clas
 const resourceLoader = new ResourceLoader();
 ```
 
-This will search your whole body for resource elements and load all the resources defined on them.
+This will search your whole body for resource components and load all the resources defined on them.
 
-## Resource Elements
-By setting the `data-resources` attribute on any html tag you can create a 
+## Resource Components
+By setting the `data-resources` attribute on any html tag you can create a resource component which will be acknowledged by the resource loader:
+```html
+<div data-resources="[]"></div>
+```
+
+To know what data should go in there look at the [API documentation](/api)
