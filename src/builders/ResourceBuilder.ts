@@ -29,9 +29,7 @@ class ResourceBuilder {
     }
 }
 
-
 const createResource = () => new ResourceBuilder();
 
 export const getDefaultResource = createResource().build;
-
 export default createResource;
