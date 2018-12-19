@@ -8,6 +8,7 @@ import identity from '../fp/identity';
 import concat from '../fp/concat';
 import always from '../fp/always';
 import cond from '../fp/cond';
+import ensureNoHtmlFile from './ensureNoHtmlFile';
 
 interface ReducedLocation {
     href: string;
@@ -23,7 +24,7 @@ const ensureAbsolutePath = (location: ReducedLocation) => cond([
     )],
     [always, pipe(
         ensureNoLeadingSlash,
-        concat(ensureTrailingSlash(location.href))
+        concat(ensureTrailingSlash(ensureNoHtmlFile(location.href)))
     )]
 ]);
 

@@ -1,6 +1,6 @@
 import { ComponentDefinition, ResourceLoaderOptions } from '../types';
 import resolveBaseWith from '../resolveBaseWith';
-import createEnsureAbsolutePath from './toAbsolutePath';
+import createEnsureAbsolutePath from './ensureAbsolutePath';
 import isRelative from './isRelative';
 import ensureTrailingSlash from './ensureTrailingSlash';
 import isRootPath from './isRootPath';
