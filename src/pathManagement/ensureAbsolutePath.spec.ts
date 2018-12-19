@@ -1,6 +1,6 @@
-import createEnsureAbsolutePath from './toAbsolutePath';
+import createEnsureAbsolutePath from './ensureAbsolutePath';
 
-describe('#toAbsolutePath', () => {
+describe('#ensureAbsolutePath', () => {
     let ensureAbsolutePath;
     beforeEach(() => {
         ensureAbsolutePath = createEnsureAbsolutePath({
@@ -62,5 +62,16 @@ describe('#toAbsolutePath', () => {
         const absolute = ensureAbsolutePath(path);
 
         expect(absolute).toBe('http://www.origin.com/someurl/hello-world.js');
+    });
+
+    test('ignores html files in path', () => {
+        ensureAbsolutePath = createEnsureAbsolutePath({
+            href: 'http://www.origin.com/sub/path/file.html',
+            origin: ''
+        });
+        const path = 'someurl/hello-world.js';
+        const absolute = ensureAbsolutePath(path);
+
+        expect(absolute).toBe('http://www.origin.com/sub/path/someurl/hello-world.js');
     });
 })

@@ -1,8 +1,15 @@
 import { BaseMap } from '../types';
+import { JSDOM } from 'jsdom';
 import normalizePath from './normalizePath';
 import createIdentifiableResourceDefinition from '../builders/ComponentDefinitionBuilder';
 
 describe('#normalizePath', () => {
+
+    afterEach(() => {
+        delete global['window'];
+        const window = (new JSDOM(``, { url: 'http://localhost' })).window;
+        global['window'] = window;
+    })
 
     it('returns empty string for undefined', () => {
         const normalized = normalizePath(undefined, undefined, undefined);
@@ -48,6 +55,7 @@ describe('#normalizePath', () => {
     });
 
     describe('with base set in options', () => {
+
         it('returns same path for root path', () => {
             const rootPath = '/hello/world.js';
             const resourceDefinition = createIdentifiableResourceDefinition().build();
@@ -56,6 +64,19 @@ describe('#normalizePath', () => {
                 base: '/resources/'
             });
             expect(normalized).toBe('http://localhost/hello/world.js');
+        });
+
+        it('returns path with base appended for html page', () => {
+            delete global['window'];
+            const window = (new JSDOM(``, { url: 'https://example.org/index.html' })).window;
+            global['window'] = window;
+            const rootPath = 'hello/world.js';
+            const resourceDefinition = createIdentifiableResourceDefinition().build();
+            const normalized = normalizePath(rootPath, resourceDefinition, {
+                readyEvent: '',
+                base: 'resources/'
+            });
+            expect(normalized).toBe('https://example.org/resources/hello/world.js');
         });
     });
 })
