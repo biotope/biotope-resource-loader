@@ -1,0 +1,13 @@
+.docz
+/docs-dist
+.rpt2_cache
+bin
+demo
+docs
+/node_modules
+/.idea
+.DS_Store
+stats.html
+server.crt
+server.key
+netlify.toml
