@@ -6,5 +6,4 @@ var resourceLoaderOptions = {
     }
 };
 
-
-const mainResourceLoader = resourceLoader(resourceLoaderOptions);
+var mainResourceLoader = resourceLoader(resourceLoaderOptions);
