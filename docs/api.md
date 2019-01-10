@@ -1,8 +1,3 @@
----
-name: API
-route: '/api'
----
-
 # API
 
 ## ResourceLoaderOptions

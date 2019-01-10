@@ -1,8 +1,3 @@
----
-name: Installation
-route: '/'
----
-
 # Installation
 You can install the biotope resource loader in your project using npm
 ```bash

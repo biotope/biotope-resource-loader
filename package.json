@@ -14,15 +14,12 @@
     "build": "rollup -c",
     "release": "np --no-yarn",
     "start": "npm run dev && npm run serve",
-    "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
-    "clean": "node_modules/.bin/rimraf node_modules",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build",
-    "netlify": "yarn build && yarn docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
+    "docs:dev": "docsify serve docs",
+    "netlify": "npm run build && npm run docs:build && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
   },
   "dependencies": {
     "np": "^3.0.4"
@@ -33,7 +30,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.9",
     "chokidar": "^2.0.3",
-    "docz": "^0.12.13",
+    "docsify-cli": "^4.3.0",
     "eslint": "^4.19.1",
     "jest": "^23.6.0",
     "jsdom": "^13.0.0",
