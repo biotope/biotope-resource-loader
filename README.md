@@ -4,7 +4,7 @@ The biotope resource loader is useful to lazy load files after the page initiali
 
 It is inspired by webpack loaders, so you can modify granular what happens with files. 
 
-Documentation can be found here: https://resource-loader.bioto.pe
+Documentation can be found here: https://resource-loader.biotope.sh
 
 ### Contributing
 We appreciate new contributors, to contribute we decided to use the "fork-and-pull" git worklow:
