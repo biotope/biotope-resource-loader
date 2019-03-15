@@ -6,6 +6,6 @@ const resourceLoaderOptions = {
   }
 };
 
-document.addEventListener('resourcesReady', () => { debugger; });
+document.addEventListener('resourcesReady', () => { console.log('Resource ready event fired!'); });
 
 const mainResourceLoader = resourceLoader(resourceLoaderOptions);
