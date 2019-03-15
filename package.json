@@ -7,7 +7,32 @@
     "type": "git",
     "url": "https://github.com/biotope/biotope-resource-loader"
   },
-  "author": "Biotope",
+  "contributors": [
+    {
+      "name": "Marc Emmanuel",
+      "email": "marc.emmanuel@virtual-identity.com",
+      "url": "https://github.com/SheepFromHeaven"
+    },
+    {
+      "name": "Timo Mayer",
+      "email": "timo.mayer@virtual-identity.com",
+      "url": "https://github.com/timomayer"
+    },
+    {
+      "name": "Jurek Barth",
+      "email": "jurek.barth@virtual-identity.com",
+      "url": "https://github.com/jurekbarth"
+    },
+    {
+      "name": "Saeid Mohadjer",
+      "email": "saeid@fastmail.fm",
+      "url": "https://github.com/smohadjer"
+    },
+    {
+      "name": "Jan Rembold",
+      "url": "https://github.com/janrembold"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "prepare": "npm run build",
