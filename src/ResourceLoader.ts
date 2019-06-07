@@ -102,7 +102,7 @@ export class ResourceLoader {
 		loadResources(readyForLoad);
 		if (isEmpty(this.waitingResources) && isEmpty(this.pendingResources)) {
 			const event: CustomEvent = new CustomEvent(this.options.readyEvent);
-			document.dispatchEvent(event);
+			window.dispatchEvent(event);
 		}
 	}
 
