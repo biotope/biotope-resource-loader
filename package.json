@@ -39,7 +39,7 @@
     "build": "rollup -c",
     "release": "np --no-yarn",
     "start": "npm run dev && npm run serve",
-    "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
+    "prepublishOnly": "npm run clean && npm install && npm run clean && npm install",
     "clean": "node_modules/.bin/rimraf node_modules",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
@@ -47,7 +47,7 @@
     "test:watch": "jest --watch",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "netlify": "yarn build && yarn docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
+    "netlify": "npm build && npm docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
   },
   "dependencies": {
     "np": "^5.0.3"
