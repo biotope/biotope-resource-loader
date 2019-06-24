@@ -1,3 +1,3 @@
-const isHtmlFilePath = (path: string): boolean => path.indexOf('.html') === path.length - 5;
+const isHtmlFilePath = (path: string): boolean => (/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+.html[\/#]?.?$/gm).test(path);
 
 export default isHtmlFilePath;
