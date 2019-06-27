@@ -45,8 +45,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "docs:dev": "docsify serve docs",
-    "netlify": "npm run build && npm run docs:build && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
+    "docs:dev": "docsify serve docs"
   },
   "dependencies": {
     "np": "^5.0.3"
