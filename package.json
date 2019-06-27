@@ -54,7 +54,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
+    "@types/jest": "^24.0.15",
     "chokidar": "^3.0.1",
     "docsify-cli": "^4.3.0",
     "eslint": "^4.19.1",
