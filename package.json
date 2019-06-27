@@ -45,9 +45,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build",
-    "netlify": "npm run build && npm run docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
+    "docs:dev": "docsify serve docs"
   },
   "dependencies": {
     "np": "^5.0.3"
@@ -58,7 +56,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.9",
     "chokidar": "^3.0.1",
-    "docz": "^0.12.13",
+    "docsify-cli": "^4.3.0",
     "eslint": "^4.19.1",
     "jest": "^24.5.0",
     "jsdom": "^15.1.1",

@@ -1,8 +1,3 @@
----
-name: Usage
-route: '/usage'
----
-
 # Usage
 
 ## Create
@@ -19,4 +14,4 @@ By setting the `data-resources` attribute on any html tag you can create a resou
 <div data-resources="[]"></div>
 ```
 
-To know what data should go in there look at the [API documentation](/api)
+To know what data should go in there look at the [API documentation](./api.md)
