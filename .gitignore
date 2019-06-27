@@ -7,3 +7,4 @@ stats.html
 dist
 lib
 /docs-dist
+coverage

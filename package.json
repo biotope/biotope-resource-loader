@@ -1,19 +1,46 @@
 {
   "name": "@biotope/resource-loader",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "A markup driven conditional loader to load resources with dependencies",
   "main": "lib/index.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/biotope/biotope-resource-loader"
   },
-  "author": "Biotope",
+  "contributors": [
+    {
+      "name": "Marc Emmanuel",
+      "email": "marc.emmanuel@virtual-identity.com",
+      "url": "https://github.com/SheepFromHeaven"
+    },
+    {
+      "name": "Timo Mayer",
+      "email": "timo.mayer@virtual-identity.com",
+      "url": "https://github.com/timomayer"
+    },
+    {
+      "name": "Jurek Barth",
+      "email": "jurek.barth@virtual-identity.com",
+      "url": "https://github.com/jurekbarth"
+    },
+    {
+      "name": "Saeid Mohadjer",
+      "email": "saeid@fastmail.fm",
+      "url": "https://github.com/smohadjer"
+    },
+    {
+      "name": "Jan Rembold",
+      "url": "https://github.com/janrembold"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "prepare": "npm run build",
     "build": "rollup -c",
     "release": "np --no-yarn",
     "start": "npm run dev && npm run serve",
+    "prepublishOnly": "npm run clean && npm install",
+    "clean": "node_modules/.bin/rimraf node_modules",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
     "test": "jest",
@@ -22,18 +49,18 @@
     "netlify": "npm run build && npm run docs:build && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
   },
   "dependencies": {
-    "np": "^3.0.4"
+    "np": "^5.0.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
-    "chokidar": "^2.0.3",
+    "chokidar": "^3.0.1",
     "docsify-cli": "^4.3.0",
     "eslint": "^4.19.1",
-    "jest": "^23.6.0",
-    "jsdom": "^13.0.0",
+    "jest": "^24.5.0",
+    "jsdom": "^15.1.1",
     "prettier": "^1.12.1",
     "rollup": "^0.66.0",
     "rollup-plugin-commonjs": "^9.1.2",
@@ -43,8 +70,8 @@
     "rollup-plugin-typescript2": "^0.17.2",
     "rollup-plugin-visualizer": "^0.9.2",
     "rollup-watch": "^4.3.1",
-    "ts-jest": "^23.10.5",
-    "tslib": "^1.9.3",
+    "ts-jest": "^24.0.0",
+    "tslib": "^1.10.0",
     "typescript": "^3.1.3"
   }
 }
