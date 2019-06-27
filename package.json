@@ -57,7 +57,7 @@
     "@types/jest": "^23.3.9",
     "chokidar": "^3.0.1",
     "docsify-cli": "^4.3.0",
-    "eslint": "^4.19.1",
+    "eslint": "^6.0.1",
     "jest": "^24.5.0",
     "jsdom": "^15.1.1",
     "prettier": "^1.12.1",
