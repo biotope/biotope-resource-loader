@@ -78,5 +78,18 @@ describe('#normalizePath', () => {
             });
             expect(normalized).toBe('https://example.org/resources/hello/world.js');
         });
+
+        it('returns path with base appended for html page with hash', () => {
+            delete global['window'];
+            const window = (new JSDOM(``, { url: 'https://example.org/index.html#' })).window;
+            global['window'] = window;
+            const rootPath = 'hello/world.js';
+            const resourceDefinition = createIdentifiableResourceDefinition().build();
+            const normalized = normalizePath(rootPath, resourceDefinition, {
+                readyEvent: '',
+                base: 'resources/'
+            });
+            expect(normalized).toBe('https://example.org/resources/hello/world.js');
+        });
     });
 })

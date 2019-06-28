@@ -74,4 +74,15 @@ describe('#ensureAbsolutePath', () => {
 
         expect(absolute).toBe('http://www.origin.com/sub/path/someurl/hello-world.js');
     });
+
+    test('ignores trailing hash in path', () => {
+        ensureAbsolutePath = createEnsureAbsolutePath({
+            href: 'https://example.org/index.html#',
+            origin: ''
+        });
+        const path = 'resources/hello/world.js';
+        const absolute = ensureAbsolutePath(path);
+
+        expect(absolute).toBe('https://example.org/resources/hello/world.js');
+    });
 })
