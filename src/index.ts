@@ -18,6 +18,7 @@ window['resourceLoader'] = (options: ResourceLoaderOptions) => {
             const script = document.createElement('script');
             script.src = options.resource.path;
             script.async = true;
+            script.charset = 'utf-8';
             document.body.append(script);
         }
     }
