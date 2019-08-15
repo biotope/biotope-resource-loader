@@ -1,6 +1,6 @@
 {
   "name": "@biotope/resource-loader",
-  "version": "2.0.0",
+  "version": "1.4.1",
   "description": "A markup driven conditional loader to load resources with dependencies",
   "main": "lib/index.esm.js",
   "repository": {
@@ -12,7 +12,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "rollup -c",
-    "release": "np --no-yarn",
+    "release": "np --no-yarn --any-branch",
     "start": "npm run dev && npm run serve",
     "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
     "clean": "node_modules/.bin/rimraf node_modules",
