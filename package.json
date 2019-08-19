@@ -1,6 +1,6 @@
 {
   "name": "@biotope/resource-loader",
-  "version": "2.0.0",
+  "version": "1.4.2",
   "description": "A markup driven conditional loader to load resources with dependencies",
   "main": "lib/index.esm.js",
   "repository": {
@@ -12,17 +12,16 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "rollup -c",
-    "release": "np --no-yarn",
+    "release": "np --no-yarn --any-branch",
     "start": "npm run dev && npm run serve",
-    "prepublishOnly": "npm run clean && npm install && npm run clean && yarn install",
-    "clean": "node_modules/.bin/rimraf node_modules",
+    "prepublishOnly": "npm install",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "netlify": "yarn build && yarn docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
+    "netlify": "npm run build && npm run docz:build && cp netlify.toml ./docs-dist/netlify.toml && cp -R lib ./docs-dist && cp -R dist ./docs-dist"
   },
   "dependencies": {
     "np": "^3.0.4"
