@@ -1,11 +1,10 @@
 import { ResourceLoaderOptions, Handler, HandleOptions } from './types';
 import { Resource } from './types';
+import { defaultOptions } from './defaultOptions';
 import EVENTS from './Events';
 import getResourcesFromContainer from './dom/getResourcesFromContainer';
 import loadResources from './loadResources';
 import getReadyResources from './resources/getReadyResources';
-import cssHandler from './handlers/cssHandler';
-import jsHandler from './handlers/jsHandler';
 import isEmpty from './fp/isEmpty';
 import difference from './fp/difference';
 import remove from './fp/remove';
@@ -17,13 +16,6 @@ export class ResourceLoader {
 	waitingResources: Resource[];
 	pendingResources: Resource[] = [];
 	loadedResources: Resource[] = [];
-	defaultOptions: ResourceLoaderOptions = {
-		readyEvent: 'resourcesReady',
-		handler: [
-			cssHandler,
-			jsHandler
-		]
-	}
 
 	get defaultContainer(): HTMLElement {
 		return document.querySelector('body');
@@ -32,7 +24,7 @@ export class ResourceLoader {
 	constructor(options: ResourceLoaderOptions) {
 		this.options = {
 			container: this.defaultContainer,
-			...this.defaultOptions,
+			...defaultOptions,
 			...options
 		};
 
@@ -48,6 +40,7 @@ export class ResourceLoader {
 	}
 
 	private prepareQueue(options: ResourceLoaderOptions) {
+
 		this.waitingResources = [
 			...getResourcesFromContainer(options, options.container)
 		];
