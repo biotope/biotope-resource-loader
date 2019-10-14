@@ -6,7 +6,9 @@ const getDataResourceFromElement = (element: HTMLElement, resourceListAtrributeS
     return pipe(
         defaultTo(document.createElement('div')),
         prop('attributes'),
+        defaultTo({}),
         prop(resourceListAtrributeSelector),
+        defaultTo({}),
         prop('value'),
         defaultTo('')
     )(element);
