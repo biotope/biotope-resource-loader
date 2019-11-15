@@ -48,7 +48,7 @@
     "docs:dev": "docsify serve docs"
   },
   "dependencies": {
-    "np": "^5.0.3"
+    "np": "^5.1.2"
   },
   "publishConfig": {
     "access": "public"
