@@ -8,7 +8,9 @@ window['resourceLoader'] = (options: ResourceLoaderOptions) => {
             const style = document.createElement('link');
             style.rel = 'stylesheet';
             style.href = options.resource.path;
-            document.body.append(style);
+			style.charset = 'utf-8';
+			style.crossorigin = 'use-credentials';
+            document.head.append(style);
         }
     }
 
@@ -19,7 +21,8 @@ window['resourceLoader'] = (options: ResourceLoaderOptions) => {
             script.src = options.resource.path;
             script.async = true;
             script.charset = 'utf-8';
-            document.body.append(script);
+			script.crossorigin = 'use-credentials';
+            document.head.append(script);
         }
     }
 
