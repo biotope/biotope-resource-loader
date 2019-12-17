@@ -59,7 +59,7 @@
     "docsify-cli": "^4.3.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
-    "jsdom": "^15.1.1",
+    "jsdom": "^15.2.1",
     "prettier": "^1.12.1",
     "rollup": "^1.26.3",
     "rollup-plugin-commonjs": "^10.1.0",
