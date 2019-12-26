@@ -2,13 +2,14 @@
 
 ## ResourceLoaderOptions
 
-| Property     | Type                  | Optional | Default            | Description                                                                 |
-|--------------|-----------------------|----------|--------------------|-----------------------------------------------------------------------------|
-| `container`  | HTMLElement           | yes      | body               | The container in which to search for resource components                    |
-| `readyEvent` | string                | yes      | `'resourcesReady'` | The even which will be fired once all the resources are successfully loaded |
-| `base`       | string                | yes      | `''`               | The base path to use for every relative resource                            |
-| `baseMap`    | [BaseMap](#basemap)   | yes      | undefined          | The base path map to use for resolving base references                      |
-| `handler`    | [Handler](#handler)[] | yes      | `[]`               | These handlers will be called on resource loaded when they match            |
+| Property                         | Type                  | Optional | Default            | Description                                                                 |
+|----------------------------------|-----------------------|----------|--------------------|-----------------------------------------------------------------------------|
+| `container`                      | HTMLElement           | yes      | body               | The container in which to search for resource components                    |
+| `resourceListAtrributeSelector`  | string                | yes      | `data-resources`   | The attribute to search in container for the resources                      |
+| `readyEvent`                     | string                | yes      | `'resourcesReady'` | The even which will be fired once all the resources are successfully loaded |
+| `base`                           | string                | yes      | `''`               | The base path to use for every relative resource                            |
+| `baseMap`                        | [BaseMap](#basemap)   | yes      | undefined          | The base path map to use for resolving base references                      |
+| `handler`                        | [Handler](#handler)[] | yes      | `[]`               | These handlers will be called on resource loaded when they match            |
 
 ## BaseMap
 The baseMap is a key-value connection of a reference and a base path. Lets take the following example:
