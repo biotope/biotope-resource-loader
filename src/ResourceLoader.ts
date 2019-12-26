@@ -10,8 +10,9 @@ import difference from './fp/difference';
 import remove from './fp/remove';
 import cond from './fp/cond';
 import isResolvableWith from './resources/isResolvableWith';
+import registerPlugin from './registerPlugin';
 
-export class ResourceLoader {
+class ResourceLoader {
 	options: ResourceLoaderOptions = null;
 	waitingResources: Resource[];
 	pendingResources: Resource[] = [];
@@ -100,7 +101,24 @@ export class ResourceLoader {
 	}
 
 	private onReady() {
+		if (!this.options.initPlugins) {
+			return;
+		}
 
+		[].slice.call(document.querySelectorAll(`[${this.options.initPluginAttributeSelector}]`))
+			.forEach((element: HTMLElement) => 
+				this.getPluginFunction(element)(element, this.getPluginOptions(element))
+			);
+	}
+
+	private getPluginFunction(element: HTMLElement): Function {
+		return (
+			window['biotope']['plugins'][element.getAttribute(this.options.initPluginAttributeSelector)]
+		);
+	}
+
+	private getPluginOptions(element: HTMLElement): Object {
+		return JSON.parse(element.getAttribute(this.options.pluginOptionsAttributeSelector));
 	}
 
 	public update() {
@@ -108,4 +126,5 @@ export class ResourceLoader {
 	}
 }
 
+export { ResourceLoader, registerPlugin };
 export default ResourceLoader;
