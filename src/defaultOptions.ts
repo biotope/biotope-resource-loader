@@ -1,6 +1,7 @@
 import cssHandler from './handlers/cssHandler';
 import jsHandler from './handlers/jsHandler';
 import { ResourceLoaderOptions } from './types';
+import htmlHandler from './handlers/htmlHandler';
 
 export const defaultOptions: ResourceLoaderOptions = {
     resourceListAtrributeSelector: 'data-resources',
@@ -10,6 +11,7 @@ export const defaultOptions: ResourceLoaderOptions = {
     readyEvent: 'resourcesReady',
     handler: [
         cssHandler,
-        jsHandler
+        jsHandler,
+        htmlHandler,
     ]
 };

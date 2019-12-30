@@ -21,6 +21,13 @@ class ResourceLoader {
 	get defaultContainer(): HTMLElement {
 		return document.querySelector('body');
 	}
+	
+	mutationObserver: MutationObserver;
+	mutationObserverConfig: MutationObserverInit = {
+		attributes: true,
+		childList: true,
+		subtree: true,
+	};
 
 	constructor(options: ResourceLoaderOptions) {
 		this.options = {
@@ -30,6 +37,7 @@ class ResourceLoader {
 		};
 
 		this.bindEvents();
+		this.addMutationObserver();
 
 		this.init(this.options);
 	}
@@ -37,7 +45,25 @@ class ResourceLoader {
 	private init(options: ResourceLoaderOptions) {
 		this.prepareQueue(options);
 		loadResources(this.pendingResources);
+	}
 
+	private addMutationObserver(): void {
+		this.mutationObserver = new MutationObserver(this.onMutation.bind(this));
+		this.mutationObserver.observe(this.options.container, this.mutationObserverConfig);
+	}
+
+	private onMutation(mutationRecordArray: MutationRecord[]): void {
+		mutationRecordArray.forEach(((record: MutationRecord) => {
+			record.addedNodes.forEach((node: Node) => {
+				if (node instanceof HTMLElement && node.getAttribute(this.options.resourceListAtrributeSelector)) {
+					this.options = {
+						...this.options,
+						container: node.parentElement
+					}
+					this.init(this.options);
+				}
+			});
+		}));
 	}
 
 	private prepareQueue(options: ResourceLoaderOptions) {
@@ -54,7 +80,6 @@ class ResourceLoader {
 			...this.pendingResources,
 			...getReadyResources(this.waitingResources, this.loadedResources)
 		];
-
 
 		this.waitingResources = difference(this.waitingResources, this.pendingResources);
 	}
@@ -105,7 +130,9 @@ class ResourceLoader {
 			return;
 		}
 
-		[].slice.call(document.querySelectorAll(`[${this.options.initPluginAttributeSelector}]`))
+		[].slice.call(
+			this.options.container.querySelectorAll(`[${this.options.initPluginAttributeSelector}]`)
+		)
 			.forEach((element: HTMLElement) => 
 				this.getPluginFunction(element)(element, this.getPluginOptions(element))
 			);
