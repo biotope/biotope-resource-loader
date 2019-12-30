@@ -1,6 +1,5 @@
 import { HandleOptions } from './../types';
 import { Handler } from '../types';
-import { ResourceLoader } from '../ResourceLoader';
 
 const isHtml = (options: HandleOptions): boolean => options.resource.path.indexOf('.html') > -1;
 
