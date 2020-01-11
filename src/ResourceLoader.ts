@@ -10,7 +10,7 @@ import difference from './fp/difference';
 import remove from './fp/remove';
 import cond from './fp/cond';
 import isResolvableWith from './resources/isResolvableWith';
-import registerPlugin from './registerPlugin';
+import registerScript from './registerScript';
 
 class ResourceLoader {
 	options: ResourceLoaderOptions = null;
@@ -106,7 +106,7 @@ class ResourceLoader {
 		}
 
 		[].slice.call(document.querySelectorAll(`[${this.options.initPluginAttributeSelector}]`))
-			.forEach((element: HTMLElement) => 
+			.forEach((element: HTMLElement) =>
 				this.getPluginFunction(element)(element, this.getPluginOptions(element))
 			);
 	}
@@ -126,5 +126,5 @@ class ResourceLoader {
 	}
 }
 
-export { ResourceLoader, registerPlugin };
+export { ResourceLoader, registerScript };
 export default ResourceLoader;

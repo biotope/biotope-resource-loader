@@ -1,6 +1,6 @@
-import registerPLugin from './registerPlugin';
+import registerScript from './registerScript';
 
-describe('#registerPlugin', () => {
+describe('#registerScript', () => {
   class TestPlugin {
     public element;
     public options;
@@ -11,17 +11,17 @@ describe('#registerPlugin', () => {
     }
   }
 
-  registerPLugin((TestPlugin as any), 'TestPlugin');
+  registerScript((TestPlugin as any), 'TestPlugin');
 
   test('Creates biotope on window', () => {
     expect(window).toHaveProperty('biotope')
   });
 
   test('Creates plugins object on biotope', () => {
-    expect((window as any).biotope).toHaveProperty('plugins')
+    expect((window as any).biotope).toHaveProperty('scripts')
   });
 
-  test('Creates plugin on window.biotope.plugins', () => {
-    expect((window as any).biotope.plugins.TestPlugin).toBeInstanceOf(Function);
+  test('Creates plugin on window.biotope.scripts', () => {
+    expect((window as any).biotope.scripts.TestPlugin).toBeInstanceOf(Function);
   });
 })
