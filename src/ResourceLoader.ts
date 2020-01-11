@@ -118,7 +118,7 @@ class ResourceLoader {
 	}
 
 	private getPluginOptions(element: HTMLElement): Object {
-		return JSON.parse(element.getAttribute(this.options.pluginOptionsAttributeSelector));
+		return JSON.parse(element.getAttribute(this.options.scriptOptionsAttributeSelector));
 	}
 
 	public update() {

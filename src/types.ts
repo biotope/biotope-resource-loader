@@ -26,7 +26,7 @@ export interface ResourceLoaderOptions {
     resourceListAtrributeSelector?: string;
     initScripts?: boolean;
     initScriptAttributeSelector?: string;
-    pluginOptionsAttributeSelector?: string;
+    scriptOptionsAttributeSelector?: string;
     readyEvent?: string;
     base?: string;
     resources?: string[];
