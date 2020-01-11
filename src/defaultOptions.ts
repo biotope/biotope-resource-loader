@@ -4,7 +4,7 @@ import { ResourceLoaderOptions } from './types';
 
 export const defaultOptions: ResourceLoaderOptions = {
     resourceListAtrributeSelector: 'data-resources',
-    initPluginAttributeSelector: 'data-init',
+    initScriptAttributeSelector: 'data-init',
     pluginOptionsAttributeSelector: 'data-options',
     initScripts: true,
     readyEvent: 'resourcesReady',

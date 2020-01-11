@@ -105,7 +105,7 @@ class ResourceLoader {
 			return;
 		}
 
-		[].slice.call(document.querySelectorAll(`[${this.options.initPluginAttributeSelector}]`))
+		[].slice.call(document.querySelectorAll(`[${this.options.initScriptAttributeSelector}]`))
 			.forEach((element: HTMLElement) =>
 				this.getPluginFunction(element)(element, this.getPluginOptions(element))
 			);
@@ -113,7 +113,7 @@ class ResourceLoader {
 
 	private getPluginFunction(element: HTMLElement): Function {
 		return (
-			window['biotope']['plugins'][element.getAttribute(this.options.initPluginAttributeSelector)]
+			window['biotope']['plugins'][element.getAttribute(this.options.initScriptAttributeSelector)]
 		);
 	}
 

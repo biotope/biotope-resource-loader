@@ -25,7 +25,7 @@ export interface ResourceLoaderOptions {
     container?: HTMLElement;
     resourceListAtrributeSelector?: string;
     initScripts?: boolean;
-    initPluginAttributeSelector?: string;
+    initScriptAttributeSelector?: string;
     pluginOptionsAttributeSelector?: string;
     readyEvent?: string;
     base?: string;
