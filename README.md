@@ -2,7 +2,7 @@
 
 The biotope resource loader is useful to lazy load files after the page initialization, e.g. javascript, styles and html.
 
-It is inspired by webpack loaders, so you can modify granular what happens with files. 
+It is inspired by webpack loaders, so you can modify granular what happens with files.
 
 Documentation can be found here: https://resource-loader.biotope.sh
 
@@ -14,7 +14,7 @@ We appreciate new contributors, to contribute we decided to use the "fork-and-pu
 4. Push your work back up to your fork
 5. Submit a Pull request so that we can review your changes
 
-### The Biotope ecossystem
+### The Biotope ecosystem
 
 Biotope Resource Loader is part of Biotope, a toolchain for lasting design systems.
 
