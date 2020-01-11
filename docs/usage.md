@@ -85,11 +85,11 @@ registerScript(
 Starting on `Version 3`, the resource loader drops support for `eval` or `JQuery` to initialize plugins.
 If you need that behaviour, you'll have to add it inside your project's scope.
 
-Should the default plugin initializion clash with your project's requirements, you can disable it via the `initPlugins` option:
+Should the default plugin initializion clash with your project's requirements, you can disable it via the `initScripts` option:
 
 ```javascript
 const resourceLoader = new ResourceLoader({
-    initPlugins: false
+    initScripts: false
 });
 ```
 

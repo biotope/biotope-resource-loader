@@ -101,7 +101,7 @@ class ResourceLoader {
 	}
 
 	private onReady() {
-		if (!this.options.initPlugins) {
+		if (!this.options.initScripts) {
 			return;
 		}
 
