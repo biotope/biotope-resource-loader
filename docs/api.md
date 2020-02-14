@@ -6,6 +6,9 @@
 |----------------------------------|-----------------------|----------|--------------------|-----------------------------------------------------------------------------|
 | `container`                      | HTMLElement           | yes      | body               | The container in which to search for resource components                    |
 | `resourceListAtrributeSelector`  | string                | yes      | `data-resources`   | The attribute to search in container for the resources                      |
+| `initScripts`                    | boolean               | yes      | true               | If true, registered plugins will be initialized after loaded                |
+| `initScriptAttributeSelector`    | string                | yes      | `data-init`        | The attribute with the plugin name to search for when initializing plugins  |
+| `scriptOptionsAttributeSelector` | string                | yes      | `data-options`     | The attribute with JSON options to search for when initializing plugins     |
 | `readyEvent`                     | string                | yes      | `'resourcesReady'` | The even which will be fired once all the resources are successfully loaded |
 | `base`                           | string                | yes      | `''`               | The base path to use for every relative resource                            |
 | `baseMap`                        | [BaseMap](#basemap)   | yes      | undefined          | The base path map to use for resolving base references                      |
@@ -36,7 +39,7 @@ This will result in the loading of the resource: `/root/path/resources/js/main.j
 | Property   | Type                  | Description                 |
 |------------|-----------------------|-----------------------------|
 | `resource` | [Resource](#resource) | The loaded resource details |
-| `response` | Response              | The server response         |  
+| `response` | Response              | The server response         |
 
 
 ## Resource
