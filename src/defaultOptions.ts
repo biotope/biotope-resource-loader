@@ -4,6 +4,9 @@ import { ResourceLoaderOptions } from './types';
 
 export const defaultOptions: ResourceLoaderOptions = {
     resourceListAtrributeSelector: 'data-resources',
+    initScriptAttributeSelector: 'data-init',
+    scriptOptionsAttributeSelector: 'data-options',
+    initScripts: true,
     readyEvent: 'resourcesReady',
     handler: [
         cssHandler,

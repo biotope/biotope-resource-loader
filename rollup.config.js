@@ -18,8 +18,12 @@ export default [
       progress(),
       resolve(),
       commonjs(),
+      /** 
+       * Visualiser must be run before typescript. See link below for more info:
+       * https://www.npmjs.com/package/rollup-plugin-typescript2#rollup-plugin-node-resolve 
+       * */
+      visualizer(),
       typescript({ tsconfig: './tsconfig.module.json' }),
-      visualizer()
     ]
   },
   {
