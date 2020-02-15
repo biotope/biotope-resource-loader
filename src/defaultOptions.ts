@@ -5,9 +5,9 @@ import htmlHandler from './handlers/htmlHandler';
 
 export const defaultOptions: ResourceLoaderOptions = {
     resourceListAtrributeSelector: 'data-resources',
-    initPluginAttributeSelector: 'data-init',
-    pluginOptionsAttributeSelector: 'data-options',
-    initPlugins: true,
+    initScriptAttributeSelector: 'data-init',
+    scriptOptionsAttributeSelector: 'data-options',
+    initScripts: true,
     readyEvent: 'resourcesReady',
     handler: [
         cssHandler,

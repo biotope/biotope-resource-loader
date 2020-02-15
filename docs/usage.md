@@ -16,7 +16,7 @@ By default, the resource-loader will acknowledge any HTML tag containing a `data
 
 Alternatively, you also configure the resource-loader to match another attribute.
 
-We encourage the use of HTML data attributes, as they are specification compliant. 
+We encourage the use of HTML data attributes, as they are specification compliant.
 However, you are free to pick any attribute to your liking:
 
 ```javascript
@@ -32,14 +32,14 @@ const resourceLoader = new ResourceLoader({
 To know what data should go inside the resources attribute, have a look at the [API documentation](./api.md)
 
 ## Initializing plugins
-By default, the resource-loader will try to initialize loaded resources. 
+By default, the resource-loader will try to initialize loaded resources.
 To set which plugin to initialize you'll need to register the component with a name and pass that same name via attributes in your html code.
 Please check below for more info on the necessary steps:
 
-1. Register the component, using the `registerPlugin` helper from the Resource Loader module:
+1. Register the component, using the `registerScript` helper from the Resource Loader module:
 
 ```javascript
-import { registerPlugin } from '@biotope/resource-loader';
+import { registerScript } from '@biotope/resource-loader';
 
 class MyPlugin {
     constructor(element, options) {
@@ -49,7 +49,7 @@ class MyPlugin {
     }
 }
 
-registerPlugin(
+registerScript(
   // your plugin's class
   MyPlugin,
   // the name you want to set your plugin to be used via the data-init attribute
@@ -60,8 +60,8 @@ registerPlugin(
 2. Set the name of the plugin to initialize on your HTML via the `data-init` attribute.
 
 ```html
-<div 
-  data-resources="['resources/js/MyPlugin.js']" 
+<div
+  data-resources="['resources/js/MyPlugin.js']"
   data-init="MyPlugin"
 >
 </div>
@@ -70,8 +70,8 @@ registerPlugin(
 3. Should you need to pass any options to your plugin, you can do so using the data-options attribute. Please keep in mind, the value must be parsable by the `JSON.parse()` method.
 
 ```html
-<div 
-  data-resources="['resources/js/MyPlugin.js']" 
+<div
+  data-resources="['resources/js/MyPlugin.js']"
   data-init="MyPlugin"
   data-options='{
     option1: "Anything is valid on the options"
@@ -85,11 +85,11 @@ registerPlugin(
 Starting on `Version 3`, the resource loader drops support for `eval` or `JQuery` to initialize plugins.
 If you need that behaviour, you'll have to add it inside your project's scope.
 
-Should the default plugin initializion clash with your project's requirements, you can disable it via the `initPlugins` option:
+Should the default plugin initializion clash with your project's requirements, you can disable it via the `initScripts` option:
 
 ```javascript
 const resourceLoader = new ResourceLoader({
-    initPlugins: false
+    initScripts: false
 });
 ```
 

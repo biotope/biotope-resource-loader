@@ -10,7 +10,7 @@ import difference from './fp/difference';
 import remove from './fp/remove';
 import cond from './fp/cond';
 import isResolvableWith from './resources/isResolvableWith';
-import registerPlugin from './registerPlugin';
+import registerScript from './registerScript';
 
 class ResourceLoader {
 	options: ResourceLoaderOptions = null;
@@ -126,26 +126,24 @@ class ResourceLoader {
 	}
 
 	private onReady() {
-		if (!this.options.initPlugins) {
+		if (!this.options.initScripts) {
 			return;
 		}
 
-		[].slice.call(
-			this.options.container.querySelectorAll(`[${this.options.initPluginAttributeSelector}]`)
-		)
-			.forEach((element: HTMLElement) => 
+		[].slice.call(document.querySelectorAll(`[${this.options.initScriptAttributeSelector}]`))
+			.forEach((element: HTMLElement) =>
 				this.getPluginFunction(element)(element, this.getPluginOptions(element))
 			);
 	}
 
 	private getPluginFunction(element: HTMLElement): Function {
 		return (
-			window['biotope']['plugins'][element.getAttribute(this.options.initPluginAttributeSelector)]
+			window['biotope']['plugins'][element.getAttribute(this.options.initScriptAttributeSelector)]
 		);
 	}
 
 	private getPluginOptions(element: HTMLElement): Object {
-		return JSON.parse(element.getAttribute(this.options.pluginOptionsAttributeSelector));
+		return JSON.parse(element.getAttribute(this.options.scriptOptionsAttributeSelector));
 	}
 
 	public update() {
@@ -153,5 +151,5 @@ class ResourceLoader {
 	}
 }
 
-export { ResourceLoader, registerPlugin };
+export { ResourceLoader, registerScript };
 export default ResourceLoader;
