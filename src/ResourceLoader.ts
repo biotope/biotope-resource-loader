@@ -10,8 +10,9 @@ import difference from './fp/difference';
 import remove from './fp/remove';
 import cond from './fp/cond';
 import isResolvableWith from './resources/isResolvableWith';
+import registerScript from './registerScript';
 
-export class ResourceLoader {
+class ResourceLoader {
 	options: ResourceLoaderOptions = null;
 	waitingResources: Resource[];
 	pendingResources: Resource[] = [];
@@ -100,7 +101,24 @@ export class ResourceLoader {
 	}
 
 	private onReady() {
+		if (!this.options.initScripts) {
+			return;
+		}
 
+		[].slice.call(document.querySelectorAll(`[${this.options.initScriptAttributeSelector}]`))
+			.forEach((element: HTMLElement) =>
+				this.getPluginFunction(element)(element, this.getPluginOptions(element))
+			);
+	}
+
+	private getPluginFunction(element: HTMLElement): Function {
+		return (
+			window['biotope']['plugins'][element.getAttribute(this.options.initScriptAttributeSelector)]
+		);
+	}
+
+	private getPluginOptions(element: HTMLElement): Object {
+		return JSON.parse(element.getAttribute(this.options.scriptOptionsAttributeSelector));
 	}
 
 	public update() {
@@ -108,4 +126,5 @@ export class ResourceLoader {
 	}
 }
 
+export { ResourceLoader, registerScript };
 export default ResourceLoader;
