@@ -48,19 +48,15 @@ class ResourceLoader {
 	}
 
 	private addMutationObserver(): void {
-		this.mutationObserver = new MutationObserver(this.onMutation.bind(this));
+		this.mutationObserver = new MutationObserver(this.handleMutation.bind(this));
 		this.mutationObserver.observe(this.options.container, this.mutationObserverConfig);
 	}
 
-	private onMutation(mutationRecordArray: MutationRecord[]): void {
-		mutationRecordArray.forEach(((record: MutationRecord) => {
-			record.addedNodes.forEach((node: Node) => {
+	private handleMutation(mutationRecordArray: MutationRecord[]): void {
+    mutationRecordArray.forEach((({ addedNodes }: {addedNodes: NodeList}) => {
+			addedNodes.forEach((node: Node) => {
 				if (node instanceof HTMLElement && node.getAttribute(this.options.resourceListAtrributeSelector)) {
-					this.options = {
-						...this.options,
-						container: node.parentElement
-					}
-					this.init(this.options);
+					this.init({...this.options, container: node.parentElement });
 				}
 			});
 		}));
