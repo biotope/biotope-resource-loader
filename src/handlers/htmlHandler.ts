@@ -7,8 +7,7 @@ const isHtml = (options: HandleOptions): boolean => options.resource.path
 const onHtmlLoaded = (options: HandleOptions): void => {
   const elements: HTMLElement[] = [].slice.call(options.resource.elements);
 
-  options.response.text()
-    .then(stringOfHtml => {
+  options.response.text().then(stringOfHtml => {
       const fragment = document.createRange().createContextualFragment(stringOfHtml);
       elements.forEach((element: HTMLElement) => {
         element.appendChild(fragment);
