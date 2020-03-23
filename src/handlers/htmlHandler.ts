@@ -1,7 +1,8 @@
 import { HandleOptions } from './../types';
 import { Handler } from '../types';
 
-const isHtml = (options: HandleOptions): boolean => options.resource.path.indexOf('.html') > -1;
+const isHtml = (options: HandleOptions): boolean => options.resource.path
+  .slice(-'.html'.length) === '.html';
 
 const onHtmlLoaded = (options: HandleOptions): void => {
   const elements: HTMLElement[] = [].slice.call(options.resource.elements);
