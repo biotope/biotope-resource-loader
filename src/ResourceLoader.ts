@@ -53,7 +53,7 @@ class ResourceLoader {
 	}
 
 	private handleMutation(mutationRecordArray: MutationRecord[]): void {
-    mutationRecordArray.forEach((({ addedNodes }: {addedNodes: NodeList}) => {
+		mutationRecordArray.forEach((({ addedNodes }: {addedNodes: NodeList}) => {
 			addedNodes.forEach((node: Node) => {
 				if (node instanceof HTMLElement && node.getAttribute(this.options.resourceListAtrributeSelector)) {
 					this.init({...this.options, container: node.parentElement });
@@ -127,18 +127,20 @@ class ResourceLoader {
 		}
 
 		[].slice.call(document.querySelectorAll(`[${this.options.initScriptAttributeSelector}]`))
-			.forEach((element: HTMLElement) =>
-				this.getPluginFunction(element)(element, this.getPluginOptions(element))
-			);
+			.forEach((element: HTMLElement) => {
+				this.getScriptFunction(element)(element, this.getScriptOptions(element));
+				// prevent initialization of the same script twice
+				element.removeAttribute(this.options.initScriptAttributeSelector);
+			});
 	}
 
-	private getPluginFunction(element: HTMLElement): Function {
+	private getScriptFunction(element: HTMLElement): Function {
 		return (
-			window['biotope']['plugins'][element.getAttribute(this.options.initScriptAttributeSelector)]
+			window['biotope']['scripts'][element.getAttribute(this.options.initScriptAttributeSelector)]
 		);
 	}
 
-	private getPluginOptions(element: HTMLElement): Object {
+	private getScriptOptions(element: HTMLElement): Object {
 		return JSON.parse(element.getAttribute(this.options.scriptOptionsAttributeSelector));
 	}
 
