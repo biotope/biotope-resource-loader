@@ -45,7 +45,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "docs:dev": "docsify serve docs"
+    "docs": "cd website && npm start"
   },
   "dependencies": {
     "np": "^6.2.0"
@@ -56,7 +56,6 @@
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "chokidar": "^3.3.1",
-    "docsify-cli": "^4.4.0",
     "eslint": "^6.8.0",
     "jest": "^25.2.7",
     "jsdom": "^16.2.2",
