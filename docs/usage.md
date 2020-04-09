@@ -15,7 +15,12 @@ This will search your whole body for resource components and load all the resour
 ## Resource Components
 By default, the resource-loader will acknowledge any HTML tag containing a `data-resources` attribute:
 ```html
-<div data-resources="[]"></div>
+<div 
+  data-resources="[{
+    paths: ['/script.js', '/style.css', '/template.html']
+  }]"
+>
+</div>
 ```
 
 Alternatively, you also configure the resource-loader to match another attribute.
