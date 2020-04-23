@@ -45,7 +45,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:report": "npm run test && codecov -t CODECOV_TOKEN",
+    "test:report": "npm run test && codecov -t $CODECOV",
     "docs:dev": "docsify serve docs"
   },
   "dependencies": {

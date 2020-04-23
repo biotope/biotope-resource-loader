@@ -23,6 +23,7 @@ jobs:
     - name: npm install, build, and test
       env:
         CI: true
-        CODECOV_MOCK: ${{ secrets.CODECOV_MOCK }}
+        CODECOV: ${{ secrets.codecov }}
       run: |
-        print $CODECOV_MOCK
+        npm ci
+        npm run test:report
