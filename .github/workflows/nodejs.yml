@@ -25,4 +25,4 @@ jobs:
         CI: true
         CODECOV_MOCK: ${{ secrets.CODECOV_MOCK }}
       run: |
-        print CODECOV_MOCK
+        print $CODECOV_MOCK
