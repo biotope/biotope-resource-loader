@@ -23,6 +23,7 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm ci
-        CODECOV_TOKEN=${{ secrets.CODECOV_TOKEN }} npm run test:report
+        npm run test:report
       env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         CI: true
