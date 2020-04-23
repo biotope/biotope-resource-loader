@@ -1,5 +1,8 @@
 # biotope-resource-loader
 
+[![Build Status](https://travis-ci.org/biotope/resource-loader.svg?branch=master)](https://travis-ci.org/biotope/resource-loader)
+[![codecov](https://codecov.io/gh/biotope/resource-loader/branch/master/graph/badge.svg)](https://codecov.io/gh/biotope/resource-loader)
+
 The biotope resource loader is useful to lazy load files after the page initialization, e.g. javascript, styles and html.
 
 It is inspired by webpack loaders, so you can modify granular what happens with files.
