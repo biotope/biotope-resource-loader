@@ -115,9 +115,13 @@ class ResourceLoader {
 		this.waitingResources = difference(this.waitingResources, this.pendingResources);
 
 		loadResources(readyForLoad);
+
 		if (isEmpty(this.waitingResources) && isEmpty(this.pendingResources)) {
-			const event: CustomEvent = new CustomEvent(this.options.readyEvent);
-			document.dispatchEvent(event);
+			const { elements }: {elements: Node[]} = resource;
+			const event: CustomEvent = new CustomEvent(this.options.readyEvent, { bubbles: true });
+			elements.forEach((element: Node ) => {
+				element.dispatchEvent(event);
+			});
 		}
 	}
 
