@@ -45,31 +45,33 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:report": "npm run test && codecov -t $CODECOV_TOKEN",
     "docs:dev": "docsify serve docs"
   },
   "dependencies": {
-    "np": "^6.2.0"
+    "np": "^6.2.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
-    "chokidar": "^3.3.1",
+    "chokidar": "^3.4.0",
+    "codecov": "^3.6.5",
     "docsify-cli": "^4.4.0",
     "eslint": "^6.8.0",
-    "jest": "^25.2.7",
+    "jest": "^25.5.4",
     "jsdom": "^16.2.2",
-    "prettier": "^2.0.2",
-    "rollup": "^2.3.3",
+    "prettier": "^2.0.5",
+    "rollup": "^2.7.6",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-progress": "^1.1.1",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.27.0",
-    "rollup-plugin-visualizer": "^4.0.3",
+    "rollup-plugin-visualizer": "^4.0.4",
     "rollup-watch": "^4.3.1",
-    "ts-jest": "^25.3.1",
+    "ts-jest": "^25.4.0",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3"
   }
