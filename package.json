@@ -46,7 +46,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:report": "npm run test && codecov -t $CODECOV_TOKEN",
-    "docs:dev": "docsify serve docs"
+    "docs": "cd website && npm start"
   },
   "dependencies": {
     "np": "^6.2.3"
@@ -58,7 +58,6 @@
     "@types/jest": "^25.2.1",
     "chokidar": "^3.4.0",
     "codecov": "^3.6.5",
-    "docsify-cli": "^4.4.0",
     "eslint": "^6.8.0",
     "jest": "^25.5.4",
     "jsdom": "^16.2.2",
