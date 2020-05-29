@@ -46,7 +46,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:report": "npm run test && codecov -t $CODECOV_TOKEN",
-    "docs": "cd website && npm start"
+    "docs": "cd website && npm start",
+    "docs:build": "cd website && npm install && npm run build"
   },
   "dependencies": {
     "np": "^6.2.3"
