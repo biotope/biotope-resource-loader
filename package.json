@@ -35,11 +35,10 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepare": "npm run build",
     "build": "rollup -c",
     "release": "np --no-yarn",
     "start": "npm run dev && npm run serve",
-    "prepublishOnly": "npm run clean && npm install",
+    "prepublishOnly": "npm run clean && npm install && npm run build",
     "clean": "node_modules/.bin/rimraf node_modules",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
