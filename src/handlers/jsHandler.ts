@@ -7,7 +7,8 @@ const onJsLoaded = (options: HandleOptions): void => {
     const script: HTMLScriptElement = document.createElement('script');
     script.src = options.resource.path;
     script.async = true;
-    document.body.append(script);
+	script.charset = 'utf-8';
+    document.head.append(script);
 }
 
 const jsHandler: Handler = {
