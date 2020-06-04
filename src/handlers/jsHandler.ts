@@ -11,16 +11,17 @@ const emitScriptParsed = (nodes: HTMLElement[]) => {
 }
 
 const onJsLoaded = (options: HandleOptions): void => {
-    const script: HTMLScriptElement = document.createElement('script');
-    script.src = options.resource.path;
-    script.async = true;
-    script.onload = () => emitScriptParsed(options.resource.elements);
-    document.body.append(script);
+  console.log(options);
+  const script: HTMLScriptElement = document.createElement('script');
+  script.src = options.resource.path;
+  script.async = true;
+  script.onload = () => emitScriptParsed(options.resource.elements);
+  document.body.append(script);
 }
 
 const jsHandler: Handler = {
-    match: isJs,
-    handle: onJsLoaded
+  match: isJs,
+  handle: onJsLoaded
 }
 
 export default jsHandler;
