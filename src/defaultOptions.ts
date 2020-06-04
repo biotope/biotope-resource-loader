@@ -9,6 +9,7 @@ export const defaultOptions: ResourceLoaderOptions = {
     scriptOptionsAttributeSelector: 'data-options',
     initScripts: true,
     readyEvent: 'resourcesReady',
+    scriptParsedEvent: 'scriptParsed',
     handler: [
         cssHandler,
         jsHandler,

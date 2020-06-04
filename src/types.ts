@@ -1,6 +1,7 @@
 export type BaseMap = { [id: string]: string };
 
 export interface HandleOptions {
+    scriptParsedEvent?: string;
     resource: Resource;
     response: Response;
 }
@@ -28,6 +29,7 @@ export interface ResourceLoaderOptions {
     initScriptAttributeSelector?: string;
     scriptOptionsAttributeSelector?: string;
     readyEvent?: string;
+    scriptParsedEvent?: string;
     base?: string;
     resources?: string[];
     baseMap?: BaseMap;
