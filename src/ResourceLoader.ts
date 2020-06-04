@@ -94,7 +94,9 @@ class ResourceLoader {
 
 	private bindEvents() {
 		document.addEventListener(EVENTS.RESOURCE_LOADED, this.onResourceLoaded.bind(this));
-		document.addEventListener(this.options.readyEvent, this.onReady.bind(this));
+		if (this.options.initScripts) {
+			document.addEventListener(this.options.scriptParsedEvent, this.onScriptParsed.bind(this));
+		}
 	}
 
 	private onResourceLoaded(event: CustomEvent<{ resource: Resource, response: Response }>) {
@@ -118,25 +120,21 @@ class ResourceLoader {
 		loadResources(readyForLoad);
 
 		if (isEmpty(this.waitingResources) && isEmpty(this.pendingResources)) {
-			const { elements }: {elements: Node[]} = resource;
-			const event: CustomEvent = new CustomEvent(this.options.readyEvent, { bubbles: true });
-			elements.forEach((element: Node ) => {
-				element.dispatchEvent(event);
-			});
+			this.triggerReadyEvent(resource);
 		}
 	}
 
-	private onReady() {
-		if (!this.options.initScripts) {
-			return;
-		}
+	private triggerReadyEvent(resource: Resource): void {
+		const { elements }: { elements: Node[] } = resource;
+		const event: CustomEvent = new CustomEvent(this.options.readyEvent, { bubbles: true });
+		elements.forEach((element: Node) => {
+			element.dispatchEvent(event);
+		});
+	}
 
-		[].slice.call(document.querySelectorAll(`[${this.options.initScriptAttributeSelector}]`))
-			.forEach((element: HTMLElement) => {
-				this.getScriptFunction(element)(element, this.getScriptOptions(element));
-				// prevent initialization of the same script twice
-				element.removeAttribute(this.options.initScriptAttributeSelector);
-			});
+	private onScriptParsed(event: CustomEvent) {
+		const element = event.target as HTMLElement;
+		this.getScriptFunction(element)(element, this.getScriptOptions(element));
 	}
 
 	private getScriptFunction(element: HTMLElement): Function {
