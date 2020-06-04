@@ -13,7 +13,8 @@ sidebar_label: API guide
 | `initScripts`                    | boolean               | yes      | true               | If true, registered plugins will be initialized after loaded                |
 | `initScriptAttributeSelector`    | string                | yes      | `data-init`        | The attribute with the plugin name to search for when initializing plugins  |
 | `scriptOptionsAttributeSelector` | string                | yes      | `data-options`     | The attribute with JSON options to search for when initializing plugins     |
-| `readyEvent`                     | string                | yes      | `'resourcesReady'` | The even which will be fired once all the resources are successfully loaded |
+| `readyEvent`                     | string                | yes      | `'resourcesReady'` | The event that's fired once a resource is appended to the document          |
+| `scriptParsedEvent`              | string                | yes      | `'scriptParsed'`   | The event that's fired once an attached script is parsed and initializable  |
 | `base`                           | string                | yes      | `''`               | The base path to use for every relative resource                            |
 | `baseMap`                        | [BaseMap](#basemap)   | yes      | undefined          | The base path map to use for resolving base references                      |
 | `handler`                        | [Handler](#handler)[] | yes      | `[]`               | These handlers will be called on resource loaded when they match            |
@@ -40,18 +41,18 @@ This will result in the loading of the resource: `/root/path/resources/js/main.j
 | `handle` | (options: [HandlerOptions](#handleroptions)) => void    | no       | undefined | This function will be called if the match parameter returns true               |
 
 ## HandlerOptions
-| Property   | Type                  | Description                 |
-|------------|-----------------------|-----------------------------|
-| `resource` | [Resource](#resource) | The loaded resource details |
-| `response` | Response              | The server response         |
-
+| Property            | Type                  | Optional | Description                 |
+|---------------------|-----------------------|----------|------------------|
+| `resource`          | [Resource](#resource) |no        | The loaded resource details |
+| `response`          | Response              |no        | The server response         |
+| `scriptParsedEvent` | string                |yes       | Custom event name for event that's triggered when script is parsed. |
 
 ## Resource
-| Property          | Type          | Description                              |
-|-------------------|---------------|------------------------------------------|
-| `path`            | string        | The url of this resource                 |
-| `dependencyPaths` | string[]      | The dependencies of this resource        |
-| `elements`        | HTMLElement[] | The elemets the resource originates from |
+| Property          | Type          | Description                               |
+|-------------------|---------------|-------------------------------------------|
+| `path`            | string        | The url of this resource                  |
+| `dependencyPaths` | string[]      | The dependencies of this resource         |
+| `elements`        | HTMLElement[] | The elements the resource originates from |
 
 
 ## ResourceDefinition
@@ -61,7 +62,7 @@ The resource definitions are the value of the `data-resources` attribute
 |-------------|----------|----------|---------|---------------------------------------------------|
 | `paths`     | string[] |          |         | Theses resources will be loaded                   |
 | `dependsOn` | string[] | yes      | `[]`    | These are the resources the `paths` depend on     |
-| `base`      | string   | yes      | `''`    | This is the base for all reslative resource paths |
+| `base`      | string   | yes      | `''`    | This is the base for all relative resource paths  |
 
 ### Example
 ```javascript
