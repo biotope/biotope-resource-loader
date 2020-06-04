@@ -13,8 +13,8 @@ sidebar_label: API guide
 | `initScripts`                    | boolean               | yes      | true               | If true, registered plugins will be initialized after loaded                                       |
 | `initScriptAttributeSelector`    | string                | yes      | `data-init`        | The attribute with the plugin name to search for when initializing plugins                         |
 | `scriptOptionsAttributeSelector` | string                | yes      | `data-options`     | The attribute with JSON options to search for when initializing plugins                            |
-| `readyEvent`                     | string                | yes      | `'resourcesReady'` | [The name for the event that's fired once a resource is appended to the document](#resourcesReady) |
-| `scriptParsedEvent`              | string                | yes      | `'scriptParsed'`   | [The name for the event that's fired once an attached script is parsed](#scriptParsed)             |
+| `readyEvent`                     | string                | yes      | `'resourcesReady'` | [The name for the event that's fired once a resource is appended to the document](#resourcesready) |
+| `scriptParsedEvent`              | string                | yes      | `'scriptParsed'`   | [The name for the event that's fired once an attached script is parsed](#scriptparsed)             |
 | `base`                           | string                | yes      | `''`               | The base path to use for every relative resource                                                   |
 | `baseMap`                        | [BaseMap](#basemap)   | yes      | undefined          | The base path map to use for resolving base references                                             |
 | `handler`                        | [Handler](#handler)[] | yes      | `[]`               | These handlers will be called on resource loaded when they match                                   |
@@ -79,8 +79,8 @@ const definition = {
 ```
 
 ## Available events
-There are 2 main event's available, to provide control on what happens with loaded resources.
-Both of them can be renamed to your fit your needs, while retaining the same functionality.
+To communicate to your app, the resource loader will fire events based on the state of loaded resources.
+These events can be renamed to your fit your needs, while retaining the same logic.
 
 For simplicity's sake, we'll use their default names in this documentation.
 
@@ -91,7 +91,7 @@ The event will be triggered from any `HtmlElement` which has the newly added res
 This means you can use `event.target` to access said elements once the resource is in the DOM.
 
 > **`resourcesReady` does not mean resource parsed!**<br><br>
-If your operation requires the file's content to be parsed, use the [`scriptParsed`](#scriptParsed) event instead.<br><br>
+If your operation requires the file's content to be parsed, use the [`scriptParsed`](#scriptparsed) event instead.<br><br>
 Am example of an **unsafe** operation to perform using this event is calling a Plugin's constructor function.
 
 
