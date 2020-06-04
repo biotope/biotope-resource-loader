@@ -98,11 +98,12 @@ class ResourceLoader {
 	}
 
 	private onResourceLoaded(event: CustomEvent<{ resource: Resource, response: Response }>) {
+		const { scriptParsedEvent } = this.options;
 		const resource = event.detail.resource;
 
 		const handler: ReadonlyArray<[(options: HandleOptions) => boolean, (options: HandleOptions) => void]> = this.options.handler.map((handler: Handler): [(options: HandleOptions) => boolean, (options: HandleOptions) => void] => [handler.match, handler.handle]);
 
-		cond(handler)(event.detail);
+		cond(handler)({ ...event.detail, scriptParsedEvent});
 
 		this.loadedResources.push(resource);
 
