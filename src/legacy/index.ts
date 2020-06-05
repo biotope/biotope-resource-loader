@@ -1,3 +1,5 @@
+import './append';
+import './forEach';
 import './Object.assign';
 import './fetch';
 import './Array.find';
