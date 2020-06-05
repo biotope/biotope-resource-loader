@@ -1,6 +1,6 @@
 {
   "name": "@biotope/resource-loader",
-  "version": "3.0.0-beta1.0",
+  "version": "3.0.0-beta1.1",
   "description": "A markup driven conditional loader to load resources with dependencies",
   "main": "lib/index.esm.js",
   "repository": {
