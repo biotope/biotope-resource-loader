@@ -35,18 +35,18 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepare": "npm run build",
     "build": "rollup -c",
     "release": "np --no-yarn",
     "start": "npm run dev && npm run serve",
-    "prepublishOnly": "npm run clean && npm install",
+    "prepublishOnly": "npm run clean && npm install && npm run build",
     "clean": "node_modules/.bin/rimraf node_modules",
     "serve": "./bin/speed",
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:report": "npm run test && codecov -t $CODECOV_TOKEN",
-    "docs": "cd website && npm start"
+    "docs": "cd website && npm start",
+    "docs:build": "cd website && npm install && npm run build"
   },
   "dependencies": {
     "np": "^6.2.3"

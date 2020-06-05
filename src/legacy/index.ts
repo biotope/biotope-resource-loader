@@ -42,12 +42,12 @@ window['resourceLoader'] = function (options: ResourceLoaderOptions) {
     }
 
     const loader = new ResourceLoader({
-        ...options,
         handler: [
             cssHandler,
             jsHandler,
             htmlHandler
-        ]
+        ],
+        ...options,
     });
 
     return loader;
