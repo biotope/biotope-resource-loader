@@ -1,6 +1,5 @@
-// import { HandleOptions, Handler } from '../types';
-// import './Object.assign';
-// import './fetch';
+import './Object.assign';
+import './fetch';
 import './Array.find';
 import './Promise';
 import './CustomEvent';
