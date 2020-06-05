@@ -2,6 +2,7 @@ import { BaseMap } from '../types';
 import { JSDOM } from 'jsdom';
 import normalizePath from './normalizePath';
 import createIdentifiableResourceDefinition from '../builders/ComponentDefinitionBuilder';
+import { defaultOptions } from '../defaultOptions';
 
 describe('#normalizePath', () => {
 
@@ -34,7 +35,7 @@ describe('#normalizePath', () => {
             const baseMap: BaseMap = {};
             const resourceDefinition = createIdentifiableResourceDefinition().withBase('##content').build();
             const normalized = normalizePath(relativePath, resourceDefinition, {
-                readyEvent: '',
+                ...defaultOptions,
                 baseMap
             });
             expect(normalized).toBe('http://localhost/hello/world.js');
@@ -47,7 +48,7 @@ describe('#normalizePath', () => {
             };
             const resourceDefinition = createIdentifiableResourceDefinition().withBase('##content').build();
             const normalized = normalizePath(relativePath, resourceDefinition, {
-                readyEvent: '',
+                ...defaultOptions,
                 baseMap
             });
             expect(normalized).toBe('http://content/url/hello/world.js');
@@ -60,7 +61,7 @@ describe('#normalizePath', () => {
             const rootPath = '/hello/world.js';
             const resourceDefinition = createIdentifiableResourceDefinition().build();
             const normalized = normalizePath(rootPath, resourceDefinition, {
-                readyEvent: '',
+                ...defaultOptions,
                 base: '/resources/'
             });
             expect(normalized).toBe('http://localhost/hello/world.js');
@@ -73,7 +74,7 @@ describe('#normalizePath', () => {
             const rootPath = 'hello/world.js';
             const resourceDefinition = createIdentifiableResourceDefinition().build();
             const normalized = normalizePath(rootPath, resourceDefinition, {
-                readyEvent: '',
+                ...defaultOptions,
                 base: 'resources/'
             });
             expect(normalized).toBe('https://example.org/resources/hello/world.js');
@@ -86,7 +87,7 @@ describe('#normalizePath', () => {
             const rootPath = 'hello/world.js';
             const resourceDefinition = createIdentifiableResourceDefinition().build();
             const normalized = normalizePath(rootPath, resourceDefinition, {
-                readyEvent: '',
+                ...defaultOptions,
                 base: 'resources/'
             });
             expect(normalized).toBe('https://example.org/resources/hello/world.js');

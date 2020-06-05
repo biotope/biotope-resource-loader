@@ -1,11 +1,10 @@
 import toResources from './toResource';
 import { ResourceLoaderOptions } from '../types';
 import createHtmlComponentDefinition from '../builders/HTMLComponentDefinitionBuilder';
+import { defaultOptions } from '../defaultOptions';
 
 describe('#toResources', () => {
-    const options: ResourceLoaderOptions = {
-        readyEvent: ''
-    }
+  const options = defaultOptions
 
     test('returns empty array for undefined', () => {
         const resources = toResources(options, undefined);
