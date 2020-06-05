@@ -125,13 +125,13 @@ class ResourceLoader {
     loadResources(readyForLoad);
 
     if (isEmpty(this.waitingResources) && isEmpty(this.pendingResources)) {
-      this.triggerReadyEvent(resource);
+      this.triggerResourceQueueEmptyEvent(resource);
     }
   }
 
-  private triggerReadyEvent(resource: Resource): void {
+  private triggerResourceQueueEmptyEvent(resource: Resource): void {
     const { elements }: { elements: Node[] } = resource;
-    const event: CustomEvent = new CustomEvent(this.options.readyEvent, { bubbles: true });
+    const event: CustomEvent = new CustomEvent(this.options.resourceQueueEmptyEventName, { bubbles: true });
     elements.forEach((element: Node) => {
       element.dispatchEvent(event);
     });

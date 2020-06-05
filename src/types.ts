@@ -30,7 +30,7 @@ export interface ResourceLoaderOptions {
     initScripts?: boolean;
     initScriptAttributeSelector?: string;
     scriptOptionsAttributeSelector?: string;
-    readyEvent?: string;
+    resourceQueueEmptyEventName?: string;
     styleReadyEventName?: string;
     scriptReadyEventName?: string;
     htmlReadyEventName?: string;
