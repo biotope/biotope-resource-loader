@@ -8,8 +8,10 @@ export const defaultOptions: ResourceLoaderOptions = {
     initScriptAttributeSelector: 'data-init',
     scriptOptionsAttributeSelector: 'data-options',
     initScripts: true,
-    readyEvent: 'resourcesReady',
-    scriptParsedEvent: 'scriptParsed',
+    readyEvent: 'resourceQueueEmpty',
+    styleReadyEventName: 'styleReady',
+    scriptReadyEventName: 'scriptReady',
+    htmlReadyEventName: 'htmlReady',
     handler: [
         cssHandler,
         jsHandler,

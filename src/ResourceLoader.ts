@@ -95,17 +95,22 @@ class ResourceLoader {
   private bindEvents() {
     document.addEventListener(EVENTS.RESOURCE_LOADED, this.onResourceLoaded.bind(this));
     if (this.options.initScripts) {
-      document.addEventListener(this.options.scriptParsedEvent, this.onScriptParsed.bind(this));
+      document.addEventListener(this.options.scriptReadyEventName, this.onScriptReadyEvent.bind(this));
     }
   }
 
   private onResourceLoaded(event: CustomEvent<{ resource: Resource, response: Response }>) {
-    const { scriptParsedEvent } = this.options;
+    const { styleReadyEventName, scriptReadyEventName, htmlReadyEventName } = this.options;
     const resource = event.detail.resource;
 
     const handler: ReadonlyArray<[(options: HandleOptions) => boolean, (options: HandleOptions) => void]> = this.options.handler.map((handler: Handler): [(options: HandleOptions) => boolean, (options: HandleOptions) => void] => [handler.match, handler.handle]);
 
-    cond(handler)({ ...event.detail, scriptParsedEvent});
+    cond(handler)({ 
+      ...event.detail, 
+      styleReadyEventName, 
+      scriptReadyEventName, 
+      htmlReadyEventName
+    });
 
     this.loadedResources.push(resource);
 
@@ -132,7 +137,7 @@ class ResourceLoader {
     });
   }
 
-  private onScriptParsed(event: CustomEvent) {
+  private onScriptReadyEvent(event: CustomEvent) {
     const element = event.target as HTMLElement;
     this.getScriptFunction(element)(element, this.getScriptOptions(element));
   }
