@@ -24,10 +24,10 @@ window['resourceLoader'] = (options: ResourceLoaderOptions) => {
     }
 
     return new ResourceLoader({
-        ...options,
         handler: [
             cssHandler,
             jsHandler
-        ]
+        ],
+        ...options,
     });
 };
