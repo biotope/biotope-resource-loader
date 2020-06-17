@@ -40,7 +40,7 @@ registerScript(
 </div>
 ```
 
-3. Should you need to pass any options to your plugin, you can do so using the data-options attribute. Please keep in mind, the value must be parsable by the `JSON.parse()` method.
+3. Should you need to pass any options to your plugin, you can do so using the `data-options` attribute. Please keep in mind, the value must be parsable by the `JSON.parse()` method.
 
 ```html
 <div
@@ -57,7 +57,7 @@ registerScript(
 ## Legacy plugin initialization via JQuery or `eval`
 Starting on `Version 3`, the resource loader drops support for `eval` or `JQuery` to initialize plugins.
 Should you require this behaviour, you'll have to manually initialize your plugins. 
-This can be accomplished by hooking on the `scriptParsed` [event](api.md#ResourceLoaderOptions), which is fired everytime a script has finished loading and parsing.
+This can be accomplished by hooking on the `scriptReady` [event](api.md#scriptready), which is fired everytime a script has finished loading and parsing.
 
 Below you can find the necessary steps to accomplish just that:
 
@@ -75,9 +75,9 @@ const resourceLoader = new ResourceLoader({
 3. Add a listener to the `document`, which triggers your custom initialization logic:
 
 ```javascript
-window.addEventListener('scriptParsed', (event) => {
+window.addEventListener('scriptReady', (event) => {
   const { target } = event;
-  const myInitializationFunction = eval((target as HTMLElement).getAttribute('data-init'));
+  const myInitializationFunction = eval((target).getAttribute('data-init'));
   /**
    * if you're attaching your plugin's constructor to Jquery, use: 
    * myInitializationFunction($(target));
@@ -86,5 +86,6 @@ window.addEventListener('scriptParsed', (event) => {
 })
 ```
 
-4. Remove from your project any script initialization logic that might be triggered by the `resourcesReady`event.
-`resourcesReady` only means that the resource has been appended to the DOM, not that it has finished loading/parsing!
+4. Remove from your project any script initialization logic that might be triggered by the `resourcesReady`event. **The resource-loader no longer triggers `resourcesReady`.**
+
+5. In case you need to execute logic based on other significant events (a stylesheet has been applied, some html has been appended to the dom), consult the [API guide](api.md#available-events)
