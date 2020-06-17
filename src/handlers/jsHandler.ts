@@ -15,7 +15,8 @@ const onJsLoaded = (options: HandleOptions): void => {
   script.src = options.resource.path;
   script.async = true;
   script.onload = () => emitScriptReady(options.resource.elements, options.scriptReadyEventName);
-  document.body.append(script);
+  script.charset = 'utf-8';
+  document.head.append(script);
 }
 
 const jsHandler: Handler = {
