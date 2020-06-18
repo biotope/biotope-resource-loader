@@ -72,7 +72,7 @@ const resourceLoader = new ResourceLoader({
 
 2. If your scripts are self-initializing, you're done. If they register a contructor class, proceed with step 3.
 
-3. Add a listener to the `document`, which triggers your custom initialization logic:
+3. Add a listener to the `window`, which triggers your custom initialization logic:
 
 ```javascript
 window.addEventListener('scriptReady', (event) => {

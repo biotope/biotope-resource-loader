@@ -84,7 +84,7 @@ const definition = {
 
 ## Available events
 To communicate to your app, the resource loader will fire events based on the state of resources.
-These events can be renamed to your fit your needs, while retaining the same logic.
+These events can be renamed to fit your needs, while retaining the same logic.
 
 For simplicity's sake, we'll use their default names in this documentation.
 
