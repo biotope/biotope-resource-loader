@@ -1,6 +1,9 @@
 export type BaseMap = { [id: string]: string };
 
 export interface HandleOptions {
+    styleReadyEventName?: string;
+    scriptReadyEventName?: string;
+    htmlReadyEventName?: string;
     resource: Resource;
     response: Response;
 }
@@ -23,11 +26,14 @@ export interface HTMLComponentDefinition extends ComponentDefinition {
 
 export interface ResourceLoaderOptions {
     container?: HTMLElement;
-    resourceListAtrributeSelector?: string;
+    resourceListAttributeSelector?: string;
     initScripts?: boolean;
     initScriptAttributeSelector?: string;
     scriptOptionsAttributeSelector?: string;
-    readyEvent?: string;
+    resourceQueueEmptyEventName?: string;
+    styleReadyEventName?: string;
+    scriptReadyEventName?: string;
+    htmlReadyEventName?: string;
     base?: string;
     resources?: string[];
     baseMap?: BaseMap;

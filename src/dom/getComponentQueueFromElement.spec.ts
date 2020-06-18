@@ -6,13 +6,13 @@ import { defaultOptions } from '../defaultOptions';
 describe('#getComponentQueueFromElement', () => {
 
     test('returns empty array for undefined', () => {
-        const componentQueue = getComponentQueueFromElement(undefined, defaultOptions.resourceListAtrributeSelector);
+        const componentQueue = getComponentQueueFromElement(undefined, defaultOptions.resourceListAttributeSelector);
         expect(componentQueue).toHaveLength(0);
     });
 
     describe('provided with element', () => {
         test('returns empty array for non existent components', () => {
-            const componentQueue = getComponentQueueFromElement(document.createElement('div'), defaultOptions.resourceListAtrributeSelector);
+            const componentQueue = getComponentQueueFromElement(document.createElement('div'), defaultOptions.resourceListAttributeSelector);
 
             expect(componentQueue).toHaveLength(0);
         });
@@ -20,7 +20,7 @@ describe('#getComponentQueueFromElement', () => {
         test('returns all component queues in container', () => {
             const container = document.createElement('div');
             container.innerHTML = `<div data-resources="[{paths: []}]"></div>`;
-            const componentQueue = getComponentQueueFromElement(container.children.item(0) as HTMLElement, defaultOptions.resourceListAtrributeSelector);
+            const componentQueue = getComponentQueueFromElement(container.children.item(0) as HTMLElement, defaultOptions.resourceListAttributeSelector);
 
             expect(componentQueue).toHaveLength(1);
         });
@@ -39,7 +39,7 @@ describe('#getComponentQueueFromElement', () => {
                 const container = document.createElement('div');
                 const paths = ['Hallo Welt'];
                 container.innerHTML = `<div data-resources='[{paths: ${JSON.stringify(paths)}}]'></div>`;
-                const componentDefinitions: HTMLComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement, defaultOptions.resourceListAtrributeSelector);
+                const componentDefinitions: HTMLComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement, defaultOptions.resourceListAttributeSelector);
 
                 expect(componentDefinitions[0].paths).toEqual(paths);
             });
@@ -48,7 +48,7 @@ describe('#getComponentQueueFromElement', () => {
                 const container = document.createElement('div');
                 const paths = ['Hallo Welt'];
                 container.innerHTML = `<div data-resources='[{paths: ${JSON.stringify(paths)}}]'></div>`;
-                const componentDefinitions: HTMLComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement, defaultOptions.resourceListAtrributeSelector);
+                const componentDefinitions: HTMLComponentDefinition[] = getComponentQueueFromElement(container.children.item(0) as HTMLElement, defaultOptions.resourceListAttributeSelector);
 
                 expect(componentDefinitions[0].element).toEqual(container.children.item(0));
             });

@@ -1,3 +1,3 @@
-const getResourceElements = (container: ParentNode = document, resourceListAtrributeSelector: string): HTMLElement[] => [].slice.call(container.querySelectorAll(`[${resourceListAtrributeSelector}]`));
+const getResourceElements = (container: ParentNode = document, resourceListAttributeSelector: string): HTMLElement[] => [].slice.call(container.querySelectorAll(`[${resourceListAttributeSelector}]`));
 
 export default getResourceElements;

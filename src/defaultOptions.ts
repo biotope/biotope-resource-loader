@@ -4,11 +4,14 @@ import htmlHandler from './handlers/htmlHandler';
 import { ResourceLoaderOptions } from './types';
 
 export const defaultOptions: ResourceLoaderOptions = {
-    resourceListAtrributeSelector: 'data-resources',
+    resourceListAttributeSelector: 'data-resources',
     initScriptAttributeSelector: 'data-init',
     scriptOptionsAttributeSelector: 'data-options',
     initScripts: true,
-    readyEvent: 'resourcesReady',
+    resourceQueueEmptyEventName: 'resourceQueueEmpty',
+    styleReadyEventName: 'styleReady',
+    scriptReadyEventName: 'scriptReady',
+    htmlReadyEventName: 'htmlReady',
     handler: [
         cssHandler,
         jsHandler,
