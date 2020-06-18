@@ -26,7 +26,7 @@ export interface HTMLComponentDefinition extends ComponentDefinition {
 
 export interface ResourceLoaderOptions {
     container?: HTMLElement;
-    resourceListAtrributeSelector?: string;
+    resourceListAttributeSelector?: string;
     initScripts?: boolean;
     initScriptAttributeSelector?: string;
     scriptOptionsAttributeSelector?: string;

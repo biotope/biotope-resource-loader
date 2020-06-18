@@ -4,13 +4,13 @@ import { defaultOptions } from '../defaultOptions';
 describe('#getResourceElements', () => {
 
     test('returns empty array for non existent resource elements', () => {
-        const resourceElements = getResourceElements(undefined, defaultOptions.resourceListAtrributeSelector);
+        const resourceElements = getResourceElements(undefined, defaultOptions.resourceListAttributeSelector);
         expect(Object.keys(resourceElements)).toHaveLength(0);
     });
 
     test('returns an empty array for container with no resource elements', () => {
         const container = document.createElement('div');
-        const resourceElements = getResourceElements(container, defaultOptions.resourceListAtrributeSelector);
+        const resourceElements = getResourceElements(container, defaultOptions.resourceListAttributeSelector);
         expect(Object.keys(resourceElements)).toHaveLength(0);
     });
 
@@ -23,8 +23,8 @@ describe('#getResourceElements', () => {
         }
 
         test('when using the default attribute', () => {
-            const container = buildResourceTemplate(defaultOptions.resourceListAtrributeSelector);
-            const resourceElements = getResourceElements(container, defaultOptions.resourceListAtrributeSelector);
+            const container = buildResourceTemplate(defaultOptions.resourceListAttributeSelector);
+            const resourceElements = getResourceElements(container, defaultOptions.resourceListAttributeSelector);
             expect(resourceElements).toHaveLength(5)
         });
 

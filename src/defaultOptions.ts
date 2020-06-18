@@ -4,7 +4,7 @@ import htmlHandler from './handlers/htmlHandler';
 import { ResourceLoaderOptions } from './types';
 
 export const defaultOptions: ResourceLoaderOptions = {
-    resourceListAtrributeSelector: 'data-resources',
+    resourceListAttributeSelector: 'data-resources',
     initScriptAttributeSelector: 'data-init',
     scriptOptionsAttributeSelector: 'data-options',
     initScripts: true,

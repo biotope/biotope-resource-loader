@@ -55,7 +55,7 @@ class ResourceLoader {
   private handleMutation(mutationRecordArray: MutationRecord[]): void {
     mutationRecordArray.forEach((({ addedNodes }: {addedNodes: NodeList}) => {
       addedNodes.forEach((node: Node) => {
-        if (node instanceof HTMLElement && node.getAttribute(this.options.resourceListAtrributeSelector)) {
+        if (node instanceof HTMLElement && node.getAttribute(this.options.resourceListAttributeSelector)) {
           this.init({...this.options, container: node.parentElement });
         }
       });

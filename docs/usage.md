@@ -30,7 +30,7 @@ However, you are free to pick any attribute to your liking:
 
 ```javascript
 const resourceLoader = new ResourceLoader({
-    resourceListAtrributeSelector: "data-anything-really"
+    resourceListAttributeSelector: "data-anything-really"
 });
 ```
 
